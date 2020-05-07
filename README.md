@@ -1,1 +1,1 @@
-# clientapi
+# clientapi [![CircleCI](https://circleci.com/gh/sustral/clientapi.svg?style=shield&circle-token=8561dbb51f577f77810a11527982690952048322)](https://circleci.com/gh/sustral/clientapi)
