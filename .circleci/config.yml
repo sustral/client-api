@@ -3,12 +3,40 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: 'circleci/openjdk:11-jdk'
+      - image: circleci/openjdk:11-jdk
+
+      - image: circleci/mysql:8.0.17
+        environment:
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: mysql_user
+          MYSQL_PASSWORD: mysql_password
+
     steps:
       - checkout
+
+      - restore_cache:
+          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - restore_cache:
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+
+      - run: ./gradlew build
+
+      - save_cache:
+          paths:
+            - ~/.gradle/wrapper
+          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+
+      # Maybe save the artifact here if the below statement run build again
+
       - run:
           name: Analyze on SonarCloud
-          command: gradle build sonarqube
+          command: ./gradlew sonarqube
+
+      # Deploy
 
 workflows:
   main:
