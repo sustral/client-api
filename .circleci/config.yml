@@ -19,7 +19,7 @@ jobs:
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
 
-      - run: ./gradlew build
+      - run: ./gradlew build -x test # Remove "-x test" when you desire test execution
 
       - save_cache:
           paths:
@@ -29,8 +29,6 @@ jobs:
           paths:
             - ~/.gradle/caches
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
-
-      # Maybe save the artifact here if the below statement run build again
 
       - run:
           name: Analyze on SonarCloud
