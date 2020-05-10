@@ -1,7 +1,7 @@
 package com.sustral.clientapi.data.types;
 
 /**
- * Defines the possible scan statuses for use in the ScanEntity class
+ * Defines the possible scan statuses for use in the ScanEntity class.
  *
  * @author Dilanka Dharmasena
  */

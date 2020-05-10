@@ -38,7 +38,7 @@ public class AmazonS3Repository implements ObjectRepository {
     private final AmazonS3 s3Client;
 
     /**
-     * Initializes Amazon S3 Client from configuration files
+     * Initializes Amazon S3 Client from configuration files.
      */
     AmazonS3Repository() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
@@ -50,9 +50,9 @@ public class AmazonS3Repository implements ObjectRepository {
     }
 
     /**
-     * Downloads an object from the S3 bucket specified in configuration
+     * Downloads an object from the S3 bucket specified in configuration.
      *
-     * @param key   a unique identifier of the requested object
+     * @param key   a string identifier of the requested object
      * @return      an InputStream with the contents of the object, null if not found or an error occurred
      */
     @Override
@@ -71,9 +71,9 @@ public class AmazonS3Repository implements ObjectRepository {
     }
 
     /**
-     * Uploads an object to the S3 bucket specified in configuration
+     * Uploads an object to the S3 bucket specified in configuration.
      *
-     * @param key       a unique identifier of the passed in object
+     * @param key       a string identifier of the passed in object
      * @param object    an object passed in by way of InputStream
      * @return          returns 0 if successful, -1 if s3 error, -2 if io error
      */

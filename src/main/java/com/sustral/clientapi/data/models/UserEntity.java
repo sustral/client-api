@@ -12,6 +12,7 @@ public class UserEntity {
     private String auth;
     private Timestamp created;
     private Timestamp updated;
+    private Boolean emailConfirmed;
 
     @Id
     @Column(name = "id", nullable = false, length = 32)
@@ -73,6 +74,16 @@ public class UserEntity {
         this.updated = updated;
     }
 
+    @Basic
+    @Column(name = "email_confirmed", nullable = false, columnDefinition = "TINYINT(1)")
+    public Boolean getEmailConfirmed() {
+        return emailConfirmed;
+    }
+
+    public void setEmailConfirmed(Boolean emailConfirmed) {
+        this.emailConfirmed = emailConfirmed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,6 +97,7 @@ public class UserEntity {
         if (auth != null ? !auth.equals(that.auth) : that.auth != null) return false;
         if (created != null ? !created.equals(that.created) : that.created != null) return false;
         if (updated != null ? !updated.equals(that.updated) : that.updated != null) return false;
+        if (emailConfirmed != null ? !emailConfirmed.equals(that.emailConfirmed) : that.emailConfirmed != null) return false;
 
         return true;
     }
@@ -98,6 +110,7 @@ public class UserEntity {
         result = 31 * result + (auth != null ? auth.hashCode() : 0);
         result = 31 * result + (created != null ? created.hashCode() : 0);
         result = 31 * result + (updated != null ? updated.hashCode() : 0);
+        result = 31 * result + (emailConfirmed != null ? emailConfirmed.hashCode() : 0);
         return result;
     }
 }
