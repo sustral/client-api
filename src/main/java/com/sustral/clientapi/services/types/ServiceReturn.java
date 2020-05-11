@@ -9,7 +9,7 @@ package com.sustral.clientapi.services.types;
 public class ServiceReturn<T> {
     private boolean error;
     private String errorMessage;
-    private String passthroughMessage;
+    private String passthroughMessage; // Designed to pass messages through to front end without details of backend specifics
     private T result;
 
     public ServiceReturn(boolean error, String errorMessage, String passthroughMessage, T result) {

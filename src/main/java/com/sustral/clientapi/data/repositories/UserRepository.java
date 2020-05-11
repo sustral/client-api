@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
+/**
+ * @author Dilanka Dharmasena
+ */
 public interface UserRepository extends JpaRepository<UserEntity, String> {
     /**
      * Gets a user by their email.
