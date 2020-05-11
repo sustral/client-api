@@ -5,7 +5,7 @@ import com.sustral.clientapi.data.repositories.OrganizationRepository;
 import com.sustral.clientapi.services.OrganizationService;
 import com.sustral.clientapi.services.types.NameValidation;
 import com.sustral.clientapi.services.types.ServiceReturn;
-import com.sustral.clientapi.utils.CustomUUIDGenerator;
+import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

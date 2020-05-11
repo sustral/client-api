@@ -1,4 +1,4 @@
-package com.sustral.clientapi.utils;
+package com.sustral.clientapi.data.utils;
 
 import org.springframework.stereotype.Component;
 

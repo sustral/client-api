@@ -7,7 +7,7 @@ import com.sustral.clientapi.services.types.EmailValidation;
 import com.sustral.clientapi.services.types.NameValidation;
 import com.sustral.clientapi.services.types.PasswordValidation;
 import com.sustral.clientapi.services.types.ServiceReturn;
-import com.sustral.clientapi.utils.CustomUUIDGenerator;
+import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
