@@ -28,7 +28,7 @@ public interface FieldOrganizationRelationshipService {
      * @param fieldId   a string fieldId
      * @return          a ServiceReturn where the result is a list of FORs
      */
-    ServiceReturn<List<FieldOrganizationRelationshipEntity>> getOrganizationsByField(String fieldId);
+    ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByFieldId(String fieldId);
 
     /**
      * Gets the FORs of the given organization.
@@ -36,7 +36,7 @@ public interface FieldOrganizationRelationshipService {
      * @param orgId a string orgId
      * @return      a ServiceReturn where the result is a list of FORs
      */
-    ServiceReturn<List<FieldOrganizationRelationshipEntity>> getFieldsByOrganization(String orgId);
+    ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId);
 
     // Mutation Methods
 

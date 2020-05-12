@@ -39,13 +39,13 @@ public class UserOrganizationRelationshipImpl implements UserOrganizationRelatio
     }
 
     @Override
-    public ServiceReturn<List<UserOrganizationRelationshipEntity>> getOrganizationsByUser(String userId) {
+    public ServiceReturn<List<UserOrganizationRelationshipEntity>> getManyByUserId(String userId) {
         List<UserOrganizationRelationshipEntity> uors = uorRepository.findAllByUserId(userId); // Guaranteed not null
         return new ServiceReturn<List<UserOrganizationRelationshipEntity>>(false, null, null, uors);
     }
 
     @Override
-    public ServiceReturn<List<UserOrganizationRelationshipEntity>> getUsersByOrganization(String orgId) {
+    public ServiceReturn<List<UserOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId) {
         List<UserOrganizationRelationshipEntity> uors = uorRepository.findAllByOrganizationId(orgId); // Guaranteed not null
         return new ServiceReturn<List<UserOrganizationRelationshipEntity>>(false, null, null, uors);
     }

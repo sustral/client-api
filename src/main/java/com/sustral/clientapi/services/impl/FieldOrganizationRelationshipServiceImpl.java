@@ -39,13 +39,13 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
     }
 
     @Override
-    public ServiceReturn<List<FieldOrganizationRelationshipEntity>> getOrganizationsByField(String fieldId) {
+    public ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByFieldId(String fieldId) {
         List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByFieldId(fieldId); // Guaranteed to not be null
         return new ServiceReturn<List<FieldOrganizationRelationshipEntity>>(false, null, null, fors);
     }
 
     @Override
-    public ServiceReturn<List<FieldOrganizationRelationshipEntity>> getFieldsByOrganization(String orgId) {
+    public ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId) {
         List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByOrganizationId(orgId); // Guaranteed to not be null
         return new ServiceReturn<List<FieldOrganizationRelationshipEntity>>(false, null, null, fors);
     }

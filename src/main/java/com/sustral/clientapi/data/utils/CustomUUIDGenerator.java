@@ -12,6 +12,11 @@ import java.util.UUID;
 @Component
 public class CustomUUIDGenerator {
 
+    /**
+     * Generates a UUID v4 in String form that does not contain any dashes.
+     *
+     * @return  a string
+     */
     public String generateUUID() {
         return UUID.randomUUID().toString().replace("-", "");
     }

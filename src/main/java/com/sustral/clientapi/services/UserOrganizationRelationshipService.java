@@ -28,7 +28,7 @@ public interface UserOrganizationRelationshipService {
      * @param userId    a string userId
      * @return          a ServiceReturn where the result is a list of UORs
      */
-    ServiceReturn<List<UserOrganizationRelationshipEntity>> getOrganizationsByUser(String userId);
+    ServiceReturn<List<UserOrganizationRelationshipEntity>> getManyByUserId(String userId);
 
     /**
      * Gets the UORs of the given organization.
@@ -36,7 +36,7 @@ public interface UserOrganizationRelationshipService {
      * @param orgId a string orgId
      * @return      a ServiceReturn where the result is a list of UORs
      */
-    ServiceReturn<List<UserOrganizationRelationshipEntity>> getUsersByOrganization(String orgId);
+    ServiceReturn<List<UserOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId);
 
     // Mutation Methods
 
