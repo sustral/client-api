@@ -1,6 +1,7 @@
 package com.sustral.clientapi.data.models;
 
 import com.sustral.clientapi.data.types.ScanStatusE;
+import org.locationtech.jts.geom.Polygon;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -19,6 +20,7 @@ public class ScanEntity {
     private Timestamp created;
     private Timestamp updated;
     private ScanStatusE scanStatus;
+    private Polygon coordinates;
 
     @Id
     @Column(name = "id", nullable = false, length = 32)
@@ -71,6 +73,16 @@ public class ScanEntity {
         this.scanStatus = scanStatus;
     }
 
+    @Basic
+    @Column(name = "coordinates", nullable = false)
+    public Polygon getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Polygon coordinates) {
+        this.coordinates = coordinates;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,6 +95,7 @@ public class ScanEntity {
         if (created != null ? !created.equals(that.created) : that.created != null) return false;
         if (updated != null ? !updated.equals(that.updated) : that.updated != null) return false;
         if (scanStatus != null ? !scanStatus.equals(that.scanStatus) : that.scanStatus != null) return false;
+        if (coordinates != null ? !coordinates.equals(that.coordinates) : that.coordinates != null) return false;
 
         return true;
     }
@@ -94,6 +107,7 @@ public class ScanEntity {
         result = 31 * result + (created != null ? created.hashCode() : 0);
         result = 31 * result + (updated != null ? updated.hashCode() : 0);
         result = 31 * result + (scanStatus != null ? scanStatus.hashCode() : 0);
+        result = 31 * result + (coordinates != null ? coordinates.hashCode() : 0);
         return result;
     }
 }
