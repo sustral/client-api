@@ -35,15 +35,15 @@ public class OrganizationServiceImpl implements OrganizationService {
     /**
      * Validates a passed in name based on constraints in NameValidation.
      *
+     * This method is identical to validateName in FieldServiceImpl and UserServiceImpl.
+     *
      * @param name  a string name
      * @return      an int; 0 for valid, -1 for invalid
      */
     private int validateName(String name) {
         NameValidation nameValidation = new NameValidation(name);
         Set<ConstraintViolation<NameValidation>> constraintViolations = validator.validate(nameValidation);
-
         if(constraintViolations.size() > 0 ) { return -1; }
-
         return 0;
     }
 

@@ -1,5 +1,7 @@
 package com.sustral.clientapi.services.types;
 
+// TODO: Replace String messages with error codes and a central store.
+
 /**
  * A generic return type used to interface between controllers and services.
  *

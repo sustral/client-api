@@ -42,15 +42,15 @@ public class UserServiceImpl implements UserService {
     /**
      * Validates a passed in name based on constraints in NameValidation.
      *
+     * This method is identical to validateName in FieldServiceImpl and OrganizationServiceImpl.
+     *
      * @param name  a string name
      * @return      an int; 0 for valid, -1 for invalid
      */
     private int validateName(String name) {
         NameValidation nameValidation = new NameValidation(name);
         Set<ConstraintViolation<NameValidation>> constraintViolations = validator.validate(nameValidation);
-
         if(constraintViolations.size() > 0 ) { return -1; }
-
         return 0;
     }
 
@@ -63,9 +63,7 @@ public class UserServiceImpl implements UserService {
     private int validateEmail(String email) {
         EmailValidation emailValidation = new EmailValidation(email);
         Set<ConstraintViolation<EmailValidation>> constraintViolations = validator.validate(emailValidation);
-
         if(constraintViolations.size() > 0 ) { return -1; }
-
         return 0;
     }
 
@@ -78,9 +76,7 @@ public class UserServiceImpl implements UserService {
     private int validatePassword(String password) {
         PasswordValidation passwordValidation = new PasswordValidation(password);
         Set<ConstraintViolation<PasswordValidation>> constraintViolations = validator.validate(passwordValidation);
-
         if(constraintViolations.size() > 0 ) { return -1; }
-
         return 0;
     }
 
@@ -92,7 +88,6 @@ public class UserServiceImpl implements UserService {
      */
     private int verifyUniqueEmail(String email) {
         boolean userExists = userRepository.existsByEmail(email);
-
         return userExists ? -1 : 0;
     }
 
@@ -243,7 +238,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServiceReturn<UserEntity> setEmailConfirmed(UserEntity user) {
+    public ServiceReturn<UserEntity> setEmailConfirmedTrue(UserEntity user) {
         user.setEmailConfirmed(Boolean.TRUE);
         UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
         return new ServiceReturn<UserEntity>(false, null, null, updatedUser);

@@ -14,7 +14,7 @@ public interface OrganizationService {
     // Query Methods
 
     /**
-     * Returns an organization given an id.
+     * Returns an organization given its id.
      *
      * @param id    a string id
      * @return      a ServiceReturn where the result is of type OrganizationEntity

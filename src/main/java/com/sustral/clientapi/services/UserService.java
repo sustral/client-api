@@ -25,7 +25,7 @@ public interface UserService {
      * Returns a list of users given a list of ids.
      *
      * @param ids   a List of string ids
-     * @return      a ServiceReturn where the result is of type List&lt;UserEntity&gt;
+     * @return      a ServiceReturn where the result is a list of UserEntities
      */
     ServiceReturn<List<UserEntity>> getManyById(List<String> ids);
 
@@ -46,7 +46,7 @@ public interface UserService {
      * Ensures that no current user has the same email.
      * Encrypts the password prior to storage.
      *
-     * @param name      any string; something the user goes by
+     * @param name      a string name; something the user goes by
      * @param email     a string email
      * @param password  a string password
      * @return          a ServiceReturn where the result is of type UserEntity
@@ -95,7 +95,7 @@ public interface UserService {
      * @param user  a UserEntity
      * @return      a ServiceReturn where the result is of type UserEntity
      */
-    ServiceReturn<UserEntity> setEmailConfirmed(UserEntity user);
+    ServiceReturn<UserEntity> setEmailConfirmedTrue(UserEntity user);
 
     // Utility Methods
 
