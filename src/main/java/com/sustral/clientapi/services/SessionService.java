@@ -27,6 +27,8 @@ public interface SessionService {
     /**
      * Creates a session(refresh) token and a database representation of it.
      *
+     * Does not create the corresponding JWT.
+     *
      * @param userId    a string userId of the user whose token this is
      * @return          a ServiceReturn with a TokenWrapper containing the String token and SessionEntity
      */
