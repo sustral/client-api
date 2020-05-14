@@ -69,7 +69,7 @@ public class SessionServiceImpl implements SessionService {
 
         SessionEntity updatedSession = sessionRepository.save(session);
 
-        TokenWrapper<String, SessionEntity> tw = new TokenWrapper<String, SessionEntity>(uuid, updatedSession);
+        TokenWrapper<String, SessionEntity> tw = new TokenWrapper<>(uuid, updatedSession);
 
         return new ServiceReturn<>(false, null, null, tw);
     }

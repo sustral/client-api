@@ -69,7 +69,7 @@ public class EmailConfirmationServiceImpl implements EmailConfirmationService {
 
         EmailConfirmationEntity updatedConfirm = ecRepository.save(confirm);
 
-        TokenWrapper<String, EmailConfirmationEntity> tw = new TokenWrapper<String, EmailConfirmationEntity>(uuid, updatedConfirm);
+        TokenWrapper<String, EmailConfirmationEntity> tw = new TokenWrapper<>(uuid, updatedConfirm);
 
         return new ServiceReturn<>(false, null, null, tw);
     }

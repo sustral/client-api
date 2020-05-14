@@ -41,18 +41,18 @@ public class FileServiceImpl implements FileService {
         Optional<FileEntity> file = fileRepository.findById(id);
 
         if (file.isPresent()) {
-            return new ServiceReturn<FileEntity>(false, null, null, file.get());
+            return new ServiceReturn<>(false, null, null, file.get());
         }
 
         String errorMessage = "The requested file could not be found";
-        return new ServiceReturn<FileEntity>(true, errorMessage, errorMessage, null);
+        return new ServiceReturn<>(true, errorMessage, errorMessage, null);
     }
 
     @Override
     public ServiceReturn<List<FileEntity>> getManyByScanId(String fieldId, String scanId) {
         List<FileEntity> files = fileRepository.findAllByFieldIdAndScanId(fieldId, scanId);
 
-        return new ServiceReturn<List<FileEntity>>(false, null, null, files);
+        return new ServiceReturn<>(false, null, null, files);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class FileServiceImpl implements FileService {
         file.setFileType(type);
 
         FileEntity updatedFile = fileRepository.save(file);
-        return new ServiceReturn<FileEntity>(false, null, null, updatedFile);
+        return new ServiceReturn<>(false, null, null, updatedFile);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class FileServiceImpl implements FileService {
                 file.getId() +
                 fileExtensionMap.getExtension(file.getFileType());
 
-        return new ServiceReturn<String>(false, null, null, id);
+        return new ServiceReturn<>(false, null, null, id);
     }
 
 }

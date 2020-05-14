@@ -3,7 +3,7 @@ package com.sustral.clientapi.data.utils;
 import com.sustral.clientapi.data.types.FileTypeE;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 /**
  * This class maps file types to their extensions.
@@ -13,13 +13,13 @@ import java.util.HashMap;
 @Component
 public class FileExtensionMap {
 
-    private final HashMap<FileTypeE, String> extMap;
+    private final EnumMap<FileTypeE, String> extMap;
 
     /**
      * Initializes the internal hashmap with the proper values.
      */
     public FileExtensionMap() {
-        extMap = new HashMap<FileTypeE, String>();
+        extMap = new EnumMap<>(FileTypeE.class);
 
         extMap.put(FileTypeE.RGB_RAW, ".jpg");
         extMap.put(FileTypeE.RGB_ORTHOMOSAIC, ".jpg");

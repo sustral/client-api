@@ -59,9 +59,8 @@ public class AmazonS3Repository implements ObjectRepository {
     public InputStream download(String key) {
         try {
             S3Object s3Object = s3Client.getObject(awsBucketName, key);
-            S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
 
-            return s3ObjectInputStream;
+            return s3Object.getObjectContent();
 
         } catch (SdkClientException e) {
             System.err.println("Amazon S3 client produced an error while downloading an object");

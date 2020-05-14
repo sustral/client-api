@@ -31,23 +31,23 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
         Optional<FieldOrganizationRelationshipEntity> fore = forRepository.findById(id);
 
         if (fore.isPresent()) {
-            return new ServiceReturn<FieldOrganizationRelationshipEntity>(false, null, null, fore.get());
+            return new ServiceReturn<>(false, null, null, fore.get());
         }
 
         String errorMessage = "The FOR could not be found by id";
-        return new ServiceReturn<FieldOrganizationRelationshipEntity>(true, errorMessage, errorMessage, null);
+        return new ServiceReturn<>(true, errorMessage, errorMessage, null);
     }
 
     @Override
     public ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByFieldId(String fieldId) {
         List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByFieldId(fieldId); // Guaranteed to not be null
-        return new ServiceReturn<List<FieldOrganizationRelationshipEntity>>(false, null, null, fors);
+        return new ServiceReturn<>(false, null, null, fors);
     }
 
     @Override
     public ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId) {
         List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByOrganizationId(orgId); // Guaranteed to not be null
-        return new ServiceReturn<List<FieldOrganizationRelationshipEntity>>(false, null, null, fors);
+        return new ServiceReturn<>(false, null, null, fors);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
 
         FieldOrganizationRelationshipEntity updatedFore = forRepository.save(fore); // Guaranteed to not be null
 
-        return new ServiceReturn<FieldOrganizationRelationshipEntity>(false, null, null, updatedFore);
+        return new ServiceReturn<>(false, null, null, updatedFore);
     }
 
 }

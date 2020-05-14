@@ -44,7 +44,7 @@ public class FieldServiceImpl implements FieldService {
     private int validateName(String name) {
         NameValidation nameValidation = new NameValidation(name);
         Set<ConstraintViolation<NameValidation>> constraintViolations = validator.validate(nameValidation);
-        if(constraintViolations.size() > 0 ) { return -1; }
+        if(!constraintViolations.isEmpty()) { return -1; }
         return 0;
     }
 
@@ -55,8 +55,10 @@ public class FieldServiceImpl implements FieldService {
      * @return              an int; 0 for valid, -1 invalid
      */
     private int validateCoordinates(Polygon coordinates) {
-        // To be manually validated by a human
-        return 0;
+        // This is just a superficial check
+        // Every coordinates change (at creation or otherwise) will be manually checked
+
+        return coordinates.isValid() ? 0 : -1;
     }
 
     @Override
@@ -64,19 +66,19 @@ public class FieldServiceImpl implements FieldService {
         Optional<FieldEntity> field = fieldRepository.findById(id);
 
         if (field.isPresent()) {
-            return new ServiceReturn<FieldEntity>(false, null, null, field.get());
+            return new ServiceReturn<>(false, null, null, field.get());
         }
 
         String errorMessage = "The field could not be found by id.";
         String passthroughMessage = "The field could not be found.";
-        return new ServiceReturn<FieldEntity>(true, errorMessage, passthroughMessage, null);
+        return new ServiceReturn<>(true, errorMessage, passthroughMessage, null);
     }
 
     @Override
     public ServiceReturn<List<FieldEntity>> getManyById(List<String> ids) {
         List<FieldEntity> fields = fieldRepository.findAllById(ids);
 
-        return new ServiceReturn<List<FieldEntity>>(false, null, null, fields);
+        return new ServiceReturn<>(false, null, null, fields);
     }
 
     @Override
@@ -84,12 +86,12 @@ public class FieldServiceImpl implements FieldService {
 
         if (validateName(name) < 0) {
             String errorMessage = "The given name does not meet requirements.";
-            return new ServiceReturn<FieldEntity>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
         }
 
         if (validateCoordinates(coordinates) < 0) {
             String errorMessage = "The given coordinates do not meet requirements.";
-            return new ServiceReturn<FieldEntity>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
         }
 
         FieldEntity field = new FieldEntity();
@@ -112,12 +114,12 @@ public class FieldServiceImpl implements FieldService {
 
         if (validateName(name) < 0) {
             String errorMessage = "The given name does not meet requirements.";
-            return new ServiceReturn<FieldEntity>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
         }
 
         field.setName(name);
         FieldEntity updatedField = fieldRepository.save(field); // Guaranteed to never be null
-        return new ServiceReturn<FieldEntity>(false, null, null, updatedField);
+        return new ServiceReturn<>(false, null, null, updatedField);
     }
 
     @Override
@@ -125,20 +127,20 @@ public class FieldServiceImpl implements FieldService {
 
         if (validateCoordinates(coordinates) < 0) {
             String errorMessage = "The given coordinates do not meet requirements.";
-            return new ServiceReturn<FieldEntity>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
         }
 
         field.setCoordinates(coordinates);
         field.setApproved(false);
         FieldEntity updatedField = fieldRepository.save(field);
-        return new ServiceReturn<FieldEntity>(false, null, null, updatedField);
+        return new ServiceReturn<>(false, null, null, updatedField);
     }
 
     @Override
     public ServiceReturn<FieldEntity> setApproved(FieldEntity field, boolean approved) {
         field.setApproved(approved);
         FieldEntity updatedField = fieldRepository.save(field);
-        return new ServiceReturn<FieldEntity>(false, null, null, updatedField);
+        return new ServiceReturn<>(false, null, null, updatedField);
     }
 
 }

@@ -68,7 +68,7 @@ public class PasswordResetImpl implements PasswordResetService {
 
         PasswordResetEntity updatedReset = resetRepository.save(reset);
 
-        TokenWrapper<String, PasswordResetEntity> tw = new TokenWrapper<String, PasswordResetEntity>(uuid, updatedReset);
+        TokenWrapper<String, PasswordResetEntity> tw = new TokenWrapper<>(uuid, updatedReset);
 
         return new ServiceReturn<>(false, null, null, tw);
     }
