@@ -17,6 +17,8 @@ repositories {
 }
 
 dependencies {
+    // Rollbar
+    implementation 'com.rollbar:rollbar-logback:1.7.1'
     // AWS
     implementation 'com.amazonaws:aws-java-sdk:1.11.769'
     // JSON Web Token

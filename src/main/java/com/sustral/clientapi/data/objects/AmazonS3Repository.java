@@ -8,10 +8,12 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -35,12 +37,16 @@ public class AmazonS3Repository implements ObjectRepository {
     @Value("${aws.bucketName}")
     private String awsBucketName;
 
-    private final AmazonS3 s3Client;
+    private AmazonS3 s3Client;
+
+    @Autowired
+    private Logger logger;
 
     /**
      * Initializes Amazon S3 Client from configuration files.
      */
-    AmazonS3Repository() {
+    @PostConstruct
+    public void init() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
         s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
@@ -63,8 +69,7 @@ public class AmazonS3Repository implements ObjectRepository {
             return s3Object.getObjectContent();
 
         } catch (SdkClientException e) {
-            System.err.println("Amazon S3 client produced an error while downloading an object");
-            System.err.println(e.getMessage());
+            logger.error("Amazon S3 client produced an error while downloading an object in S3 Repository", e);
             return null;
         }
     }
@@ -84,12 +89,10 @@ public class AmazonS3Repository implements ObjectRepository {
             object.close();
             return 0;
         } catch (SdkClientException e) {
-            System.err.println("Amazon S3 client produced an error while uploading an object");
-            System.err.println(e.getMessage());
+            logger.error("Amazon S3 client produced an error while uploading an object in S3 Repository", e);
             return -1;
         } catch (IOException e) {
-            System.err.println("InputStream produced an error while attempting to close");
-            System.err.println(e.getMessage());
+            logger.error("InputStream produced an error while attempting to close in S3 Repository", e);
             return -2;
         }
     }
