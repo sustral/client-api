@@ -36,8 +36,7 @@ public class SessionServiceImpl implements SessionService {
         Optional<SessionEntity> session = sessionRepository.findById(hashedToken);
 
         if (session.isEmpty()) {
-            String errorMessage = "The session could not be found";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         // Check if the token is expired
@@ -45,15 +44,14 @@ public class SessionServiceImpl implements SessionService {
         long cutoff = System.currentTimeMillis() - FOUR_DAYS;
 
         if (created < cutoff) {
-            String errorMessage = "The session has expired";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         // Delete used token
 
         sessionRepository.delete(session.get());
 
-        return new ServiceReturn<>(false, null, null, session.get());
+        return new ServiceReturn<>(null, session.get());
     }
 
     @Override
@@ -71,7 +69,7 @@ public class SessionServiceImpl implements SessionService {
 
         TokenWrapper<String, SessionEntity> tw = new TokenWrapper<>(uuid, updatedSession);
 
-        return new ServiceReturn<>(false, null, null, tw);
+        return new ServiceReturn<>(null, tw);
     }
 
 }

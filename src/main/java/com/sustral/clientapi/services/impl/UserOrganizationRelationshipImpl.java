@@ -31,23 +31,22 @@ public class UserOrganizationRelationshipImpl implements UserOrganizationRelatio
         Optional<UserOrganizationRelationshipEntity> uor = uorRepository.findById(id);
 
         if (uor.isPresent()) {
-            return new ServiceReturn<>(false, null, null, uor.get());
+            return new ServiceReturn<>(null, uor.get());
         }
 
-        String errorMessage = "The UOR could not be found by id";
-        return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+        return new ServiceReturn<>("E0000", null);
     }
 
     @Override
     public ServiceReturn<List<UserOrganizationRelationshipEntity>> getManyByUserId(String userId) {
         List<UserOrganizationRelationshipEntity> uors = uorRepository.findAllByUserId(userId); // Guaranteed not null
-        return new ServiceReturn<>(false, null, null, uors);
+        return new ServiceReturn<>(null, uors);
     }
 
     @Override
     public ServiceReturn<List<UserOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId) {
         List<UserOrganizationRelationshipEntity> uors = uorRepository.findAllByOrganizationId(orgId); // Guaranteed not null
-        return new ServiceReturn<>(false, null, null, uors);
+        return new ServiceReturn<>(null, uors);
     }
 
     @Override
@@ -58,7 +57,7 @@ public class UserOrganizationRelationshipImpl implements UserOrganizationRelatio
         uor.setOrganizationId(orgId);
 
         UserOrganizationRelationshipEntity updatedUor = uorRepository.save(uor); // Guaranteed to not be null
-        return new ServiceReturn<>(false, null, null, updatedUor);
+        return new ServiceReturn<>(null, updatedUor);
     }
 
 }

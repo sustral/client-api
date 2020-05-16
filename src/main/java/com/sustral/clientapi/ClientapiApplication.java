@@ -3,9 +3,7 @@ package com.sustral.clientapi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// TODO: Null check every parameter.
-// TODO: Add in the ELKB logger and replace the placeholder System.err.
-// TODO: Null check fields of passed in objects.
+// TODO: Null check every parameter, fields of passed in objects, and fields of save objects
 // TODO: Create constructor for entities.
 
 @SpringBootApplication

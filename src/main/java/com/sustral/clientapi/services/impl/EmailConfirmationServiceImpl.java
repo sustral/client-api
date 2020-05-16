@@ -35,8 +35,7 @@ public class EmailConfirmationServiceImpl implements EmailConfirmationService {
         Optional<EmailConfirmationEntity> confirm = ecRepository.findById(hashedToken);
 
         if (confirm.isEmpty()) {
-            String errorMessage = "The email confirmation token could not be found";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         // Check if the token is expired
@@ -44,15 +43,14 @@ public class EmailConfirmationServiceImpl implements EmailConfirmationService {
         long cutoff = System.currentTimeMillis() - ONE_DAY;
 
         if (created < cutoff) {
-            String errorMessage = "The email confirmation token has expired";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         // Delete the used token
 
         ecRepository.delete(confirm.get());
 
-        return new ServiceReturn<>(false, null, null, confirm.get());
+        return new ServiceReturn<>(null, confirm.get());
     }
 
     @Override
@@ -71,7 +69,7 @@ public class EmailConfirmationServiceImpl implements EmailConfirmationService {
 
         TokenWrapper<String, EmailConfirmationEntity> tw = new TokenWrapper<>(uuid, updatedConfirm);
 
-        return new ServiceReturn<>(false, null, null, tw);
+        return new ServiceReturn<>(null, tw);
     }
 
 }

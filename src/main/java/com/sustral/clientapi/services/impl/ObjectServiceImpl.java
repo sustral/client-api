@@ -24,28 +24,25 @@ public class ObjectServiceImpl implements ObjectService {
         InputStream obj = objectRepository.download(id);
 
         if (obj == null) {
-            String errorMessage = "The object could not be found.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
-        return new ServiceReturn<>(false, null, null, obj);
+        return new ServiceReturn<>(null, obj);
     }
 
     @Override
     public ServiceReturn<Void> setOneById(String id, InputStream obj) {
         if (id.isBlank() || (obj == null)) {
-            String errorMessage = "The id or the obj is invalid.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         int error = objectRepository.upload(id, obj);
 
         if (error < 0) {
-            String errorMessage = "Failed to set the object.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
-        return new ServiceReturn<>(false, null, null, null);
+        return new ServiceReturn<>(null, null);
     }
 
 }

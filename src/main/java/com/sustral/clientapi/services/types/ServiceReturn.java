@@ -1,7 +1,5 @@
 package com.sustral.clientapi.services.types;
 
-// TODO: Replace String messages with error codes and a central store.
-
 /**
  * A generic return type used to interface between controllers and services.
  *
@@ -9,40 +7,24 @@ package com.sustral.clientapi.services.types;
  * @param <T> the type of the result
  */
 public class ServiceReturn<T> {
-    private boolean error;
-    private String errorMessage;
-    private String passthroughMessage; // Designed to pass messages through to front end without details of backend specifics
+    private String error;
     private T result;
 
-    public ServiceReturn(boolean error, String errorMessage, String passthroughMessage, T result) {
+    public ServiceReturn(String error, T result) {
         this.error = error;
-        this.errorMessage = errorMessage;
-        this.passthroughMessage = passthroughMessage;
         this.result = result;
     }
 
     public boolean isError() {
+        return error.isBlank();
+    }
+
+    public String getError() {
         return error;
     }
 
-    public void setError(boolean error) {
+    public void setError(String error) {
         this.error = error;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public String getPassthroughMessage() {
-        return passthroughMessage;
-    }
-
-    public void setPassthroughMessage(String passthroughMessage) {
-        this.passthroughMessage = passthroughMessage;
     }
 
     public T getResult() {

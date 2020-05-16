@@ -123,19 +123,17 @@ public class UserServiceImpl implements UserService {
         Optional<UserEntity> user = userRepository.findById(id);
 
         if (user.isPresent()) {
-            return new ServiceReturn<>(false, null, null, user.get());
+            return new ServiceReturn<>(null, user.get());
         }
 
-        String errorMessage = "The user could not be found by id.";
-        String passthroughMessage = "The user could not be found.";
-        return new ServiceReturn<>(true, errorMessage, passthroughMessage, null);
+        return new ServiceReturn<>("E0000", null);
     }
 
     @Override
     public ServiceReturn<List<UserEntity>> getManyById(List<String> ids) {
         List<UserEntity> users = userRepository.findAllById(ids); // Guaranteed by JPARepository to not be null, but may be empty
 
-        return new ServiceReturn<>(false, null, null, users);
+        return new ServiceReturn<>(null, users);
     }
 
     @Override
@@ -143,35 +141,29 @@ public class UserServiceImpl implements UserService {
         Optional<UserEntity> user = userRepository.findByEmail(email);
 
         if (user.isPresent()) {
-            return new ServiceReturn<>(false, null, null, user.get());
+            return new ServiceReturn<>(null, user.get());
         }
 
-        String errorMessage = "The user could not be found by email.";
-        String passthroughMessage = "The user could not be found.";
-        return new ServiceReturn<>(true, errorMessage, passthroughMessage, null);
+        return new ServiceReturn<>("E0000", null);
     }
 
     @Override
     public ServiceReturn<UserEntity> create(String name, String email, String password) {
 
         if (validateName(name) < 0) {
-            String errorMessage = "The given name does not meet requirements.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         if (validateEmail(email) < 0) {
-            String errorMessage = "The given email does not meet requirements.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         if (verifyUniqueEmail(email) < 0) {
-            String errorMessage = "The given email is already in use by another user.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         if (validatePassword(password) < 0) {
-            String errorMessage = "The given password does not meet requirements.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         UserEntity user = new UserEntity();
@@ -188,66 +180,62 @@ public class UserServiceImpl implements UserService {
         user.setAuth(newPassword);
 
         UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(false, null, null, updatedUser);
+        return new ServiceReturn<>(null, updatedUser);
     }
 
     @Override
     public ServiceReturn<UserEntity> setName(UserEntity user, String name) {
 
         if (validateName(name) < 0) {
-            String errorMessage = "The given name does not meet requirements.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         user.setName(name);
         UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(false, null, null, updatedUser);
+        return new ServiceReturn<>(null, updatedUser);
     }
 
     @Override
     public ServiceReturn<UserEntity> setEmail(UserEntity user, String email) {
 
         if (validateEmail(email) < 0) {
-            String errorMessage = "The given email does not meet requirements.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         if (verifyUniqueEmail(email) < 0) {
-            String errorMessage = "The given email is already in use by another user.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         user.setEmail(email);
         user.setEmailConfirmed(Boolean.FALSE);
         UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(false, null, null, updatedUser);
+        return new ServiceReturn<>(null, updatedUser);
     }
 
     @Override
     public ServiceReturn<UserEntity> setPassword(UserEntity user, String password) {
 
         if (validatePassword(password) < 0) {
-            String errorMessage = "The given password does not meet requirements.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         String newPassword = encryptPassword(password);
         user.setAuth(newPassword);
         UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(false, null, null, updatedUser);
+        return new ServiceReturn<>(null, updatedUser);
     }
 
     @Override
     public ServiceReturn<UserEntity> setEmailConfirmedTrue(UserEntity user) {
         user.setEmailConfirmed(Boolean.TRUE);
         UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(false, null, null, updatedUser);
+        return new ServiceReturn<>(null, updatedUser);
     }
 
     @Override
     public ServiceReturn<Boolean> validateAuth(UserEntity user, String password) {
         boolean validAuth = comparePasswords(user.getAuth(), password);
-        return new ServiceReturn<>(false, null, null, validAuth);
+        return new ServiceReturn<>(null, validAuth);
     }
 
 }

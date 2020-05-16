@@ -36,8 +36,7 @@ public class PasswordResetImpl implements PasswordResetService {
         Optional<PasswordResetEntity> reset = resetRepository.findById(hashedToken);
 
         if (reset.isEmpty()) {
-            String errorMessage = "The password reset token could not be found";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         // Expiration check
@@ -45,14 +44,13 @@ public class PasswordResetImpl implements PasswordResetService {
         long cutoff = System.currentTimeMillis() - SIX_HOURS;
 
         if (created < cutoff) {
-            String errorMessage = "The password reset token has expired";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         // Delete to prevent reuse
         resetRepository.delete(reset.get());
 
-        return new ServiceReturn<>(false, null, null, reset.get());
+        return new ServiceReturn<>(null, reset.get());
     }
 
     @Override
@@ -70,7 +68,7 @@ public class PasswordResetImpl implements PasswordResetService {
 
         TokenWrapper<String, PasswordResetEntity> tw = new TokenWrapper<>(uuid, updatedReset);
 
-        return new ServiceReturn<>(false, null, null, tw);
+        return new ServiceReturn<>(null, tw);
     }
 
 }

@@ -52,27 +52,24 @@ public class OrganizationServiceImpl implements OrganizationService {
         Optional<OrganizationEntity> org = organizationRepository.findById(id);
 
         if (org.isPresent()) {
-            return new ServiceReturn<>(false, null, null, org.get());
+            return new ServiceReturn<>(null, org.get());
         }
 
-        String errorMessage = "The organization could not be found by id.";
-        String passthroughMessage = "The organization could not be found.";
-        return new ServiceReturn<>(true, errorMessage, passthroughMessage, null);
+        return new ServiceReturn<>("E0000", null);
     }
 
     @Override
     public ServiceReturn<List<OrganizationEntity>> getManyById(List<String> ids) {
         List<OrganizationEntity> orgs = organizationRepository.findAllById(ids); // Guaranteed by JPARepository to not be null, but may be empty
 
-        return new ServiceReturn<>(false, null, null, orgs);
+        return new ServiceReturn<>(null, orgs);
     }
 
     @Override
     public ServiceReturn<OrganizationEntity> create(String name) {
 
         if (validateName(name) < 0) {
-            String errorMessage = "The given name does not meet requirements.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         OrganizationEntity org = new OrganizationEntity();
@@ -83,20 +80,19 @@ public class OrganizationServiceImpl implements OrganizationService {
         org.setName(name);
 
         OrganizationEntity updatedOrg = organizationRepository.save(org); // Guaranteed to never be null
-        return new ServiceReturn<>(false, null, null, updatedOrg);
+        return new ServiceReturn<>(null, updatedOrg);
     }
 
     @Override
     public ServiceReturn<OrganizationEntity> setName(OrganizationEntity org, String name) {
 
         if (validateName(name) < 0) {
-            String errorMessage = "The given name does not meet requirements.";
-            return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+            return new ServiceReturn<>("E0000", null);
         }
 
         org.setName(name);
         OrganizationEntity updatedOrg = organizationRepository.save(org); // Guaranteed to never be null
-        return new ServiceReturn<>(false, null, null, updatedOrg);
+        return new ServiceReturn<>(null, updatedOrg);
     }
 
 }

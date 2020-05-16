@@ -37,18 +37,17 @@ public class ScanServiceImpl implements ScanService {
         Optional<ScanEntity> scan = scanRepository.findById(id);
 
         if (scan.isPresent()) {
-            return new ServiceReturn<>(false, null, null, scan.get());
+            return new ServiceReturn<>(null, scan.get());
         }
 
-        String errorMessage = "The scan could not be found.";
-        return new ServiceReturn<>(true, errorMessage, errorMessage, null);
+        return new ServiceReturn<>("E0000", null);
     }
 
     @Override
     public ServiceReturn<List<ScanEntity>> getManyByFieldId(String fieldId) {
         List<ScanEntity> scans = scanRepository.findAllByFieldId(fieldId);
 
-        return new ServiceReturn<>(false, null, null, scans);
+        return new ServiceReturn<>(null, scans);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class ScanServiceImpl implements ScanService {
         scan.setScanStatus(ScanStatusE.PENDING_COLLECTION);
 
         ScanEntity updatedScan =  scanRepository.save(scan);
-        return new ServiceReturn<>(false, null, null, updatedScan);
+        return new ServiceReturn<>(null, updatedScan);
     }
 
 }
