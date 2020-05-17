@@ -7,7 +7,7 @@ executors:
   aws-executor:
     docker:
       - image: cimg/python:3.6
-    working_directory: /tmp
+    working_directory: /wrk_dir
   java-mysql-executor:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -16,7 +16,7 @@ executors:
           MYSQL_DATABASE: test_db
           MYSQL_USER: mysql_user
           MYSQL_PASSWORD: mysql_password
-    working_directory: /tmp
+    working_directory: /wrk_dir
   deploy-executor:
     docker:
       - image: cimg/base:stable
@@ -28,9 +28,9 @@ jobs:
       - run: mkdir -p workspace
       - aws-s3/copy:
           from: s3://sustral-secrets/clientapi/test/application.properties
-          to: /tmp/workspace/application.properties
+          to: /wrk_dir/workspace/application.properties
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: /wrk_dir/workspace
           paths:
             - application.properties
   build:
@@ -39,9 +39,9 @@ jobs:
       - checkout
 
       - attach_workspace:
-          at: /tmp/workspace
+          at: /wrk_dir/workspace
 
-      - run: cat /tmp/workspace/application.properties >> /tmp/src/test/resources/application.properties
+      - run: cat /wrk_dir/workspace/application.properties >> /wrk_dir/src/test/resources/application.properties
 
       - restore_cache:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
