@@ -41,7 +41,31 @@ jobs:
       - attach_workspace:
           at: ~/tmp/workspace
 
-      - run: cat ~/tmp/workspace/application.properties >> ~/tmp/src/test/resources/application.properties
+      - run:
+          name: Copy application.properties to test resources folder
+          command: |
+            cat ~/tmp/workspace/application.properties > ~/tmp/src/test/resources/application.properties
+
+      - run:
+          name: Wait for MySQL
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z 127.0.0.1 3306 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed wait for MySQL && exit 1
+
+      - run:
+          name: Install MySQL CLI
+          command: |
+            sudo apt install default-mysql-client
+
+      - run:
+          name: Create DB schema
+          command: |
+            mysql -h 127.0.0.1 -u mysql_user -p mysql_password test_db < ~/tmp/src/main/resources/schema.sql
 
       - restore_cache:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
