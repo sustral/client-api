@@ -12,8 +12,8 @@ executors:
     docker:
       - image: circleci/openjdk:11-jdk
       - image: circleci/mysql:8.0.20
+        command: [--default-authentication-plugin=mysql_native_password]
         environment:
-          MYSQL_ROOT_PASSWORD: root_password
           MYSQL_DATABASE: test_db
           MYSQL_USER: mysql_user
           MYSQL_PASSWORD: mysql_password
