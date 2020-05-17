@@ -7,7 +7,7 @@ package com.sustral.clientapi.services.types;
  * @param <T> the type of the result
  */
 public class ServiceReturn<T> {
-    private String error;
+    private String error; // An error code that indicates an error occurred anytime it is not null
     private T result;
 
     public ServiceReturn(String error, T result) {
