@@ -65,7 +65,7 @@ jobs:
       - run:
           name: Create DB schema
           command: |
-            mysql -h localhost -u mysql_user -pmysql_password test_db < ~/tmp/src/main/resources/schema.sql
+            mysql -h 127.0.0.1 -u mysql_user -pmysql_password test_db < ~/tmp/src/main/resources/schema.sql
 
       - restore_cache:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
