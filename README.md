@@ -2,10 +2,38 @@
 
 Quick REST API built on Spring, to be replaced ASAP.
 
-The data models and services were intentionally denormalized with the goal of soon breaking each into its own microservice.
-Inheritance in JPA models for the sake of eliminating duplicated getters and setters is not appropriate. This is doubly true when
-any of these entities could be altered at any time.
+Running the tests locally
+-
 
-For local testing, create a MySQL container on Docker using the following command (replace [PATH_TO_STORAGE_DIRECTORY]):<br/>
-<code>docker run --name mysql-docker-1 -e MYSQL_ROOT_PASSWORD=root_password -e MYSQL_DATABASE=test_db -e MYSQL_USER=mysql_user
--e MYSQL_PASSWORD=mysql_password -p 3306:3306 -v [PATH_TO_STORAGE_DIRECTORY]:/var/lib/mysql -d mysql:8</code>
+1. Configure a MySQL database using Docker:
+
+    1. Create a MySQL container:<br/>
+    <code>docker run --name mysql-docker-1 -e MYSQL_ROOT_PASSWORD=root_password -e MYSQL_DATABASE=test_db -e MYSQL_USER=mysql_user
+    -e MYSQL_PASSWORD=mysql_password -p 3306:3306 -v [PATH_TO_STORAGE_DIRECTORY]:/var/lib/mysql -d mysql:8</code>
+
+    2. Copy the provided schema file to the container:<br/>
+    <code>docker cp [PATH_TO_REPO]/src/main/resources/schema.sql mysql-docker-1:/schema.sql</code>
+    
+    3. Execute the schema file on test_db:
+        
+        1. Start a bash shell in the container:<br/>
+        <code>docker exec -it mysql-docker-1 /bin/bash</code>
+        
+        2. Execute the schema file from the aforementioned shell:<br/>
+        <code>mysql -u mysql_user -pmysql_password test_db < schema.sql</code>
+
+2. Fill in src/tests/resources/application.properties from the company keys stored in S3.
+    
+    1. You can optionally create your own S3 bucket and associated user.
+    
+    2. You can optionally create your own RollBar project to catch errors.
+    
+3. Build the app and run the tests from inside the repo folder:<br/>
+<code>./gradlew build</code>
+
+Notes
+-
+
+* The data models and services were intentionally denormalized with the goal of soon breaking each into its own microservice.
+  Inheritance in JPA models for the sake of eliminating duplicated getters and setters is not appropriate. This is doubly true when
+  any of these entities could be altered at any time.
