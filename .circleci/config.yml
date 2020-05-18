@@ -48,6 +48,11 @@ jobs:
             cat ~/tmp/workspace/application.properties > ~/tmp/src/test/resources/application.properties
 
       - run:
+          name: Install MySQL CLI
+          command: |
+            sudo apt install default-mysql-client
+
+      - run:
           name: Wait for MySQL
           command: |
             for i in `seq 1 15`;
@@ -57,11 +62,6 @@ jobs:
               sleep 1
             done
             echo Failed wait for MySQL && exit 1
-
-      - run:
-          name: Install MySQL CLI
-          command: |
-            sudo apt install default-mysql-client
 
       - run:
           name: Create DB schema
