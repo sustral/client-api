@@ -44,6 +44,7 @@ public class PasswordResetImpl implements PasswordResetService {
         long cutoff = System.currentTimeMillis() - SIX_HOURS;
 
         if (created < cutoff) {
+            resetRepository.delete(reset.get());
             return new ServiceReturn<>("E0000", null);
         }
 

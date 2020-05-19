@@ -44,6 +44,7 @@ public class SessionServiceImpl implements SessionService {
         long cutoff = System.currentTimeMillis() - FOUR_DAYS;
 
         if (created < cutoff) {
+            sessionRepository.delete(session.get());
             return new ServiceReturn<>("E0000", null);
         }
 

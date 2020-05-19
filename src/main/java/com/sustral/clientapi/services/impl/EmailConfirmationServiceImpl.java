@@ -43,6 +43,7 @@ public class EmailConfirmationServiceImpl implements EmailConfirmationService {
         long cutoff = System.currentTimeMillis() - ONE_DAY;
 
         if (created < cutoff) {
+            ecRepository.delete(confirm.get());
             return new ServiceReturn<>("E0000", null);
         }
 
