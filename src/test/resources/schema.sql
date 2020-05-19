@@ -14,7 +14,9 @@ CREATE TABLE `users` (
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `email_index` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `organizations`
@@ -28,7 +30,9 @@ CREATE TABLE `organizations` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `ffields`
@@ -45,7 +49,9 @@ CREATE TABLE `ffields` (
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `approved_index` (`approved`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `scans`
@@ -63,7 +69,9 @@ CREATE TABLE `scans` (
   PRIMARY KEY (`ffield_id`,`id`),
   FOREIGN KEY (`ffield_id`) REFERENCES `ffields`(`id`) ON DELETE CASCADE,
   INDEX `scan_status_index` (`ffield_id`, `scan_status`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `files`
@@ -82,7 +90,9 @@ CREATE TABLE `files` (
   FOREIGN KEY (`ffield_id`) REFERENCES `ffields`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`ffield_id`,`scan_id`) REFERENCES `scans`(`ffield_id`,`id`) ON DELETE CASCADE,
   INDEX `file_type_index` (`ffield_id`, `scan_id`, `file_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `user_organization_relationships`
@@ -99,7 +109,9 @@ CREATE TABLE `user_organization_relationships` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`organization_id`) REFERENCES `organizations`(`id`) ON DELETE CASCADE,
   INDEX `organization_id_index` (`organization_id`, `user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `ffield_organization_relationships`
@@ -116,7 +128,9 @@ CREATE TABLE `ffield_organization_relationships` (
   FOREIGN KEY (`ffield_id`) REFERENCES `ffields`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`organization_id`) REFERENCES `organizations`(`id`) ON DELETE CASCADE,
   INDEX `organization_id_index` (`organization_id`, `ffield_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `email_confirmations`
@@ -132,7 +146,9 @@ CREATE TABLE `email_confirmations` (
   PRIMARY KEY (`token`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
   INDEX `created_index` (`created`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `password_resets`
@@ -147,7 +163,9 @@ CREATE TABLE `password_resets` (
   PRIMARY KEY (`token`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
   INDEX `created_index` (`created`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
 
 --
 -- Table structure for table `sessions`
@@ -162,4 +180,6 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`token`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
   INDEX `created_index` (`created`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_0900_bin;
