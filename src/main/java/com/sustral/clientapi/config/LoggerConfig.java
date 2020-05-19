@@ -14,11 +14,11 @@ import org.springframework.context.annotation.Configuration;
 public class LoggerConfig {
 
     /**
-     * Sets the default logger to the rollbar logback logger.
+     * Sets the default logger to the sustral logback logger defined in logback-spring.xml.
      */
     @Bean
-    public Logger getRollbarLogger() {
-        return LoggerFactory.getLogger("com.example.rollbar.logback");
+    public Logger getLogger() {
+        return LoggerFactory.getLogger("com.example.sustral.logback");
     }
 
 }

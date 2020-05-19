@@ -106,10 +106,6 @@ workflows:
           context: SonarCloud
           requires:
             - get_test_config
-      - hold:
-          type: approval
-          requires:
-            - build
       - deploy:
           requires:
-            - hold
+            - build

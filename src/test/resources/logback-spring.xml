@@ -1,5 +1,4 @@
 <configuration>
-    <springProperty name="rollbar_access_token" source="rollbar.access_token"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -7,22 +6,14 @@
         </encoder>
     </appender>
 
-    <appender name="ROLLBAR" class="com.rollbar.logback.RollbarAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>WARN</level>
-        </filter>
-        <accessToken>${rollbar_access_token}</accessToken>
-    </appender>
-
     <logger name="com.example.sustral.logback" level="debug" additivity="false">
         <appender-ref ref="STDOUT" />
-        <appender-ref ref="ROLLBAR" />
     </logger>
 
     <root level="debug">
         <appender-ref ref="STDOUT" />
-        <appender-ref ref="ROLLBAR" />
     </root>
 
     <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
 </configuration>
