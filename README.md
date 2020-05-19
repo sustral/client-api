@@ -7,26 +7,32 @@ Running the tests locally
 
 1. Configure a MySQL database using Docker:
 
-    1. Create a MySQL container:<br/>
+    1. Create a MySQL container. Don't use an existing container or storage directory for simplicity:<br/>
     <code>docker run --name mysql-docker-1 -e MYSQL_ROOT_PASSWORD=root_password -e MYSQL_DATABASE=test_db -e MYSQL_USER=mysql_user
     -e MYSQL_PASSWORD=mysql_password -p 3306:3306 -v [PATH_TO_STORAGE_DIRECTORY]:/var/lib/mysql -d mysql:8</code>
 
-    2. Copy the provided schema file to the container:<br/>
-    <code>docker cp [PATH_TO_REPO]/src/main/resources/schema.sql mysql-docker-1:/schema.sql</code>
+    2. Copy the provided schema and data files to the container:<br/>
+    <code>docker cp [PATH_TO_REPO]/src/test/resources/schema.sql mysql-docker-1:/schema.sql</code><br/>
+    <code>docker cp [PATH_TO_REPO]/src/test/resources/data.sql mysql-docker-1:/data.sql</code>
     
-    3. Execute the schema file on test_db:
+    3. Execute the files on test_db:
         
         1. Start a bash shell in the container:<br/>
         <code>docker exec -it mysql-docker-1 /bin/bash</code>
         
-        2. Execute the schema file from the aforementioned shell:<br/>
+        2. Execute the schema file from the aforementioned shell; this creates the DB schema:<br/>
         <code>mysql -u mysql_user -pmysql_password test_db < schema.sql</code>
+        
+        3. Execute the data file from the aforementioned shell; this populates the DB:<br/>
+        <code>mysql -u mysql_user -pmysql_password test_db < data.sql</code>
+        
 
-2. Fill in src/tests/resources/application.properties from the company keys stored in S3.
+2. Fill in src/test/resources/application.properties from the company keys stored in S3.
+
+    1. You can fill in the MySQL and JPA properties according to your database config (the default should be correct).
     
-    1. You can optionally create your own S3 bucket and associated user.
-    
-    2. You can optionally create your own RollBar project to catch errors.
+    2. You can optionally create your own S3 bucket and associated user.
+    You will have to add images (any images) corresponding to the files in data.sql or some tests will fail. 
     
 3. Build the app and run the tests from inside the repo folder:<br/>
 <code>./gradlew build</code>
