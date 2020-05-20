@@ -2,7 +2,7 @@ package com.sustral.clientapi.services.impl;
 
 import com.sustral.clientapi.data.models.SessionEntity;
 import com.sustral.clientapi.data.repositories.SessionRepository;
-import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
+import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.SessionService;
 import com.sustral.clientapi.services.types.ServiceReturn;
 import com.sustral.clientapi.services.types.TokenWrapper;
@@ -26,7 +26,7 @@ public class SessionServiceImpl implements SessionService {
     private SessionRepository sessionRepository;
 
     @Autowired
-    private CustomUUIDGenerator uuidGenerator;
+    private IdGenerator idGenerator;
 
 
     @Override
@@ -58,17 +58,17 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public ServiceReturn<TokenWrapper<String, SessionEntity>> create(String userId) {
 
-        String uuid = uuidGenerator.generateUUID(); // This is sent to the user as a token
-        String hashedUuid = DigestUtils.sha256Hex(uuid);
+        String newId = idGenerator.generateId(); // This is sent to the user as a token
+        String hashedId = DigestUtils.sha256Hex(newId);
 
         SessionEntity session = new SessionEntity();
 
-        session.setToken(hashedUuid);
+        session.setToken(hashedId);
         session.setUserId(userId);
 
         SessionEntity updatedSession = sessionRepository.save(session);
 
-        TokenWrapper<String, SessionEntity> tw = new TokenWrapper<>(uuid, updatedSession);
+        TokenWrapper<String, SessionEntity> tw = new TokenWrapper<>(newId, updatedSession);
 
         return new ServiceReturn<>(null, tw);
     }

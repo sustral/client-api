@@ -4,8 +4,8 @@ import com.sustral.clientapi.data.models.FileEntity;
 import com.sustral.clientapi.data.models.FileEntityPK;
 import com.sustral.clientapi.data.repositories.FileRepository;
 import com.sustral.clientapi.data.types.FileTypeE;
-import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
-import com.sustral.clientapi.data.utils.FileExtensionMap;
+import com.sustral.clientapi.data.utils.fileextensionmap.FileExtensionMap;
+import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.FileService;
 import com.sustral.clientapi.services.types.ServiceReturn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class FileServiceImpl implements FileService {
     private FileRepository fileRepository;
 
     @Autowired
-    private CustomUUIDGenerator uuidGenerator;
+    private IdGenerator idGenerator;
 
     @Autowired
     private FileExtensionMap fileExtensionMap;
@@ -60,8 +60,8 @@ public class FileServiceImpl implements FileService {
         file.setFieldId(fieldId);
         file.setScanId(scanId);
 
-        String uuid = uuidGenerator.generateUUID();
-        file.setId(uuid);
+        String newId = idGenerator.generateId();
+        file.setId(newId);
 
         file.setFileType(type);
 

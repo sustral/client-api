@@ -2,7 +2,7 @@ package com.sustral.clientapi.services.impl;
 
 import com.sustral.clientapi.data.models.PasswordResetEntity;
 import com.sustral.clientapi.data.repositories.PasswordResetRepository;
-import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
+import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.PasswordResetService;
 import com.sustral.clientapi.services.types.ServiceReturn;
 import com.sustral.clientapi.services.types.TokenWrapper;
@@ -26,7 +26,7 @@ public class PasswordResetImpl implements PasswordResetService {
     private PasswordResetRepository resetRepository;
 
     @Autowired
-    private CustomUUIDGenerator uuidGenerator;
+    private IdGenerator idGenerator;
 
     @Override
     public ServiceReturn<PasswordResetEntity> findOneAndDeleteByToken(String token) {
@@ -57,17 +57,17 @@ public class PasswordResetImpl implements PasswordResetService {
     @Override
     public ServiceReturn<TokenWrapper<String, PasswordResetEntity>> create(String userId) {
 
-        String uuid = uuidGenerator.generateUUID(); // To be used as the token sent to the user
-        String hashedUuid = DigestUtils.sha256Hex(uuid);
+        String newId = idGenerator.generateId(); // To be used as the token sent to the user
+        String hashedId = DigestUtils.sha256Hex(newId);
 
         PasswordResetEntity reset = new PasswordResetEntity();
 
-        reset.setToken(hashedUuid);
+        reset.setToken(hashedId);
         reset.setUserId(userId);
 
         PasswordResetEntity updatedReset = resetRepository.save(reset);
 
-        TokenWrapper<String, PasswordResetEntity> tw = new TokenWrapper<>(uuid, updatedReset);
+        TokenWrapper<String, PasswordResetEntity> tw = new TokenWrapper<>(newId, updatedReset);
 
         return new ServiceReturn<>(null, tw);
     }

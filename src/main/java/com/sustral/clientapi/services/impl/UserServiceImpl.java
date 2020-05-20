@@ -2,12 +2,12 @@ package com.sustral.clientapi.services.impl;
 
 import com.sustral.clientapi.data.models.UserEntity;
 import com.sustral.clientapi.data.repositories.UserRepository;
+import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.UserService;
 import com.sustral.clientapi.services.types.EmailValidation;
 import com.sustral.clientapi.services.types.NameValidation;
 import com.sustral.clientapi.services.types.PasswordValidation;
 import com.sustral.clientapi.services.types.ServiceReturn;
-import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     private Validator validator;
 
     @Autowired
-    private CustomUUIDGenerator uuidGenerator;
+    private IdGenerator idGenerator;
 
     /**
      * Validates a passed in name based on constraints in NameValidation.
@@ -168,8 +168,8 @@ public class UserServiceImpl implements UserService {
 
         UserEntity user = new UserEntity();
 
-        String uuid = uuidGenerator.generateUUID();
-        user.setId(uuid);
+        String newId = idGenerator.generateId();
+        user.setId(newId);
 
         user.setName(name);
 

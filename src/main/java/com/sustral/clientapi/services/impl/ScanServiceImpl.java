@@ -4,7 +4,7 @@ import com.sustral.clientapi.data.models.ScanEntity;
 import com.sustral.clientapi.data.models.ScanEntityPK;
 import com.sustral.clientapi.data.repositories.ScanRepository;
 import com.sustral.clientapi.data.types.ScanStatusE;
-import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
+import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.ScanService;
 import com.sustral.clientapi.services.types.ServiceReturn;
 import org.locationtech.jts.geom.Polygon;
@@ -26,7 +26,7 @@ public class ScanServiceImpl implements ScanService {
     private ScanRepository scanRepository;
 
     @Autowired
-    private CustomUUIDGenerator uuidGenerator;
+    private IdGenerator idGenerator;
 
     @Override
     public ServiceReturn<ScanEntity> getOneById(String fieldId, String scanId) {
@@ -57,8 +57,8 @@ public class ScanServiceImpl implements ScanService {
 
         scan.setFieldId(fieldId);
 
-        String uuid = uuidGenerator.generateUUID();
-        scan.setId(uuid);
+        String newId = idGenerator.generateId();
+        scan.setId(newId);
 
         scan.setCoordinates(coordinates);
 

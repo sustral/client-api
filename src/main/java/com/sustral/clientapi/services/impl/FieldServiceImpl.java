@@ -2,7 +2,7 @@ package com.sustral.clientapi.services.impl;
 
 import com.sustral.clientapi.data.models.FieldEntity;
 import com.sustral.clientapi.data.repositories.FieldRepository;
-import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
+import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.FieldService;
 import com.sustral.clientapi.services.types.NameValidation;
 import com.sustral.clientapi.services.types.ServiceReturn;
@@ -31,7 +31,7 @@ public class FieldServiceImpl implements FieldService {
     private Validator validator;
 
     @Autowired
-    private CustomUUIDGenerator uuidGenerator;
+    private IdGenerator idGenerator;
 
     /**
      * Validates a passed in name based on constraints in NameValidation.
@@ -92,8 +92,8 @@ public class FieldServiceImpl implements FieldService {
 
         FieldEntity field = new FieldEntity();
 
-        String uuid = uuidGenerator.generateUUID();
-        field.setId(uuid);
+        String newId = idGenerator.generateId();
+        field.setId(newId);
 
         field.setName(name);
 

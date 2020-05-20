@@ -2,10 +2,10 @@ package com.sustral.clientapi.services.impl;
 
 import com.sustral.clientapi.data.models.OrganizationEntity;
 import com.sustral.clientapi.data.repositories.OrganizationRepository;
+import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.OrganizationService;
 import com.sustral.clientapi.services.types.NameValidation;
 import com.sustral.clientapi.services.types.ServiceReturn;
-import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private Validator validator;
 
     @Autowired
-    private CustomUUIDGenerator uuidGenerator;
+    private IdGenerator idGenerator;
 
     /**
      * Validates a passed in name based on constraints in NameValidation.
@@ -74,8 +74,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         OrganizationEntity org = new OrganizationEntity();
 
-        String uuid = uuidGenerator.generateUUID();
-        org.setId(uuid);
+        String newId = idGenerator.generateId();
+        org.setId(newId);
 
         org.setName(name);
 

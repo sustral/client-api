@@ -2,7 +2,7 @@ package com.sustral.clientapi.services.impl;
 
 import com.sustral.clientapi.data.models.EmailConfirmationEntity;
 import com.sustral.clientapi.data.repositories.EmailConfirmationRepository;
-import com.sustral.clientapi.data.utils.CustomUUIDGenerator;
+import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.EmailConfirmationService;
 import com.sustral.clientapi.services.types.ServiceReturn;
 import com.sustral.clientapi.services.types.TokenWrapper;
@@ -26,7 +26,7 @@ public class EmailConfirmationServiceImpl implements EmailConfirmationService {
     private EmailConfirmationRepository ecRepository;
 
     @Autowired
-    private CustomUUIDGenerator uuidGenerator;
+    private IdGenerator idGenerator;
 
     @Override
     public ServiceReturn<EmailConfirmationEntity> getOneAndDeleteByToken(String token) {
@@ -57,18 +57,18 @@ public class EmailConfirmationServiceImpl implements EmailConfirmationService {
     @Override
     public ServiceReturn<TokenWrapper<String, EmailConfirmationEntity>> create(String userId, String email) {
 
-        String uuid = uuidGenerator.generateUUID();
-        String hashedUuid = DigestUtils.sha256Hex(uuid);
+        String newId = idGenerator.generateId(); // Sent to the user as the token
+        String hashedId = DigestUtils.sha256Hex(newId);
 
         EmailConfirmationEntity confirm = new EmailConfirmationEntity();
 
-        confirm.setToken(hashedUuid);
+        confirm.setToken(hashedId);
         confirm.setUserId(userId);
         confirm.setEmail(email);
 
         EmailConfirmationEntity updatedConfirm = ecRepository.save(confirm);
 
-        TokenWrapper<String, EmailConfirmationEntity> tw = new TokenWrapper<>(uuid, updatedConfirm);
+        TokenWrapper<String, EmailConfirmationEntity> tw = new TokenWrapper<>(newId, updatedConfirm);
 
         return new ServiceReturn<>(null, tw);
     }
