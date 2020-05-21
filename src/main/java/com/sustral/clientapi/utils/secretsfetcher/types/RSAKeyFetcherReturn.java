@@ -20,7 +20,7 @@ public class RSAKeyFetcherReturn {
     }
 
     public boolean isPresent() {
-        return (!keyId.isBlank() && key != null);
+        return (keyId != null && !keyId.isBlank() && key != null);
     }
 
     public String getKeyId() {

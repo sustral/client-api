@@ -32,7 +32,7 @@ public class ObjectServiceImpl implements ObjectService {
 
     @Override
     public ServiceReturn<Void> setOneById(String id, InputStream obj) {
-        if (id.isBlank() || (obj == null)) {
+        if (id == null || id.isBlank() || obj == null) {
             return new ServiceReturn<>("E0000", null);
         }
 

@@ -130,7 +130,7 @@ public class LocalRSAKeyFetcher implements RSAKeyFetcher {
     }
 
     private RSAKeyFetcherReturn fetchKey(String keyId, boolean privateKey) {
-        if (keyId.equals("current")) {
+        if (keyId != null && keyId.equals("current")) {
 
             KeyTuple kt = getMostRecentKeyPair();
             KeyPair kp = kt.getKP();
@@ -141,7 +141,7 @@ public class LocalRSAKeyFetcher implements RSAKeyFetcher {
                 return new RSAKeyFetcherReturn(id, k);
             }
 
-        } else if (!keyId.isBlank()) {
+        } else if (keyId != null && !keyId.isBlank()) {
 
             KeyPair kp = getKeyPairById(keyId);
             if (kp != null) { // keyId was already checked in the if statement
