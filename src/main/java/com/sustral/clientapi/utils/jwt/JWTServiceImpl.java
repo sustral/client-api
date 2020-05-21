@@ -133,15 +133,15 @@ public class JWTServiceImpl implements JWTService {
 
         // The below technique is not the one recommended by the JWT library
         // Check headers
-        if (headers.get("alg") != "PS256") { return null; }
+        if (!headers.get("alg").equals("PS256")) { return null; }
 
         // Check claims
-        if (claims.get("iss") != "com.sustral") { return null; }
+        if (!claims.get("iss").equals("com.sustral")) { return null; }
         if ((long) claims.get("exp") < System.currentTimeMillis()) { return null; }
 
         // Check custom claims
         for (Map.Entry<String, Object> entry: enforcedCustomClaims.entrySet()) {
-            if (claims.get(entry.getKey()) != entry.getValue()) { return null; }
+            if (!claims.get(entry.getKey()).equals(entry.getValue())) { return null; }
         }
 
         // At this point, the headers and claims are deemed valid
