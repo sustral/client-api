@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class PasswordResetImpl implements PasswordResetService {
 
-    private static final int SIX_HOURS = 6 * 60 * 60 * 1000; // Six hours in ms to use as a expiration cutoff
+    private static final long SIX_HOURS = 6 * 60 * 60 * 1000; // Six hours in ms to use as a expiration cutoff
 
     @Autowired
     private PasswordResetRepository resetRepository;

@@ -16,7 +16,7 @@ public class ServiceReturn<T> {
     }
 
     public boolean isError() {
-        return error.isBlank();
+        return (error.isBlank() || result == null);
     }
 
     public String getError() {

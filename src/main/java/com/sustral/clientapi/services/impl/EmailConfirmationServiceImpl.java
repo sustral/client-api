@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class EmailConfirmationServiceImpl implements EmailConfirmationService {
 
-    private static final int ONE_DAY = 24 * 60 * 60 * 1000; // One day in ms to be used as a cutoff
+    private static final long ONE_DAY = 24 * 60 * 60 * 1000; // One day in ms to be used as a cutoff
 
     @Autowired
     private EmailConfirmationRepository ecRepository;

@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class SessionServiceImpl implements SessionService {
 
-    private static final int FOUR_DAYS = 4 * 24 * 60 * 60 * 1000; // Four days in ms form to check age of session token
+    private static final long FOUR_DAYS = 4 * 24 * 60 * 60 * 1000; // Four days in ms form to check age of session token
 
     @Autowired
     private SessionRepository sessionRepository;
