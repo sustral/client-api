@@ -42,14 +42,6 @@ public class JWTServiceImpl implements JWTService {
             return null;
         }
 
-        /*
-        for (Map.Entry<String, Object> entry: customClaims.entrySet()) {
-            if (entry.getKey() == null || entry.getKey().isBlank() || entry.getValue() == null) {
-                return null;
-            }
-        }
-        */
-
         // Get a private rsa key and associated keyId
         RSAKeyFetcherReturn keyFetcherReturn = keyFetcher.fetchPrivateKey("current"); // most recent key works
         if (!keyFetcherReturn.isPresent()) { return null; }
@@ -93,25 +85,9 @@ public class JWTServiceImpl implements JWTService {
             return null;
         }
 
-        /*
-        for (Map.Entry<String, Object> entry: enforcedCustomClaims.entrySet()) {
-            if (entry.getKey() == null || entry.getKey().isBlank() || entry.getValue() == null) {
-                return null;
-            }
-        }
-        */
-
         if (claimsFilter == null) {
             return null;
         }
-
-        /*
-        for (String key: claimsFilter) {
-            if (key == null || key.isBlank()) {
-                return null;
-            }
-        }
-        */
 
         // Check JWT signature
         Jws<Claims> jws;

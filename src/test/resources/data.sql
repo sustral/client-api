@@ -3,12 +3,12 @@
 --
 
 INSERT INTO users
-    (id, email, name, auth, email_confirmed)
+    (id, email, name, auth, email_verified)
 VALUES
     ('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'user_a@example.com', 'user_a', '$2a$10$1u9fx7h.C1nE2t4i77pE7OUBT7Ggww.xdUpHQnvigjs6xe030/JNq', TRUE),
     ('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'user_b@example.com', 'user_b', '$2a$10$RBpwRJ6HT1mrmG1/gnUQ9OsCreda8bIafRjlnUa6sQOJP6o438RuC', FALSE),    -- a user who just changed their email
     ('cccccccccccccccccccccccccccccccc', 'user_c@example.com', 'user_c', '$2a$10$7iNqk8kQEVsRpy9Rb7SREeTB52ImmBe3hXKWs/gRSJ1WCtef/q2yi', TRUE),
-    ('dddddddddddddddddddddddddddddddd', 'user_d@example.com', 'user_d', '$2a$10$iRxeG4cdfQRbmvDvZm6ihOBbLaBm48bxPe8rGH3/Uslu.LoVFb0uG', FALSE);    -- a new user who has yet to confirm their email or create an org
+    ('dddddddddddddddddddddddddddddddd', 'user_d@example.com', 'user_d', '$2a$10$iRxeG4cdfQRbmvDvZm6ihOBbLaBm48bxPe8rGH3/Uslu.LoVFb0uG', FALSE);    -- a new user who has yet to verify their email or create an org
 
 -- The password for each user is the name concatenated with "_password". The auth given is that password hashed with SHA-256 and then encrypted with BCrypt.
 
@@ -105,24 +105,24 @@ VALUES
     ('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
 
 --
--- Email Confirmations
+-- Email Verifications
 --
 
 -- Timestamp definitions also used in Password Resets and Sessions
 SET @expiredTS := '2020-01-01 10:10:10';    -- Expiration checks are binary so the extent of expiration is irrelevant
 
 -- Expired Tokens
-INSERT INTO email_confirmations
+INSERT INTO email_verifications
     (token, user_id, email, created)
 VALUES
-    ('fbbbb6de2aa74c3c9570d2d8db1de31eadb66113c96034a7adb21243754d7683', 'dddddddddddddddddddddddddddddddd', 'user_d@example.com', @expiredTS); -- user_d's expired email confirmation token
+    ('fbbbb6de2aa74c3c9570d2d8db1de31eadb66113c96034a7adb21243754d7683', 'dddddddddddddddddddddddddddddddd', 'user_d@example.com', @expiredTS); -- user_d's expired email verification token
 
 -- Active Tokens (assuming testing was conducted within hours of data creation)
-INSERT INTO email_confirmations
+INSERT INTO email_verifications
     (token, user_id, email)
 VALUES
-    ('3ba3f5f43b92602683c19aee62a20342b084dd5971ddd33808d81a328879a547', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'wrong_user_a@example.com'),   -- user_a's active, but invalid, email confirmation token
-    ('bdb339768bc5e4fecbe55a442056919b2b325907d49bcbf3bf8de13781996a83', 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'user_b@example.com');         -- user_b's active email confirmation token
+    ('3ba3f5f43b92602683c19aee62a20342b084dd5971ddd33808d81a328879a547', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'wrong_user_a@example.com'),   -- user_a's active, but invalid, email verification token
+    ('bdb339768bc5e4fecbe55a442056919b2b325907d49bcbf3bf8de13781996a83', 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'user_b@example.com');         -- user_b's active email verification token
 
 -- The tokens' unhashed values are the ids of the users for the sake of easy testing. The hash function is SHA-256.
 

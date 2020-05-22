@@ -69,7 +69,7 @@ public interface UserService {
      *
      * Ensures that no other user has the same email.
      * Ensures that this is a valid email within length limits.
-     * Sets email confirmed to false, but it will not send an email or create a confirmation token.
+     * Sets emailVerified to false, but it will not send an email or create a verification token.
      *
      * @param user  a UserEntity
      * @param email a string email
@@ -90,12 +90,12 @@ public interface UserService {
     ServiceReturn<UserEntity> setPassword(UserEntity user, String password);
 
     /**
-     * Changes the status of email confirmed to true for the given user.
+     * Changes the status of emailVerified to true for the given user.
      *
      * @param user  a UserEntity
      * @return      a ServiceReturn where the result is of type UserEntity
      */
-    ServiceReturn<UserEntity> setEmailConfirmedTrue(UserEntity user);
+    ServiceReturn<UserEntity> setEmailVerifiedTrue(UserEntity user);
 
     // Utility Methods
 

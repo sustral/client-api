@@ -174,7 +174,7 @@ public class UserServiceImpl implements UserService {
         user.setName(name);
 
         user.setEmail(email);
-        user.setEmailConfirmed(Boolean.FALSE);
+        user.setEmailVerified(Boolean.FALSE);
 
         String newPassword = encryptPassword(password);
         user.setAuth(newPassword);
@@ -207,7 +207,7 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setEmail(email);
-        user.setEmailConfirmed(Boolean.FALSE);
+        user.setEmailVerified(Boolean.FALSE);
         UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
         return new ServiceReturn<>(null, updatedUser);
     }
@@ -226,8 +226,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServiceReturn<UserEntity> setEmailConfirmedTrue(UserEntity user) {
-        user.setEmailConfirmed(Boolean.TRUE);
+    public ServiceReturn<UserEntity> setEmailVerifiedTrue(UserEntity user) {
+        user.setEmailVerified(Boolean.TRUE);
         UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
         return new ServiceReturn<>(null, updatedUser);
     }

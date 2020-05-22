@@ -9,7 +9,7 @@ CREATE TABLE `users` (
   `email` varchar(320) NOT NULL,
   `name` varchar(100) NOT NULL,
   `auth` char(60) NOT NULL,
-  `email_confirmed` BOOLEAN NOT NULL DEFAULT FALSE,
+  `email_verified` BOOLEAN NOT NULL DEFAULT FALSE,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -133,12 +133,12 @@ CREATE TABLE `ffield_organization_relationships` (
   COLLATE utf8mb4_0900_bin;
 
 --
--- Table structure for table `email_confirmations`
+-- Table structure for table `email_verifications`
 --
 
-DROP TABLE IF EXISTS `email_confirmations`;
+DROP TABLE IF EXISTS `email_verifications`;
 
-CREATE TABLE `email_confirmations` (
+CREATE TABLE `email_verifications` (
   `token` char(64) NOT NULL,
   `user_id` char(32) NOT NULL,
   `email` varchar(320) NOT NULL,

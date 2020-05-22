@@ -12,7 +12,7 @@ DELETE FROM sessions WHERE TRUE=TRUE;
 
 DELETE FROM password_resets WHERE TRUE=TRUE;
 
-DELETE FROM email_confirmations WHERE TRUE=TRUE;
+DELETE FROM email_verifications WHERE TRUE=TRUE;
 
 DELETE FROM ffield_organization_relationships WHERE TRUE=TRUE;
 
