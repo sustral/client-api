@@ -1,7 +1,5 @@
 package com.sustral.clientapi.services;
 
-import com.sustral.clientapi.services.types.ServiceReturn;
-
 import java.io.InputStream;
 
 /**
@@ -18,9 +16,9 @@ public interface ObjectService {
      * The returned InputStream must be closed as soon as possible.
      *
      * @param id    a string id
-     * @return      a ServiceReturn with result InputStream containing the contents of the object
+     * @return      an InputStream containing the contents of the object; null if not found or error
      */
-    ServiceReturn<InputStream> getOneById(String id);
+    InputStream getOneById(String id);
 
     // Mutation Methods
 
@@ -29,9 +27,9 @@ public interface ObjectService {
      *
      * @param id    a string id
      * @param obj   an InputStream containing the object
-     * @return      a ServiceReturn with no result
+     * @return      an int; 0 if successful, negative otherwise
      */
-    ServiceReturn<Void> setOneById(String id, InputStream obj);
+    int setOneById(String id, InputStream obj);
 
     // Add overloads with different ways to input objects (eg. file)
 

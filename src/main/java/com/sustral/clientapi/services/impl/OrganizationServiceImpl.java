@@ -5,7 +5,6 @@ import com.sustral.clientapi.data.repositories.OrganizationRepository;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.OrganizationService;
 import com.sustral.clientapi.services.types.NameValidation;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,28 +47,22 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public ServiceReturn<OrganizationEntity> getOneById(String id) {
+    public OrganizationEntity getOneById(String id) {
         Optional<OrganizationEntity> org = organizationRepository.findById(id);
 
-        if (org.isPresent()) {
-            return new ServiceReturn<>(null, org.get());
-        }
-
-        return new ServiceReturn<>("E0000", null);
+        return org.orElse(null);
     }
 
     @Override
-    public ServiceReturn<List<OrganizationEntity>> getManyById(List<String> ids) {
-        List<OrganizationEntity> orgs = organizationRepository.findAllById(ids); // Guaranteed by JPARepository to not be null, but may be empty
-
-        return new ServiceReturn<>(null, orgs);
+    public List<OrganizationEntity> getManyById(List<String> ids) {
+        return organizationRepository.findAllById(ids); // Guaranteed by JPARepository to not be null, but may be empty
     }
 
     @Override
-    public ServiceReturn<OrganizationEntity> create(String name) {
+    public OrganizationEntity create(String name) {
 
         if (validateName(name) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         OrganizationEntity org = new OrganizationEntity();
@@ -79,20 +72,18 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         org.setName(name);
 
-        OrganizationEntity updatedOrg = organizationRepository.save(org); // Guaranteed to never be null
-        return new ServiceReturn<>(null, updatedOrg);
+        return organizationRepository.save(org); // Guaranteed to never be null
     }
 
     @Override
-    public ServiceReturn<OrganizationEntity> setName(OrganizationEntity org, String name) {
+    public OrganizationEntity setName(OrganizationEntity org, String name) {
 
         if (validateName(name) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         org.setName(name);
-        OrganizationEntity updatedOrg = organizationRepository.save(org); // Guaranteed to never be null
-        return new ServiceReturn<>(null, updatedOrg);
+        return organizationRepository.save(org); // Guaranteed to never be null
     }
 
 }

@@ -6,7 +6,6 @@ import com.sustral.clientapi.data.repositories.ScanRepository;
 import com.sustral.clientapi.data.types.ScanStatusE;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.ScanService;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import org.locationtech.jts.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,29 +28,23 @@ public class ScanServiceImpl implements ScanService {
     private IdGenerator idGenerator;
 
     @Override
-    public ServiceReturn<ScanEntity> getOneById(String fieldId, String scanId) {
+    public ScanEntity getOneById(String fieldId, String scanId) {
         ScanEntityPK id = new ScanEntityPK();
         id.setFieldId(fieldId);
         id.setId(scanId);
 
         Optional<ScanEntity> scan = scanRepository.findById(id);
 
-        if (scan.isPresent()) {
-            return new ServiceReturn<>(null, scan.get());
-        }
-
-        return new ServiceReturn<>("E0000", null);
+        return scan.orElse(null);
     }
 
     @Override
-    public ServiceReturn<List<ScanEntity>> getManyByFieldId(String fieldId) {
-        List<ScanEntity> scans = scanRepository.findAllByFieldId(fieldId);
-
-        return new ServiceReturn<>(null, scans);
+    public List<ScanEntity> getManyByFieldId(String fieldId) {
+        return scanRepository.findAllByFieldId(fieldId); // Guaranteed to not be null
     }
 
     @Override
-    public ServiceReturn<ScanEntity> create(String fieldId, Polygon coordinates) {
+    public ScanEntity create(String fieldId, Polygon coordinates) {
 
         ScanEntity scan = new ScanEntity();
 
@@ -64,8 +57,7 @@ public class ScanServiceImpl implements ScanService {
 
         scan.setScanStatus(ScanStatusE.PENDING_COLLECTION);
 
-        ScanEntity updatedScan =  scanRepository.save(scan);
-        return new ServiceReturn<>(null, updatedScan);
+        return scanRepository.save(scan); // Guaranteed to not be null
     }
 
 }

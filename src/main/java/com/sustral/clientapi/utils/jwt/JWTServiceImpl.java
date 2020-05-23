@@ -24,6 +24,9 @@ public class JWTServiceImpl implements JWTService {
     @Autowired
     private RSAKeyFetcher keyFetcher;
 
+    /**
+     * Helps retrieve the proper signing key since the same key is not used for every JWT.
+     */
     private class CustomSigningKeyResolver extends SigningKeyResolverAdapter {
         @Override
         public Key resolveSigningKey(JwsHeader jwsHeader, Claims claims) {

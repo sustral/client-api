@@ -2,7 +2,6 @@ package com.sustral.clientapi.services.impl;
 
 import com.sustral.clientapi.data.objects.ObjectRepository;
 import com.sustral.clientapi.services.ObjectService;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,29 +19,23 @@ public class ObjectServiceImpl implements ObjectService {
     private ObjectRepository objectRepository;
 
     @Override
-    public ServiceReturn<InputStream> getOneById(String id) {
-        InputStream obj = objectRepository.download(id);
-
-        if (obj == null) {
-            return new ServiceReturn<>("E0000", null);
-        }
-
-        return new ServiceReturn<>(null, obj);
+    public InputStream getOneById(String id) {
+        return objectRepository.download(id);
     }
 
     @Override
-    public ServiceReturn<Void> setOneById(String id, InputStream obj) {
+    public int setOneById(String id, InputStream obj) {
         if (id == null || id.isBlank() || obj == null) {
-            return new ServiceReturn<>("E0000", null);
+            return -1;
         }
 
         int error = objectRepository.upload(id, obj);
 
         if (error < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return -1;
         }
 
-        return new ServiceReturn<>(null, null);
+        return 0;
     }
 
 }

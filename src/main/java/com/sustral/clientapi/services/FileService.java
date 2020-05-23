@@ -2,7 +2,6 @@ package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.FileEntity;
 import com.sustral.clientapi.data.types.FileTypeE;
-import com.sustral.clientapi.services.types.ServiceReturn;
 
 import java.util.List;
 
@@ -20,18 +19,18 @@ public interface FileService {
      * @param fieldId   a string fieldId of the parent field
      * @param scanId    a string scanId of the parent scan
      * @param fileId    a string fileId
-     * @return          a ServiceReturn that contains a FileEntity
+     * @return          a FileEntity; null if not found or error
      */
-    ServiceReturn<FileEntity> getOneById(String fieldId, String scanId, String fileId);
+    FileEntity getOneById(String fieldId, String scanId, String fileId);
 
     /**
      * Returns a list of FileEntities that share a common parent scan.
      *
      * @param fieldId   a string fieldId of the parent field
      * @param scanId    a string scanId of the parent scan
-     * @return          a ServiceReturn containing a list of FileEntities
+     * @return          a list of FileEntities
      */
-    ServiceReturn<List<FileEntity>> getManyByScanId(String fieldId, String scanId);
+    List<FileEntity> getManyByScanId(String fieldId, String scanId);
 
     // Mutation Methods
 
@@ -41,9 +40,9 @@ public interface FileService {
      * @param fieldId   a string fieldId; the id of the parent field
      * @param scanId    a string scanId; the id of the parent scan
      * @param type      a FileTypeE indicating the type of stored file
-     * @return          a ServiceReturn containing the newly created FileEntity
+     * @return          the newly created FileEntity
      */
-    ServiceReturn<FileEntity> create(String fieldId, String scanId, FileTypeE type);
+    FileEntity create(String fieldId, String scanId, FileTypeE type);
 
     // Utilities
 
@@ -51,8 +50,8 @@ public interface FileService {
      * Returns the object store id for the given FileEntity.
      *
      * @param file  a FileEntity that has already been saved
-     * @return      a ServiceReturn containing the id in string form
+     * @return      the id in string form
      */
-    ServiceReturn<String> getObjectId(FileEntity file);
+    String getObjectId(FileEntity file);
 
 }

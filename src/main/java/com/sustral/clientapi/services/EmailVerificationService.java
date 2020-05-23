@@ -1,7 +1,6 @@
 package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.EmailVerificationEntity;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import com.sustral.clientapi.services.types.TokenWrapper;
 
 /**
@@ -18,9 +17,9 @@ public interface EmailVerificationService {
      * The Entity will then be deleted to prevent reuse.
      *
      * @param token a string token sent in by the user
-     * @return      a ServiceReturn containing an EmailVerificationEntity
+     * @return      an EmailVerificationEntity; null if not found or error
      */
-    ServiceReturn<EmailVerificationEntity> getOneAndDeleteByToken(String token);
+    EmailVerificationEntity getOneAndDeleteByToken(String token);
 
     // Mutation Methods
 
@@ -31,9 +30,9 @@ public interface EmailVerificationService {
      *
      * @param userId    a string userId
      * @param email     the email to be verified
-     * @return          a ServiceReturn containing a TokenWrapper
+     * @return          a TokenWrapper
      */
-    ServiceReturn<TokenWrapper<String, EmailVerificationEntity>> create(String userId, String email);
+    TokenWrapper<String, EmailVerificationEntity> create(String userId, String email);
 
     // Utilities
 

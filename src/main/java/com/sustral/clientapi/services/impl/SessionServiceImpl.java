@@ -4,7 +4,6 @@ import com.sustral.clientapi.data.models.SessionEntity;
 import com.sustral.clientapi.data.repositories.SessionRepository;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.SessionService;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import com.sustral.clientapi.services.types.TokenWrapper;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,33 +29,31 @@ public class SessionServiceImpl implements SessionService {
 
 
     @Override
-    public ServiceReturn<SessionEntity> findOneAndDeleteByToken(String token) {
+    public SessionEntity findOneAndDeleteByToken(String token) {
         String hashedToken = DigestUtils.sha256Hex(token);
 
         Optional<SessionEntity> session = sessionRepository.findById(hashedToken);
 
         if (session.isEmpty()) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
+
+        // Delete used token
+        sessionRepository.delete(session.get());
 
         // Check if the token is expired
         long created = session.get().getCreated().getTime();
         long cutoff = System.currentTimeMillis() - FOUR_DAYS;
 
         if (created < cutoff) {
-            sessionRepository.delete(session.get());
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
-        // Delete used token
-
-        sessionRepository.delete(session.get());
-
-        return new ServiceReturn<>(null, session.get());
+        return session.get();
     }
 
     @Override
-    public ServiceReturn<TokenWrapper<String, SessionEntity>> create(String userId) {
+    public TokenWrapper<String, SessionEntity> create(String userId) {
 
         String newId = idGenerator.generateId(); // This is sent to the user as a token
         String hashedId = DigestUtils.sha256Hex(newId);
@@ -66,11 +63,9 @@ public class SessionServiceImpl implements SessionService {
         session.setToken(hashedId);
         session.setUserId(userId);
 
-        SessionEntity updatedSession = sessionRepository.save(session);
+        SessionEntity updatedSession = sessionRepository.save(session); // Guaranteed to not be null
 
-        TokenWrapper<String, SessionEntity> tw = new TokenWrapper<>(newId, updatedSession);
-
-        return new ServiceReturn<>(null, tw);
+        return new TokenWrapper<>(newId, updatedSession);
     }
 
 }

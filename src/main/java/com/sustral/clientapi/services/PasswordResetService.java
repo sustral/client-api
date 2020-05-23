@@ -1,7 +1,6 @@
 package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.PasswordResetEntity;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import com.sustral.clientapi.services.types.TokenWrapper;
 
 /**
@@ -18,9 +17,9 @@ public interface PasswordResetService {
      * The entity will then be removed from the database so that it cannot be used again.
      *
      * @param token a string token sent in by the user
-     * @return      a ServiceReturn containing the PasswordResetEntity
+     * @return      a PasswordResetEntity; null if not found or error
      */
-    ServiceReturn<PasswordResetEntity> findOneAndDeleteByToken(String token);
+    PasswordResetEntity findOneAndDeleteByToken(String token);
 
     // Mutation Methods
 
@@ -30,9 +29,9 @@ public interface PasswordResetService {
      * Will not send the email to the user.
      *
      * @param userId    a string userId
-     * @return          a ServiceReturn containing a TokenWrapper
+     * @return          a TokenWrapper
      */
-    ServiceReturn<TokenWrapper<String, PasswordResetEntity>> create(String userId);
+    TokenWrapper<String, PasswordResetEntity> create(String userId);
 
     // Utilities
 

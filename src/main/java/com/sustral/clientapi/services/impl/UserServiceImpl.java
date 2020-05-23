@@ -7,7 +7,6 @@ import com.sustral.clientapi.services.UserService;
 import com.sustral.clientapi.services.types.EmailValidation;
 import com.sustral.clientapi.services.types.NameValidation;
 import com.sustral.clientapi.services.types.PasswordValidation;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -119,51 +118,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServiceReturn<UserEntity> getOneById(String id) {
+    public UserEntity getOneById(String id) {
         Optional<UserEntity> user = userRepository.findById(id);
 
-        if (user.isPresent()) {
-            return new ServiceReturn<>(null, user.get());
-        }
-
-        return new ServiceReturn<>("E0000", null);
+        return user.orElse(null);
     }
 
     @Override
-    public ServiceReturn<List<UserEntity>> getManyById(List<String> ids) {
-        List<UserEntity> users = userRepository.findAllById(ids); // Guaranteed by JPARepository to not be null, but may be empty
-
-        return new ServiceReturn<>(null, users);
+    public List<UserEntity> getManyById(List<String> ids) {
+        return userRepository.findAllById(ids); // Guaranteed by JPARepository to not be null, but may be empty
     }
 
     @Override
-    public ServiceReturn<UserEntity> getOneByEmail(String email) {
+    public UserEntity getOneByEmail(String email) {
         Optional<UserEntity> user = userRepository.findByEmail(email);
 
-        if (user.isPresent()) {
-            return new ServiceReturn<>(null, user.get());
-        }
-
-        return new ServiceReturn<>("E0000", null);
+        return user.orElse(null);
     }
 
     @Override
-    public ServiceReturn<UserEntity> create(String name, String email, String password) {
+    public UserEntity create(String name, String email, String password) {
 
         if (validateName(name) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         if (validateEmail(email) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         if (verifyUniqueEmail(email) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         if (validatePassword(password) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         UserEntity user = new UserEntity();
@@ -179,63 +168,57 @@ public class UserServiceImpl implements UserService {
         String newPassword = encryptPassword(password);
         user.setAuth(newPassword);
 
-        UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(null, updatedUser);
+        return userRepository.save(user); // Guaranteed to never be null
     }
 
     @Override
-    public ServiceReturn<UserEntity> setName(UserEntity user, String name) {
+    public UserEntity setName(UserEntity user, String name) {
 
         if (validateName(name) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         user.setName(name);
-        UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(null, updatedUser);
+        return userRepository.save(user); // Guaranteed to never be null
     }
 
     @Override
-    public ServiceReturn<UserEntity> setEmail(UserEntity user, String email) {
+    public UserEntity setEmail(UserEntity user, String email) {
 
         if (validateEmail(email) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         if (verifyUniqueEmail(email) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         user.setEmail(email);
         user.setEmailVerified(Boolean.FALSE);
-        UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(null, updatedUser);
+        return userRepository.save(user); // Guaranteed to never be null
     }
 
     @Override
-    public ServiceReturn<UserEntity> setPassword(UserEntity user, String password) {
+    public UserEntity setPassword(UserEntity user, String password) {
 
         if (validatePassword(password) < 0) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
         String newPassword = encryptPassword(password);
         user.setAuth(newPassword);
-        UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(null, updatedUser);
+        return userRepository.save(user); // Guaranteed to never be null
     }
 
     @Override
-    public ServiceReturn<UserEntity> setEmailVerifiedTrue(UserEntity user) {
+    public UserEntity setEmailVerifiedTrue(UserEntity user) {
         user.setEmailVerified(Boolean.TRUE);
-        UserEntity updatedUser = userRepository.save(user); // Guaranteed to never be null
-        return new ServiceReturn<>(null, updatedUser);
+        return userRepository.save(user); // Guaranteed to never be null
     }
 
     @Override
-    public ServiceReturn<Boolean> validateAuth(UserEntity user, String password) {
-        boolean validAuth = comparePasswords(user.getAuth(), password);
-        return new ServiceReturn<>(null, validAuth);
+    public boolean validateAuth(UserEntity user, String password) {
+        return comparePasswords(user.getAuth(), password);
     }
 
 }

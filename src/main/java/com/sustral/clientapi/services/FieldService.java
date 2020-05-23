@@ -1,7 +1,6 @@
 package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.FieldEntity;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import org.locationtech.jts.geom.Polygon;
 
 import java.util.List;
@@ -18,17 +17,17 @@ public interface FieldService {
      * Returns the field with the given id.
      *
      * @param id    a string id
-     * @return      a ServiceReturn with result type FieldEntity
+     * @return      a FieldEntity; null if not found or error
      */
-    ServiceReturn<FieldEntity> getOneById(String id);
+    FieldEntity getOneById(String id);
 
     /**
      * Returns the fields with the given ids.
      *
      * @param ids   a list of strings ids
-     * @return      a ServiceReturn where the result is a list of FieldEntities
+     * @return      a list of FieldEntities
      */
-    ServiceReturn<List<FieldEntity>> getManyById(List<String> ids);
+    List<FieldEntity> getManyById(List<String> ids);
 
     // Mutation Methods
 
@@ -41,9 +40,9 @@ public interface FieldService {
      *
      * @param name          a string name
      * @param coordinates   a JTS Polygon
-     * @return              a ServiceReturn with the new FieldEntity
+     * @return              the new FieldEntity
      */
-    ServiceReturn<FieldEntity> create(String name, Polygon coordinates);
+    FieldEntity create(String name, Polygon coordinates);
 
     /**
      * Changes the name of the given field.
@@ -52,9 +51,9 @@ public interface FieldService {
      *
      * @param field a FieldEntity field
      * @param name  a string name
-     * @return      a ServiceReturn with the updated FieldEntity
+     * @return      the updated FieldEntity
      */
-    ServiceReturn<FieldEntity> setName(FieldEntity field, String name);
+    FieldEntity setName(FieldEntity field, String name);
 
     /**
      * Changes the coordinates of the given field.
@@ -64,18 +63,18 @@ public interface FieldService {
      *
      * @param field         a FieldEntity
      * @param coordinates   a JTS Polygon
-     * @return              a ServiceReturn with the updated FieldEntity
+     * @return              the updated FieldEntity
      */
-    ServiceReturn<FieldEntity> setCoordinates(FieldEntity field, Polygon coordinates);
+    FieldEntity setCoordinates(FieldEntity field, Polygon coordinates);
 
     /**
      * Changes the approval status of the given field.
      *
      * @param field     a FieldEntity
      * @param approved  a boolean
-     * @return          a ServiceReturn with the updated FieldEntity
+     * @return          the updated FieldEntity
      */
-    ServiceReturn<FieldEntity> setApproved(FieldEntity field, boolean approved);
+    FieldEntity setApproved(FieldEntity field, boolean approved);
 
     // Utilities
 

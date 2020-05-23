@@ -1,7 +1,6 @@
 package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.UserEntity;
-import com.sustral.clientapi.services.types.ServiceReturn;
 
 import java.util.List;
 
@@ -17,25 +16,25 @@ public interface UserService {
      * Returns a user given an id.
      *
      * @param id    a string user id
-     * @return      a ServiceReturn where the result is of type UserEntity
+     * @return      a UserEntity, null if not found or error
      */
-    ServiceReturn<UserEntity> getOneById(String id);
+    UserEntity getOneById(String id);
 
     /**
      * Returns a list of users given a list of ids.
      *
      * @param ids   a List of string ids
-     * @return      a ServiceReturn where the result is a list of UserEntities
+     * @return      a list of UserEntities
      */
-    ServiceReturn<List<UserEntity>> getManyById(List<String> ids);
+    List<UserEntity> getManyById(List<String> ids);
 
     /**
      * Returns a user given a valid email.
      *
      * @param email a string email
-     * @return      a ServiceReturn where the result is of type UserEntity
+     * @return      a UserEntity, null if not found or error
      */
-    ServiceReturn<UserEntity> getOneByEmail(String email);
+    UserEntity getOneByEmail(String email);
 
     // Mutation Methods
 
@@ -49,9 +48,9 @@ public interface UserService {
      * @param name      a string name; something the user goes by
      * @param email     a string email
      * @param password  a string password
-     * @return          a ServiceReturn where the result is of type UserEntity
+     * @return          a UserEntity
      */
-    ServiceReturn<UserEntity> create(String name, String email, String password);
+    UserEntity create(String name, String email, String password);
 
     /**
      * Changes the name of the given user.
@@ -60,9 +59,9 @@ public interface UserService {
      *
      * @param user  a UserEntity
      * @param name  a string name
-     * @return      a ServiceReturn where the result is of type UserEntity
+     * @return      a UserEntity
      */
-    ServiceReturn<UserEntity> setName(UserEntity user, String name);
+    UserEntity setName(UserEntity user, String name);
 
     /**
      * Changes the email of the given user.
@@ -73,9 +72,9 @@ public interface UserService {
      *
      * @param user  a UserEntity
      * @param email a string email
-     * @return      a ServiceReturn where the result is of type UserEntity
+     * @return      a UserEntity
      */
-    ServiceReturn<UserEntity> setEmail(UserEntity user, String email);
+    UserEntity setEmail(UserEntity user, String email);
 
     /**
      * Changes the password of the given user.
@@ -85,17 +84,17 @@ public interface UserService {
      *
      * @param user      a UserEntity
      * @param password  a string password
-     * @return          a ServiceReturn where the result is of type UserEntity
+     * @return          a UserEntity
      */
-    ServiceReturn<UserEntity> setPassword(UserEntity user, String password);
+    UserEntity setPassword(UserEntity user, String password);
 
     /**
      * Changes the status of emailVerified to true for the given user.
      *
      * @param user  a UserEntity
-     * @return      a ServiceReturn where the result is of type UserEntity
+     * @return      a UserEntity
      */
-    ServiceReturn<UserEntity> setEmailVerifiedTrue(UserEntity user);
+    UserEntity setEmailVerifiedTrue(UserEntity user);
 
     // Utility Methods
 
@@ -106,7 +105,7 @@ public interface UserService {
      *
      * @param user      a UserEntity usually acquired from getUserByEmail
      * @param password  a string password submitted by the user
-     * @return          a ServiceReturn where the result is a Boolean
+     * @return          a boolean
      */
-    ServiceReturn<Boolean> validateAuth(UserEntity user, String password);
+    boolean validateAuth(UserEntity user, String password);
 }

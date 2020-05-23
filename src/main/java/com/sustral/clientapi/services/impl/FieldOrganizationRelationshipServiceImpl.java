@@ -4,7 +4,6 @@ import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntity;
 import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntityPK;
 import com.sustral.clientapi.data.repositories.FieldOrganizationRelationshipRepository;
 import com.sustral.clientapi.services.FieldOrganizationRelationshipService;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,42 +22,34 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
     private FieldOrganizationRelationshipRepository forRepository;
 
     @Override
-    public ServiceReturn<FieldOrganizationRelationshipEntity> getOneById(String fieldId, String orgId) {
+    public FieldOrganizationRelationshipEntity getOneById(String fieldId, String orgId) {
         FieldOrganizationRelationshipEntityPK id = new FieldOrganizationRelationshipEntityPK();
         id.setFieldId(fieldId);
         id.setOrganizationId(orgId);
 
         Optional<FieldOrganizationRelationshipEntity> fore = forRepository.findById(id);
 
-        if (fore.isPresent()) {
-            return new ServiceReturn<>(null, fore.get());
-        }
-
-        return new ServiceReturn<>("E0000", null);
+        return fore.orElse(null);
     }
 
     @Override
-    public ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByFieldId(String fieldId) {
-        List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByFieldId(fieldId); // Guaranteed to not be null
-        return new ServiceReturn<>(null, fors);
+    public List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId) {
+        return forRepository.findAllByFieldId(fieldId); // Guaranteed to not be null
     }
 
     @Override
-    public ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId) {
-        List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByOrganizationId(orgId); // Guaranteed to not be null
-        return new ServiceReturn<>(null, fors);
+    public List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId) {
+        return forRepository.findAllByOrganizationId(orgId); // Guaranteed to not be null
     }
 
     @Override
-    public ServiceReturn<FieldOrganizationRelationshipEntity> create(String fieldId, String orgId) {
+    public FieldOrganizationRelationshipEntity create(String fieldId, String orgId) {
 
         FieldOrganizationRelationshipEntity fore = new FieldOrganizationRelationshipEntity();
         fore.setFieldId(fieldId);
         fore.setOrganizationId(orgId);
 
-        FieldOrganizationRelationshipEntity updatedFore = forRepository.save(fore); // Guaranteed to not be null
-
-        return new ServiceReturn<>(null, updatedFore);
+        return forRepository.save(fore); // Guaranteed to not be null
     }
 
 }

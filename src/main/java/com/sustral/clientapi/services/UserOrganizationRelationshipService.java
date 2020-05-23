@@ -1,7 +1,6 @@
 package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.UserOrganizationRelationshipEntity;
-import com.sustral.clientapi.services.types.ServiceReturn;
 
 import java.util.List;
 
@@ -18,25 +17,25 @@ public interface UserOrganizationRelationshipService {
      *
      * @param userId    a string userId
      * @param orgId     a string orgId
-     * @return          a ServiceReturn where the result is a UOR
+     * @return          a UOR, null if not found or error
      */
-    ServiceReturn<UserOrganizationRelationshipEntity> getOneById(String userId, String orgId);
+    UserOrganizationRelationshipEntity getOneById(String userId, String orgId);
 
     /**
      * Gets the UORs of the given user.
      *
      * @param userId    a string userId
-     * @return          a ServiceReturn where the result is a list of UORs
+     * @return          a UORs
      */
-    ServiceReturn<List<UserOrganizationRelationshipEntity>> getManyByUserId(String userId);
+    List<UserOrganizationRelationshipEntity> getManyByUserId(String userId);
 
     /**
      * Gets the UORs of the given organization.
      *
      * @param orgId a string orgId
-     * @return      a ServiceReturn where the result is a list of UORs
+     * @return      a UORs
      */
-    ServiceReturn<List<UserOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId);
+    List<UserOrganizationRelationshipEntity> getManyByOrganizationId(String orgId);
 
     // Mutation Methods
 
@@ -45,9 +44,9 @@ public interface UserOrganizationRelationshipService {
      *
      * @param userId    a string userId
      * @param orgId     a string orgId
-     * @return          a ServiceReturn of type UOR
+     * @return          a UOR
      */
-    ServiceReturn<UserOrganizationRelationshipEntity> create(String userId, String orgId);
+    UserOrganizationRelationshipEntity create(String userId, String orgId);
 
     // Utilities
 

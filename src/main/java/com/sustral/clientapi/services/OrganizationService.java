@@ -1,7 +1,6 @@
 package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.OrganizationEntity;
-import com.sustral.clientapi.services.types.ServiceReturn;
 
 import java.util.List;
 
@@ -17,17 +16,17 @@ public interface OrganizationService {
      * Returns an organization given its id.
      *
      * @param id    a string id
-     * @return      a ServiceReturn where the result is of type OrganizationEntity
+     * @return      an OrganizationEntity; null if not found or error
      */
-    ServiceReturn<OrganizationEntity> getOneById(String id);
+    OrganizationEntity getOneById(String id);
 
     /**
      * Returns a list of organizations given a list of ids.
      *
      * @param ids   a list of string ids
-     * @return      a ServiceReturn where the result is a list of OrganizationEntities
+     * @return      a list of OrganizationEntities
      */
-    ServiceReturn<List<OrganizationEntity>> getManyById(List<String> ids);
+    List<OrganizationEntity> getManyById(List<String> ids);
 
     // Mutation Methods
 
@@ -37,9 +36,9 @@ public interface OrganizationService {
      * Ensures that the given name meets requirements.
      *
      * @param name  a string name
-     * @return      a ServiceReturn where the result is of type OrganizationEntity
+     * @return      a new OrganizationEntity
      */
-    ServiceReturn<OrganizationEntity> create(String name);
+    OrganizationEntity create(String name);
 
     /**
      * Updates the name of the given organization.
@@ -48,9 +47,9 @@ public interface OrganizationService {
      *
      * @param org   an OrganizationEntity
      * @param name  a string name
-     * @return      a ServiceReturn where the result is of type OrganizationEntity
+     * @return      a OrganizationEntity
      */
-    ServiceReturn<OrganizationEntity> setName(OrganizationEntity org, String name);
+    OrganizationEntity setName(OrganizationEntity org, String name);
 
     // Utilities
 

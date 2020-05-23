@@ -4,7 +4,6 @@ import com.sustral.clientapi.data.models.EmailVerificationEntity;
 import com.sustral.clientapi.data.repositories.EmailVerificationRepository;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.EmailVerificationService;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import com.sustral.clientapi.services.types.TokenWrapper;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,33 +28,31 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
     private IdGenerator idGenerator;
 
     @Override
-    public ServiceReturn<EmailVerificationEntity> getOneAndDeleteByToken(String token) {
+    public EmailVerificationEntity getOneAndDeleteByToken(String token) {
         String hashedToken = DigestUtils.sha256Hex(token);
 
         Optional<EmailVerificationEntity> verify = evRepository.findById(hashedToken);
 
         if (verify.isEmpty()) {
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
+
+        // Delete the used token
+        evRepository.delete(verify.get());
 
         // Check if the token is expired
         long created = verify.get().getCreated().getTime();
         long cutoff = System.currentTimeMillis() - ONE_DAY;
 
         if (created < cutoff) {
-            evRepository.delete(verify.get());
-            return new ServiceReturn<>("E0000", null);
+            return null;
         }
 
-        // Delete the used token
-
-        evRepository.delete(verify.get());
-
-        return new ServiceReturn<>(null, verify.get());
+        return verify.get();
     }
 
     @Override
-    public ServiceReturn<TokenWrapper<String, EmailVerificationEntity>> create(String userId, String email) {
+    public TokenWrapper<String, EmailVerificationEntity> create(String userId, String email) {
 
         String newId = idGenerator.generateId(); // Sent to the user as the token
         String hashedId = DigestUtils.sha256Hex(newId);
@@ -66,11 +63,9 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
         verify.setUserId(userId);
         verify.setEmail(email);
 
-        EmailVerificationEntity updatedVerify = evRepository.save(verify);
+        EmailVerificationEntity updatedVerify = evRepository.save(verify); // Guaranteed to not be null
 
-        TokenWrapper<String, EmailVerificationEntity> tw = new TokenWrapper<>(newId, updatedVerify);
-
-        return new ServiceReturn<>(null, tw);
+        return new TokenWrapper<>(newId, updatedVerify);
     }
 
 }

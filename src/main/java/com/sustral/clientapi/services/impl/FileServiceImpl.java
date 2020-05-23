@@ -7,7 +7,6 @@ import com.sustral.clientapi.data.types.FileTypeE;
 import com.sustral.clientapi.data.utils.fileextensionmap.FileExtensionMap;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.services.FileService;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class FileServiceImpl implements FileService {
     private FileExtensionMap fileExtensionMap;
 
     @Override
-    public ServiceReturn<FileEntity> getOneById(String fieldId, String scanId, String fileId) {
+    public FileEntity getOneById(String fieldId, String scanId, String fileId) {
         FileEntityPK id = new FileEntityPK();
         id.setFieldId(fieldId);
         id.setScanId(scanId);
@@ -40,22 +39,16 @@ public class FileServiceImpl implements FileService {
 
         Optional<FileEntity> file = fileRepository.findById(id);
 
-        if (file.isPresent()) {
-            return new ServiceReturn<>(null, file.get());
-        }
-
-        return new ServiceReturn<>("E0000", null);
+        return file.orElse(null);
     }
 
     @Override
-    public ServiceReturn<List<FileEntity>> getManyByScanId(String fieldId, String scanId) {
-        List<FileEntity> files = fileRepository.findAllByFieldIdAndScanId(fieldId, scanId);
-
-        return new ServiceReturn<>(null, files);
+    public List<FileEntity> getManyByScanId(String fieldId, String scanId) {
+        return fileRepository.findAllByFieldIdAndScanId(fieldId, scanId); // Guaranteed by JPARepository to not be null, but may be empty
     }
 
     @Override
-    public ServiceReturn<FileEntity> create(String fieldId, String scanId, FileTypeE type) {
+    public FileEntity create(String fieldId, String scanId, FileTypeE type) {
         FileEntity file = new FileEntity();
         file.setFieldId(fieldId);
         file.setScanId(scanId);
@@ -65,19 +58,15 @@ public class FileServiceImpl implements FileService {
 
         file.setFileType(type);
 
-        FileEntity updatedFile = fileRepository.save(file);
-        return new ServiceReturn<>(null, updatedFile);
+        return fileRepository.save(file); // Guaranteed to never be null
     }
 
     @Override
-    public ServiceReturn<String> getObjectId(FileEntity file) {
-
-        String id = file.getFieldId() + "/" +
+    public String getObjectId(FileEntity file) {
+        return file.getFieldId() + "/" +
                 file.getScanId() + "/" +
                 file.getId() +
                 fileExtensionMap.getExtension(file.getFileType());
-
-        return new ServiceReturn<>(null, id);
     }
 
 }

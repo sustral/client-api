@@ -1,7 +1,6 @@
 package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.ScanEntity;
-import com.sustral.clientapi.services.types.ServiceReturn;
 import org.locationtech.jts.geom.Polygon;
 
 import java.util.List;
@@ -19,17 +18,17 @@ public interface ScanService {
      *
      * @param fieldId   a string fieldId of the parent field
      * @param scanId    a string scanId
-     * @return          a ServiceReturn containing the ScanEntity
+     * @return          a ScanEntity; null if not found or error
      */
-    ServiceReturn<ScanEntity> getOneById(String fieldId, String scanId);
+    ScanEntity getOneById(String fieldId, String scanId);
 
     /**
      * Returns all scans that share a parent field.
      *
      * @param fieldId   a string fieldId of the parent field
-     * @return          a ServiceReturn containing a list of ScanEntities
+     * @return          a list of ScanEntities
      */
-    ServiceReturn<List<ScanEntity>> getManyByFieldId(String fieldId);
+    List<ScanEntity> getManyByFieldId(String fieldId);
 
     // Mutation Methods
 
@@ -38,9 +37,9 @@ public interface ScanService {
      *
      * @param fieldId       a string fieldId of the parent field
      * @param coordinates   a JTS Polygon coordinates of the parent field at the current time
-     * @return              a ServiceReturn containing the new ScanEntity
+     * @return              a new ScanEntity
      */
-    ServiceReturn<ScanEntity> create(String fieldId, Polygon coordinates);
+    ScanEntity create(String fieldId, Polygon coordinates);
 
     // Utilities
 

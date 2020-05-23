@@ -1,7 +1,6 @@
 package com.sustral.clientapi.services;
 
 import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntity;
-import com.sustral.clientapi.services.types.ServiceReturn;
 
 import java.util.List;
 
@@ -18,25 +17,25 @@ public interface FieldOrganizationRelationshipService {
      *
      * @param fieldId   a string fieldId
      * @param orgId     a string orgId
-     * @return          a ServiceReturn where the result is an FOR
+     * @return          an FOR; null if not found or error
      */
-    ServiceReturn<FieldOrganizationRelationshipEntity> getOneById(String fieldId, String orgId);
+    FieldOrganizationRelationshipEntity getOneById(String fieldId, String orgId);
 
     /**
      * Gets the FORs of the given field.
      *
      * @param fieldId   a string fieldId
-     * @return          a ServiceReturn where the result is a list of FORs
+     * @return          a list of FORs
      */
-    ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByFieldId(String fieldId);
+    List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId);
 
     /**
      * Gets the FORs of the given organization.
      *
      * @param orgId a string orgId
-     * @return      a ServiceReturn where the result is a list of FORs
+     * @return      a list of FORs
      */
-    ServiceReturn<List<FieldOrganizationRelationshipEntity>> getManyByOrganizationId(String orgId);
+    List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId);
 
     // Mutation Methods
 
@@ -45,9 +44,9 @@ public interface FieldOrganizationRelationshipService {
      *
      * @param fieldId   a string fieldId
      * @param orgId     a string orgId
-     * @return          a ServiceReturn of type FOR
+     * @return          the new FOR
      */
-    ServiceReturn<FieldOrganizationRelationshipEntity> create(String fieldId, String orgId);
+    FieldOrganizationRelationshipEntity create(String fieldId, String orgId);
 
     // Utilities
 
