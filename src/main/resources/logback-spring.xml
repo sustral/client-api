@@ -1,5 +1,5 @@
 <configuration>
-    <springProperty name="rollbar_access_token" source="rollbar.access_token"/>
+    <springProperty name="rollbarAccessToken" source="rollbar.accessToken"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -11,7 +11,7 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
         </filter>
-        <accessToken>${rollbar_access_token}</accessToken>
+        <accessToken>${rollbarAccessToken}</accessToken>
     </appender>
 
     <logger name="com.example.sustral.logback" level="debug" additivity="false">

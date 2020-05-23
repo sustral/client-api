@@ -14,6 +14,8 @@ repositories {
 }
 
 dependencies {
+    // SendGrid
+    implementation 'com.sendgrid:sendgrid-java:4.5.0'
     // Rollbar
     implementation 'com.rollbar:rollbar-logback:1.7.1'
     // AWS
