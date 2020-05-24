@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class PasswordEncoderConfiguration {
 
-    private PasswordEncoderConfiguration() {
+    public PasswordEncoderConfiguration() {
         // Not intended to be explicitly instantiated
     }
 

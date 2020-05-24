@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LoggerConfig {
 
-    private LoggerConfig() {
+    public LoggerConfig() {
         // Not intended to be explicitly instantiated
     }
 
