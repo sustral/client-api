@@ -3,9 +3,9 @@ package com.sustral.clientapi.controllers.helpers;
 import com.sustral.clientapi.controllers.types.tokensets.MobileTokens;
 import com.sustral.clientapi.data.models.SessionEntity;
 import com.sustral.clientapi.data.models.UserEntity;
-import com.sustral.clientapi.services.SessionService;
-import com.sustral.clientapi.services.types.TokenWrapper;
-import com.sustral.clientapi.utils.jwt.JWTService;
+import com.sustral.clientapi.dataservices.SessionService;
+import com.sustral.clientapi.dataservices.types.TokenWrapper;
+import com.sustral.clientapi.miscservices.jwt.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
