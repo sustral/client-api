@@ -23,7 +23,7 @@ public class PasswordEncoderConfiguration {
      * @return  a PasswordEncoder
      */
     @Bean
-    public static PasswordEncoder getPasswordEncoder() {
+    public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

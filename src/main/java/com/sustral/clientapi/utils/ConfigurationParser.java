@@ -18,7 +18,7 @@ public class ConfigurationParser {
      * @return      the long indicating a length of time in ms
      * @throws IllegalArgumentException if the given configuration value is not in a known format
      */
-    public static long parseTime(String val) throws IllegalArgumentException {
+    public static long parseTime(String val) {
 
         long value = Long.parseLong(val.substring(0, val.length()-1));
         char unit = val.charAt(val.length()-1);
