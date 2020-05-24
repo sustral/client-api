@@ -13,6 +13,11 @@ public class ScanEntityPK implements Serializable {
     private String id;
     private String fieldId;
 
+    public ScanEntityPK(String id, String fieldId) {
+        this.id = id;
+        this.fieldId = fieldId;
+    }
+
     @Column(name = "id", nullable = false, length = 32)
     @Id
     public String getId() {

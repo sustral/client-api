@@ -29,10 +29,7 @@ public class ScanServiceImpl implements ScanService {
 
     @Override
     public ScanEntity getOneById(String fieldId, String scanId) {
-        ScanEntityPK id = new ScanEntityPK();
-        id.setFieldId(fieldId);
-        id.setId(scanId);
-
+        ScanEntityPK id = new ScanEntityPK(scanId, fieldId);
         Optional<ScanEntity> scan = scanRepository.findById(id);
 
         return scan.orElse(null);

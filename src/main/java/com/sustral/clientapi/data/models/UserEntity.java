@@ -19,6 +19,8 @@ public class UserEntity {
     private Timestamp updated;
     private Boolean emailVerified;
 
+    public UserEntity() { }
+
     @Id
     @Column(name = "id", nullable = false, length = 32)
     public String getId() {

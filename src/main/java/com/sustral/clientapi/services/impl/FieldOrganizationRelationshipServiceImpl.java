@@ -23,10 +23,7 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
 
     @Override
     public FieldOrganizationRelationshipEntity getOneById(String fieldId, String orgId) {
-        FieldOrganizationRelationshipEntityPK id = new FieldOrganizationRelationshipEntityPK();
-        id.setFieldId(fieldId);
-        id.setOrganizationId(orgId);
-
+        FieldOrganizationRelationshipEntityPK id = new FieldOrganizationRelationshipEntityPK(fieldId, orgId);
         Optional<FieldOrganizationRelationshipEntity> fore = forRepository.findById(id);
 
         return fore.orElse(null);

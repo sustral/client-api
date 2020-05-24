@@ -14,6 +14,12 @@ public class FileEntityPK implements Serializable {
     private String scanId;
     private String fieldId;
 
+    public FileEntityPK(String id, String scanId, String fieldId) {
+        this.id = id;
+        this.scanId = scanId;
+        this.fieldId = fieldId;
+    }
+
     @Column(name = "id", nullable = false, length = 32)
     @Id
     public String getId() {

@@ -23,10 +23,7 @@ public class UserOrganizationRelationshipImpl implements UserOrganizationRelatio
 
     @Override
     public UserOrganizationRelationshipEntity getOneById(String userId, String orgId) {
-        UserOrganizationRelationshipEntityPK id = new UserOrganizationRelationshipEntityPK();
-        id.setUserId(userId);
-        id.setOrganizationId(orgId);
-
+        UserOrganizationRelationshipEntityPK id = new UserOrganizationRelationshipEntityPK(userId, orgId);
         Optional<UserOrganizationRelationshipEntity> uor = uorRepository.findById(id);
 
         return uor.orElse(null);

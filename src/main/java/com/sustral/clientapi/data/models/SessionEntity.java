@@ -15,6 +15,8 @@ public class SessionEntity {
     private String userId;
     private Timestamp created;
 
+    public SessionEntity() { }
+
     @Id
     @Column(name = "token", nullable = false, length = 64)
     public String getToken() {

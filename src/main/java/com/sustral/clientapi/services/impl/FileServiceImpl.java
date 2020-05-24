@@ -32,11 +32,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public FileEntity getOneById(String fieldId, String scanId, String fileId) {
-        FileEntityPK id = new FileEntityPK();
-        id.setFieldId(fieldId);
-        id.setScanId(scanId);
-        id.setId(fileId);
-
+        FileEntityPK id = new FileEntityPK(fileId, scanId, fieldId);
         Optional<FileEntity> file = fileRepository.findById(id);
 
         return file.orElse(null);

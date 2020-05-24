@@ -20,6 +20,8 @@ public class FieldEntity {
     private Timestamp updated;
     private Boolean approved;
 
+    public FieldEntity() { }
+
     @Id
     @Column(name = "id", nullable = false, length = 32)
     public String getId() {

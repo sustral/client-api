@@ -17,7 +17,7 @@ public class LoggerConfig {
      * Sets the default logger to the sustral logback logger defined in logback-spring.xml.
      */
     @Bean
-    public Logger getLogger() {
+    public static Logger getLogger() {
         return LoggerFactory.getLogger("com.example.sustral.logback");
     }
 

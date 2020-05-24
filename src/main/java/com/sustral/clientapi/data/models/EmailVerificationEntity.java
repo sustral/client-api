@@ -16,6 +16,8 @@ public class EmailVerificationEntity {
     private String email;
     private Timestamp created;
 
+    public EmailVerificationEntity() { }
+
     @Id
     @Column(name = "token", nullable = false, length = 64)
     public String getToken() {

@@ -16,6 +16,8 @@ public class OrganizationEntity {
     private Timestamp created;
     private Timestamp updated;
 
+    public OrganizationEntity() { }
+
     @Id
     @Column(name = "id", nullable = false, length = 32)
     public String getId() {

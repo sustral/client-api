@@ -17,6 +17,8 @@ public class UserOrganizationRelationshipEntity {
     private Timestamp created;
     private Timestamp updated;
 
+    public UserOrganizationRelationshipEntity() { }
+
     @Id
     @Column(name = "user_id", nullable = false, length = 32)
     public String getUserId() {

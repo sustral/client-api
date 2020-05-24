@@ -19,7 +19,7 @@ public class PasswordEncoderConfiguration {
      * @return  a PasswordEncoder
      */
     @Bean
-    public PasswordEncoder getPasswordEncoder() {
+    public static PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

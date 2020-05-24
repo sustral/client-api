@@ -17,6 +17,8 @@ public class FieldOrganizationRelationshipEntity {
     private Timestamp created;
     private Timestamp updated;
 
+    public FieldOrganizationRelationshipEntity() { }
+
     @Id
     @Column(name = "ffield_id", nullable = false, length = 32)
     public String getFieldId() {

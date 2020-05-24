@@ -22,6 +22,8 @@ public class ScanEntity {
     private ScanStatusE scanStatus;
     private Polygon coordinates;
 
+    public ScanEntity() { }
+
     @Id
     @Column(name = "id", nullable = false, length = 32)
     public String getId() {

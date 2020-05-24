@@ -15,6 +15,8 @@ public class PasswordResetEntity {
     private String userId;
     private Timestamp created;
 
+    public PasswordResetEntity() { }
+
     @Id
     @Column(name = "token", nullable = false, length = 64)
     public String getToken() {
