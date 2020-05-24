@@ -15,7 +15,20 @@ public class PasswordResetEntity {
     private String userId;
     private Timestamp created;
 
-    public PasswordResetEntity() { }
+    public PasswordResetEntity() {
+        // For the JPA
+    }
+
+    public PasswordResetEntity(String token, String userId) {
+        this.token = token;
+        this.userId = userId;
+    }
+
+    public PasswordResetEntity(String token, String userId, Timestamp created) {
+        this.token = token;
+        this.userId = userId;
+        this.created = created;
+    }
 
     @Id
     @Column(name = "token", nullable = false, length = 64)

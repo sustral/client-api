@@ -13,6 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class PasswordEncoderConfiguration {
 
+    private PasswordEncoderConfiguration() {
+        // Not intended to be explicitly instantiated
+    }
+
     /**
      * Sets the default passwordEncoder to a BCrypt encoder.
      *

@@ -17,7 +17,21 @@ public class UserOrganizationRelationshipEntity {
     private Timestamp created;
     private Timestamp updated;
 
-    public UserOrganizationRelationshipEntity() { }
+    public UserOrganizationRelationshipEntity() {
+        // For the JPA
+    }
+
+    public UserOrganizationRelationshipEntity(String userId, String organizationId) {
+        this.userId = userId;
+        this.organizationId = organizationId;
+    }
+
+    public UserOrganizationRelationshipEntity(String userId, String organizationId, Timestamp created, Timestamp updated) {
+        this.userId = userId;
+        this.organizationId = organizationId;
+        this.created = created;
+        this.updated = updated;
+    }
 
     @Id
     @Column(name = "user_id", nullable = false, length = 32)

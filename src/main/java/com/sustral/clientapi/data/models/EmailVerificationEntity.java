@@ -16,7 +16,22 @@ public class EmailVerificationEntity {
     private String email;
     private Timestamp created;
 
-    public EmailVerificationEntity() { }
+    public EmailVerificationEntity() {
+        // For the JPA
+    }
+
+    public EmailVerificationEntity(String token, String userId, String email) {
+        this.token = token;
+        this.userId = userId;
+        this.email = email;
+    }
+
+    public EmailVerificationEntity(String token, String userId, String email, Timestamp created) {
+        this.token = token;
+        this.userId = userId;
+        this.email = email;
+        this.created = created;
+    }
 
     @Id
     @Column(name = "token", nullable = false, length = 64)

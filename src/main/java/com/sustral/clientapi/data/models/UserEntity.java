@@ -19,7 +19,27 @@ public class UserEntity {
     private Timestamp updated;
     private Boolean emailVerified;
 
-    public UserEntity() { }
+    public UserEntity() {
+        // For the JPA
+    }
+
+    public UserEntity(String id, String email, String name, String auth, Boolean emailVerified) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.auth = auth;
+        this.emailVerified = emailVerified;
+    }
+
+    public UserEntity(String id, String email, String name, String auth, Timestamp created, Timestamp updated, Boolean emailVerified) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.auth = auth;
+        this.created = created;
+        this.updated = updated;
+        this.emailVerified = emailVerified;
+    }
 
     @Id
     @Column(name = "id", nullable = false, length = 32)

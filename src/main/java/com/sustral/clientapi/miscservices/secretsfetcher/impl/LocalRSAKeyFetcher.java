@@ -2,7 +2,9 @@ package com.sustral.clientapi.miscservices.secretsfetcher.impl;
 
 import com.sustral.clientapi.miscservices.secretsfetcher.RSAKeyFetcher;
 import com.sustral.clientapi.miscservices.secretsfetcher.types.RSAKeyFetcherReturn;
+import com.sustral.clientapi.utils.ConfigurationParser;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.*;
@@ -18,9 +20,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 @Component
 public class LocalRSAKeyFetcher implements RSAKeyFetcher {
-
-    private static final int KEY_SIZE = 2048; // Size of the RSA Keys
-    private static final long SIX_HOURS = 6 * 60 * 60 * 1000; // Six hours in ms
 
     // For the cache
     private final ReentrantReadWriteLock lock;
@@ -46,7 +45,13 @@ public class LocalRSAKeyFetcher implements RSAKeyFetcher {
         public void setKp(KeyPair kp) { this.kp = kp; }
     }
 
-    LocalRSAKeyFetcher() throws NoSuchAlgorithmException, NoSuchProviderException { // Throws exception if unable to initialize
+    // Should normally be instantiated as a singleton
+    public LocalRSAKeyFetcher(@Value("${sustral.security.rsaExpiration}") String rsaExpiryConfig,
+                               @Value("${sustral.security.rsaKeySize}") int rsaKeySize
+                              ) throws NoSuchAlgorithmException, NoSuchProviderException { // Throws exception if unable to initialize
+
+        long rsaExpiry = ConfigurationParser.parseTime(rsaExpiryConfig);
+
         lock = new ReentrantReadWriteLock();
         linkedList = new LinkedList<>();
         hashMap = new HashMap<>();
@@ -55,7 +60,7 @@ public class LocalRSAKeyFetcher implements RSAKeyFetcher {
 
         keyPairGenerator = KeyPairGenerator.getInstance("RSA", "BC");
         SecureRandom secureRandom = SecureRandom.getInstanceStrong();
-        keyPairGenerator.initialize(KEY_SIZE, secureRandom);
+        keyPairGenerator.initialize(rsaKeySize, secureRandom);
 
         // Will generate a new KeyPair every six hours until the application shuts down.
         // Any errors that shut down the timerTask will not interrupt user experience.
@@ -66,7 +71,7 @@ public class LocalRSAKeyFetcher implements RSAKeyFetcher {
             public void run() {
                 generateNewKeyPair();
             }
-        }, 0, SIX_HOURS);
+        }, 0, rsaExpiry);
 
     }
 

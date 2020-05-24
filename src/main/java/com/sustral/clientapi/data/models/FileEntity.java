@@ -21,7 +21,25 @@ public class FileEntity {
     private FileTypeE fileType;
     private String fieldId;
 
-    public FileEntity() { }
+    public FileEntity() {
+        // For the JPA
+    }
+
+    public FileEntity(String id, String scanId, FileTypeE fileType, String fieldId) {
+        this.id = id;
+        this.scanId = scanId;
+        this.fileType = fileType;
+        this.fieldId = fieldId;
+    }
+
+    public FileEntity(String id, String scanId, Timestamp created, Timestamp updated, FileTypeE fileType, String fieldId) {
+        this.id = id;
+        this.scanId = scanId;
+        this.created = created;
+        this.updated = updated;
+        this.fileType = fileType;
+        this.fieldId = fieldId;
+    }
 
     @Id
     @Column(name = "id", nullable = false, length = 32)

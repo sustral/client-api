@@ -5,8 +5,10 @@ import com.sustral.clientapi.data.repositories.PasswordResetRepository;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.dataservices.PasswordResetService;
 import com.sustral.clientapi.dataservices.types.TokenWrapper;
+import com.sustral.clientapi.utils.ConfigurationParser;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,15 +21,17 @@ import java.util.Optional;
 @Service
 public class PasswordResetImpl implements PasswordResetService {
 
-    private static final long SIX_HOURS = 6 * 60 * 60 * 1000; // Six hours in ms to use as a expiration cutoff
+    private final long prExpiry;
 
     private final PasswordResetRepository resetRepository;
     private final IdGenerator idGenerator;
 
     @Autowired
-    public PasswordResetImpl(PasswordResetRepository resetRepository, IdGenerator idGenerator) {
+    public PasswordResetImpl(PasswordResetRepository resetRepository, IdGenerator idGenerator,
+                             @Value("${sustral.security.passwordResetExpiration}") String prExpiryConfig) {
         this.resetRepository = resetRepository;
         this.idGenerator = idGenerator;
+        this.prExpiry = ConfigurationParser.parseTime(prExpiryConfig);
     }
 
     @Override
@@ -46,7 +50,7 @@ public class PasswordResetImpl implements PasswordResetService {
 
         // Expiration check
         long created = reset.get().getCreated().getTime();
-        long cutoff = System.currentTimeMillis() - SIX_HOURS;
+        long cutoff = System.currentTimeMillis() - prExpiry;
 
         if (created < cutoff) {
             return null;

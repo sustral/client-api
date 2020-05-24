@@ -15,7 +15,20 @@ public class SessionEntity {
     private String userId;
     private Timestamp created;
 
-    public SessionEntity() { }
+    public SessionEntity() {
+        // For the JPA
+    }
+
+    public SessionEntity(String token, String userId) {
+        this.token = token;
+        this.userId = userId;
+    }
+
+    public SessionEntity(String token, String userId, Timestamp created) {
+        this.token = token;
+        this.userId = userId;
+        this.created = created;
+    }
 
     @Id
     @Column(name = "token", nullable = false, length = 64)

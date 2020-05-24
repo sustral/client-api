@@ -13,7 +13,9 @@ public class UserOrganizationRelationshipEntityPK implements Serializable {
     private String userId;
     private String organizationId;
 
-    public UserOrganizationRelationshipEntityPK() { }
+    public UserOrganizationRelationshipEntityPK() {
+        // For the JPA
+    }
 
     public UserOrganizationRelationshipEntityPK(String userId, String organizationId) {
         this.userId = userId;

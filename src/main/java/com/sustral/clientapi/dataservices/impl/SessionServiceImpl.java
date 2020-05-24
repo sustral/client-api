@@ -5,8 +5,10 @@ import com.sustral.clientapi.data.repositories.SessionRepository;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.dataservices.SessionService;
 import com.sustral.clientapi.dataservices.types.TokenWrapper;
+import com.sustral.clientapi.utils.ConfigurationParser;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,15 +21,17 @@ import java.util.Optional;
 @Service
 public class SessionServiceImpl implements SessionService {
 
-    private static final long FOUR_DAYS = 4 * 24 * 60 * 60 * 1000; // Four days in ms form to check age of session token
+    private final long sessionExpiry;
 
     private final SessionRepository sessionRepository;
     private final IdGenerator idGenerator;
 
     @Autowired
-    public SessionServiceImpl(SessionRepository sessionRepository, IdGenerator idGenerator) {
+    public SessionServiceImpl(SessionRepository sessionRepository, IdGenerator idGenerator,
+                              @Value("${sustral.security.sessionExpiration}") String sessionExpiryConfig) {
         this.sessionRepository = sessionRepository;
         this.idGenerator = idGenerator;
+        this.sessionExpiry = ConfigurationParser.parseTime(sessionExpiryConfig);
     }
 
     @Override
@@ -45,7 +49,7 @@ public class SessionServiceImpl implements SessionService {
 
         // Check if the token is expired
         long created = session.get().getCreated().getTime();
-        long cutoff = System.currentTimeMillis() - FOUR_DAYS;
+        long cutoff = System.currentTimeMillis() - sessionExpiry;
 
         if (created < cutoff) {
             return null;

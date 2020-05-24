@@ -13,7 +13,9 @@ public class ScanEntityPK implements Serializable {
     private String id;
     private String fieldId;
 
-    public ScanEntityPK() { }
+    public ScanEntityPK() {
+        // For the JPA
+    }
 
     public ScanEntityPK(String id, String fieldId) {
         this.id = id;

@@ -17,7 +17,21 @@ public class FieldOrganizationRelationshipEntity {
     private Timestamp created;
     private Timestamp updated;
 
-    public FieldOrganizationRelationshipEntity() { }
+    public FieldOrganizationRelationshipEntity() {
+        // For the JPA
+    }
+
+    public FieldOrganizationRelationshipEntity(String fieldId, String organizationId) {
+        this.fieldId = fieldId;
+        this.organizationId = organizationId;
+    }
+
+    public FieldOrganizationRelationshipEntity(String fieldId, String organizationId, Timestamp created, Timestamp updated) {
+        this.fieldId = fieldId;
+        this.organizationId = organizationId;
+        this.created = created;
+        this.updated = updated;
+    }
 
     @Id
     @Column(name = "ffield_id", nullable = false, length = 32)

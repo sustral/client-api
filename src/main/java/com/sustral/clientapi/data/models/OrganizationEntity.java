@@ -16,7 +16,21 @@ public class OrganizationEntity {
     private Timestamp created;
     private Timestamp updated;
 
-    public OrganizationEntity() { }
+    public OrganizationEntity() {
+        // For the JPA
+    }
+
+    public OrganizationEntity(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public OrganizationEntity(String id, String name, Timestamp created, Timestamp updated) {
+        this.id = id;
+        this.name = name;
+        this.created = created;
+        this.updated = updated;
+    }
 
     @Id
     @Column(name = "id", nullable = false, length = 32)

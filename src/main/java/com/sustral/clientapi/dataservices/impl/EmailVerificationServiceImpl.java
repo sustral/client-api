@@ -5,8 +5,10 @@ import com.sustral.clientapi.data.repositories.EmailVerificationRepository;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.dataservices.EmailVerificationService;
 import com.sustral.clientapi.dataservices.types.TokenWrapper;
+import com.sustral.clientapi.utils.ConfigurationParser;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,15 +21,17 @@ import java.util.Optional;
 @Service
 public class EmailVerificationServiceImpl implements EmailVerificationService {
 
-    private static final long ONE_DAY = 24 * 60 * 60 * 1000; // One day in ms to be used as a cutoff
+    private final long evExpiry;
 
     private final EmailVerificationRepository evRepository;
     private final IdGenerator idGenerator;
 
     @Autowired
-    public EmailVerificationServiceImpl(EmailVerificationRepository evRepository, IdGenerator idGenerator) {
+    public EmailVerificationServiceImpl(EmailVerificationRepository evRepository, IdGenerator idGenerator,
+                                        @Value("${sustral.security.emailVerificationExpiration}") String evExpiryConfig) {
         this.evRepository = evRepository;
         this.idGenerator = idGenerator;
+        this.evExpiry = ConfigurationParser.parseTime(evExpiryConfig);
     }
 
     @Override
@@ -45,7 +49,7 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 
         // Check if the token is expired
         long created = verify.get().getCreated().getTime();
-        long cutoff = System.currentTimeMillis() - ONE_DAY;
+        long cutoff = System.currentTimeMillis() - evExpiry;
 
         if (created < cutoff) {
             return null;

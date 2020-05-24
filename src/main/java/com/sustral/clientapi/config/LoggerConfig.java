@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LoggerConfig {
 
+    private LoggerConfig() {
+        // Not intended to be explicitly instantiated
+    }
+
     /**
      * Sets the default logger to the sustral logback logger defined in logback-spring.xml.
      */

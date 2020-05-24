@@ -2,8 +2,10 @@ package com.sustral.clientapi.miscservices.jwt;
 
 import com.sustral.clientapi.miscservices.secretsfetcher.RSAKeyFetcher;
 import com.sustral.clientapi.miscservices.secretsfetcher.types.RSAKeyFetcherReturn;
+import com.sustral.clientapi.utils.ConfigurationParser;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -19,8 +21,7 @@ import java.util.Map;
 @Service
 public class JWTServiceImpl implements JWTService {
 
-    private static final long FIFTEEN_MINUTES = 1000 * 60 * 15; // fifteen minutes in ms
-
+    private final long jwtExpiry;
     private final RSAKeyFetcher keyFetcher;
 
     /**
@@ -37,8 +38,10 @@ public class JWTServiceImpl implements JWTService {
     }
 
     @Autowired
-    public JWTServiceImpl(RSAKeyFetcher keyFetcher) {
+    public JWTServiceImpl(RSAKeyFetcher keyFetcher,
+                          @Value("${sustral.security.jwtExpiration}") String jwtExpiryConfig) {
         this.keyFetcher = keyFetcher;
+        this.jwtExpiry = ConfigurationParser.parseTime(jwtExpiryConfig);
     }
 
     @Override
@@ -62,7 +65,7 @@ public class JWTServiceImpl implements JWTService {
 
         // Create JWT Claims
         long currTime = System.currentTimeMillis();
-        long expTime = currTime + FIFTEEN_MINUTES;
+        long expTime = currTime + jwtExpiry;
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("iss", "com.sustral");

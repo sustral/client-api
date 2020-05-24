@@ -22,7 +22,25 @@ public class ScanEntity {
     private ScanStatusE scanStatus;
     private Polygon coordinates;
 
-    public ScanEntity() { }
+    public ScanEntity() {
+        // For the JPA
+    }
+
+    public ScanEntity(String id, String fieldId, ScanStatusE scanStatus, Polygon coordinates) {
+        this.id = id;
+        this.fieldId = fieldId;
+        this.scanStatus = scanStatus;
+        this.coordinates = coordinates;
+    }
+
+    public ScanEntity(String id, String fieldId, Timestamp created, Timestamp updated, ScanStatusE scanStatus, Polygon coordinates) {
+        this.id = id;
+        this.fieldId = fieldId;
+        this.created = created;
+        this.updated = updated;
+        this.scanStatus = scanStatus;
+        this.coordinates = coordinates;
+    }
 
     @Id
     @Column(name = "id", nullable = false, length = 32)

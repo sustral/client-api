@@ -20,7 +20,25 @@ public class FieldEntity {
     private Timestamp updated;
     private Boolean approved;
 
-    public FieldEntity() { }
+    public FieldEntity() {
+        // For the JPA
+    }
+
+    public FieldEntity(String id, String name, Polygon coordinates, Boolean approved) {
+        this.id = id;
+        this.name = name;
+        this.coordinates = coordinates;
+        this.approved = approved;
+    }
+
+    public FieldEntity(String id, String name, Polygon coordinates, Timestamp created, Timestamp updated, Boolean approved) {
+        this.id = id;
+        this.name = name;
+        this.coordinates = coordinates;
+        this.created = created;
+        this.updated = updated;
+        this.approved = approved;
+    }
 
     @Id
     @Column(name = "id", nullable = false, length = 32)
