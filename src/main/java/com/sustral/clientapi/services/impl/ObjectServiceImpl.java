@@ -15,8 +15,12 @@ import java.io.InputStream;
 @Service
 public class ObjectServiceImpl implements ObjectService {
 
+    private final ObjectRepository objectRepository;
+
     @Autowired
-    private ObjectRepository objectRepository;
+    public ObjectServiceImpl(ObjectRepository objectRepository) {
+        this.objectRepository = objectRepository;
+    }
 
     @Override
     public InputStream getOneById(String id) {

@@ -21,8 +21,7 @@ public class JWTServiceImpl implements JWTService {
 
     private static final long FIFTEEN_MINUTES = 1000 * 60 * 15; // fifteen minutes in ms
 
-    @Autowired
-    private RSAKeyFetcher keyFetcher;
+    private final RSAKeyFetcher keyFetcher;
 
     /**
      * Helps retrieve the proper signing key since the same key is not used for every JWT.
@@ -35,6 +34,11 @@ public class JWTServiceImpl implements JWTService {
             if (!keyFetcherReturn.isPresent()) { return null; } // Will cause an exception to be thrown
             return keyFetcherReturn.getKey();
         }
+    }
+
+    @Autowired
+    public JWTServiceImpl(RSAKeyFetcher keyFetcher) {
+        this.keyFetcher = keyFetcher;
     }
 
     @Override

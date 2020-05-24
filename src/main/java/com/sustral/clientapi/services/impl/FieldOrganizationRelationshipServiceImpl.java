@@ -18,8 +18,12 @@ import java.util.Optional;
 @Service
 public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizationRelationshipService {
 
+    private final FieldOrganizationRelationshipRepository forRepository;
+
     @Autowired
-    private FieldOrganizationRelationshipRepository forRepository;
+    public FieldOrganizationRelationshipServiceImpl(FieldOrganizationRelationshipRepository forRepository) {
+        this.forRepository = forRepository;
+    }
 
     @Override
     public FieldOrganizationRelationshipEntity getOneById(String fieldId, String orgId) {

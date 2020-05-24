@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,26 +26,22 @@ import java.io.InputStream;
 @Component
 public class AmazonS3Repository implements ObjectRepository {
 
-    // Defined in application.properties
-    @Value("${aws.accessKey}")
-    private String awsAccessKey;
-    @Value("${aws.secretKey}")
-    private String awsSecretKey;
-    @Value("${aws.region}")
-    private String awsRegion;
-    @Value("${aws.bucketName}")
-    private String awsBucketName;
+    private final String awsBucketName;
 
-    private AmazonS3 s3Client;
+    private final AmazonS3 s3Client;
+
+    private final Logger logger;
 
     @Autowired
-    private Logger logger;
+    public AmazonS3Repository(Logger logger,
+                              @Value("${aws.accessKey}") String awsAccessKey,
+                              @Value("${aws.secretKey}")String awsSecretKey,
+                              @Value("${aws.region}") String awsRegion,
+                              @Value("${aws.bucketName}") String awsBucketName) {
 
-    /**
-     * Initializes Amazon S3 Client from configuration files.
-     */
-    @PostConstruct
-    public void init() {
+        this.awsBucketName = awsBucketName;
+        this.logger = logger;
+
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
         s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))

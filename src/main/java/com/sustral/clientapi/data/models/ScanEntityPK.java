@@ -13,6 +13,8 @@ public class ScanEntityPK implements Serializable {
     private String id;
     private String fieldId;
 
+    public ScanEntityPK() { }
+
     public ScanEntityPK(String id, String fieldId) {
         this.id = id;
         this.fieldId = fieldId;

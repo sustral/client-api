@@ -13,6 +13,8 @@ public class FieldOrganizationRelationshipEntityPK implements Serializable {
     private String fieldId;
     private String organizationId;
 
+    public FieldOrganizationRelationshipEntityPK() { }
+
     public FieldOrganizationRelationshipEntityPK(String fieldId, String organizationId) {
         this.fieldId = fieldId;
         this.organizationId = organizationId;

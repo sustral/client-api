@@ -26,17 +26,18 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final Validator validator;
+    private final IdGenerator idGenerator;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private Validator validator;
-
-    @Autowired
-    private IdGenerator idGenerator;
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, Validator validator, IdGenerator idGenerator) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.validator = validator;
+        this.idGenerator = idGenerator;
+    }
 
     /**
      * Validates a passed in name based on constraints in NameValidation.

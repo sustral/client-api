@@ -13,6 +13,8 @@ public class UserOrganizationRelationshipEntityPK implements Serializable {
     private String userId;
     private String organizationId;
 
+    public UserOrganizationRelationshipEntityPK() { }
+
     public UserOrganizationRelationshipEntityPK(String userId, String organizationId) {
         this.userId = userId;
         this.organizationId = organizationId;

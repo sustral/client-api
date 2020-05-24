@@ -21,14 +21,16 @@ import java.util.Optional;
 @Service
 public class FileServiceImpl implements FileService {
 
-    @Autowired
-    private FileRepository fileRepository;
+    private final FileRepository fileRepository;
+    private final IdGenerator idGenerator;
+    private final FileExtensionMap fileExtensionMap;
 
     @Autowired
-    private IdGenerator idGenerator;
-
-    @Autowired
-    private FileExtensionMap fileExtensionMap;
+    public FileServiceImpl(FileRepository fileRepository, IdGenerator idGenerator, FileExtensionMap fileExtensionMap) {
+        this.fileRepository = fileRepository;
+        this.idGenerator = idGenerator;
+        this.fileExtensionMap = fileExtensionMap;
+    }
 
     @Override
     public FileEntity getOneById(String fieldId, String scanId, String fileId) {

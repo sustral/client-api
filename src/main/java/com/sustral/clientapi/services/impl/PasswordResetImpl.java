@@ -21,11 +21,14 @@ public class PasswordResetImpl implements PasswordResetService {
 
     private static final long SIX_HOURS = 6 * 60 * 60 * 1000; // Six hours in ms to use as a expiration cutoff
 
-    @Autowired
-    private PasswordResetRepository resetRepository;
+    private final PasswordResetRepository resetRepository;
+    private final IdGenerator idGenerator;
 
     @Autowired
-    private IdGenerator idGenerator;
+    public PasswordResetImpl(PasswordResetRepository resetRepository, IdGenerator idGenerator) {
+        this.resetRepository = resetRepository;
+        this.idGenerator = idGenerator;
+    }
 
     @Override
     public PasswordResetEntity findOneAndDeleteByToken(String token) {

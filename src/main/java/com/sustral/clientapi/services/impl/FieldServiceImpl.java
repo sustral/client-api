@@ -23,14 +23,16 @@ import java.util.Set;
 @Service
 public class FieldServiceImpl implements FieldService {
 
-    @Autowired
-    private FieldRepository fieldRepository;
+    private final FieldRepository fieldRepository;
+    private final Validator validator;
+    private final IdGenerator idGenerator;
 
     @Autowired
-    private Validator validator;
-
-    @Autowired
-    private IdGenerator idGenerator;
+    public FieldServiceImpl(FieldRepository fieldRepository, Validator validator, IdGenerator idGenerator) {
+        this.fieldRepository = fieldRepository;
+        this.validator = validator;
+        this.idGenerator = idGenerator;
+    }
 
     /**
      * Validates a passed in name based on constraints in NameValidation.

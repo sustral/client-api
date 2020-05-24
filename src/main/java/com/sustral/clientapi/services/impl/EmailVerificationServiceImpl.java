@@ -21,11 +21,14 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 
     private static final long ONE_DAY = 24 * 60 * 60 * 1000; // One day in ms to be used as a cutoff
 
-    @Autowired
-    private EmailVerificationRepository evRepository;
+    private final EmailVerificationRepository evRepository;
+    private final IdGenerator idGenerator;
 
     @Autowired
-    private IdGenerator idGenerator;
+    public EmailVerificationServiceImpl(EmailVerificationRepository evRepository, IdGenerator idGenerator) {
+        this.evRepository = evRepository;
+        this.idGenerator = idGenerator;
+    }
 
     @Override
     public EmailVerificationEntity getOneAndDeleteByToken(String token) {

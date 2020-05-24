@@ -14,6 +14,8 @@ public class FileEntityPK implements Serializable {
     private String scanId;
     private String fieldId;
 
+    public FileEntityPK() { }
+
     public FileEntityPK(String id, String scanId, String fieldId) {
         this.id = id;
         this.scanId = scanId;

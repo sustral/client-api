@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,55 +26,53 @@ import java.util.Map;
 public class SendGridEmailService implements EmailService {
 
     // Begin properties values
-
-    @Value("${sendgrid.apiKey}")
-    private String sendGridApiKey;
-
-    @Value("${sendgrid.templateIdWelcome}")
-    private String templateIdWelcome;
-
-    @Value("${sendgrid.templateIdVerification}")
-    private String templateIdVerification;
-
-    @Value("${sendgrid.templateIdPasswordReset}")
-    private String templateIdPasswordReset;
-
-    @Value("${sendgrid.welcomeTemplateNameKey}")
-    private String welcomeTemplateNameKey;
-
-    @Value("${sendgrid.verificationTemplateNameKey}")
-    private String verificationTemplateNameKey;
-
-    @Value("${sendgrid.verificationTemplateLinkKey}")
-    private String verificationTemplateLinkKey;
-
-    @Value("${sendgrid.passwordResetTemplateNameKey}")
-    private String passwordResetTemplateNameKey;
-
-    @Value("${sendgrid.passwordResetTemplateLinkKey}")
-    private String passwordResetTemplateLinkKey;
-
-    @Value("${emailService.defaultEmail}")
-    private String defaultEmail;
-
-    @Value("${emailService.defaultEmailName}")
-    private String defaultEmailName;
-
-    @Value("${apiPaths.verificationBase}")
-    private String apiPathsVerificationBase;
-
-    @Value("${apiPaths.passwordResetBase}")
-    private String apiPathsPasswordResetBase;
-
+    private final String templateIdWelcome;
+    private final String templateIdVerification;
+    private final String templateIdPasswordReset;
+    private final String welcomeTemplateNameKey;
+    private final String verificationTemplateNameKey;
+    private final String verificationTemplateLinkKey;
+    private final String passwordResetTemplateNameKey;
+    private final String passwordResetTemplateLinkKey;
+    private final String defaultEmail;
+    private final String defaultEmailName;
+    private final String apiPathsVerificationBase;
+    private final String apiPathsPasswordResetBase;
     // End properties values
 
-    private SendGrid sendGrid;
+    private final SendGrid sendGrid;
+    private final Logger logger;
 
     @Autowired
-    private Logger logger;
+    public SendGridEmailService(Logger logger,
+                                @Value("${sendgrid.apiKey}") String sendGridApiKey,
+                                @Value("${sendgrid.templateIdWelcome}") String templateIdWelcome,
+                                @Value("${sendgrid.templateIdVerification}") String templateIdVerification,
+                                @Value("${sendgrid.templateIdPasswordReset}") String templateIdPasswordReset,
+                                @Value("${sendgrid.welcomeTemplateNameKey}") String welcomeTemplateNameKey,
+                                @Value("${sendgrid.verificationTemplateNameKey}") String verificationTemplateNameKey,
+                                @Value("${sendgrid.verificationTemplateLinkKey}") String verificationTemplateLinkKey,
+                                @Value("${sendgrid.passwordResetTemplateNameKey}") String passwordResetTemplateNameKey,
+                                @Value("${sendgrid.passwordResetTemplateLinkKey}") String passwordResetTemplateLinkKey,
+                                @Value("${emailService.defaultEmail}") String defaultEmail,
+                                @Value("${emailService.defaultEmailName}") String defaultEmailName,
+                                @Value("${apiPaths.verificationBase}") String apiPathsVerificationBase,
+                                @Value("${apiPaths.passwordResetBase}") String apiPathsPasswordResetBase) {
 
-    @PostConstruct
-    public void initSendGrid() {
+        this.templateIdWelcome = templateIdWelcome;
+        this.templateIdVerification = templateIdVerification;
+        this.templateIdPasswordReset = templateIdPasswordReset;
+        this.welcomeTemplateNameKey = welcomeTemplateNameKey;
+        this.verificationTemplateNameKey = verificationTemplateNameKey;
+        this.verificationTemplateLinkKey = verificationTemplateLinkKey;
+        this.passwordResetTemplateNameKey = passwordResetTemplateNameKey;
+        this.passwordResetTemplateLinkKey = passwordResetTemplateLinkKey;
+        this.defaultEmail = defaultEmail;
+        this.defaultEmailName = defaultEmailName;
+        this.apiPathsVerificationBase = apiPathsVerificationBase;
+        this.apiPathsPasswordResetBase = apiPathsPasswordResetBase;
+        this.logger = logger;
+
         sendGrid = new SendGrid(sendGridApiKey);
     }
 

@@ -21,11 +21,14 @@ import java.util.Optional;
 @Service
 public class ScanServiceImpl implements ScanService {
 
-    @Autowired
-    private ScanRepository scanRepository;
+    private final ScanRepository scanRepository;
+    private final IdGenerator idGenerator;
 
     @Autowired
-    private IdGenerator idGenerator;
+    public ScanServiceImpl(ScanRepository scanRepository, IdGenerator idGenerator) {
+        this.scanRepository = scanRepository;
+        this.idGenerator = idGenerator;
+    }
 
     @Override
     public ScanEntity getOneById(String fieldId, String scanId) {

@@ -21,12 +21,14 @@ public class SessionServiceImpl implements SessionService {
 
     private static final long FOUR_DAYS = 4 * 24 * 60 * 60 * 1000; // Four days in ms form to check age of session token
 
-    @Autowired
-    private SessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;
+    private final IdGenerator idGenerator;
 
     @Autowired
-    private IdGenerator idGenerator;
-
+    public SessionServiceImpl(SessionRepository sessionRepository, IdGenerator idGenerator) {
+        this.sessionRepository = sessionRepository;
+        this.idGenerator = idGenerator;
+    }
 
     @Override
     public SessionEntity findOneAndDeleteByToken(String token) {

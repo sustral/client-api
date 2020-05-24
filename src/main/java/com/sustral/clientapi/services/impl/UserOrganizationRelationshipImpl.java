@@ -18,8 +18,12 @@ import java.util.Optional;
 @Service
 public class UserOrganizationRelationshipImpl implements UserOrganizationRelationshipService {
 
+    private final UserOrganizationRelationshipRepository uorRepository;
+
     @Autowired
-    private UserOrganizationRelationshipRepository uorRepository;
+    public UserOrganizationRelationshipImpl(UserOrganizationRelationshipRepository uorRepository) {
+        this.uorRepository = uorRepository;
+    }
 
     @Override
     public UserOrganizationRelationshipEntity getOneById(String userId, String orgId) {

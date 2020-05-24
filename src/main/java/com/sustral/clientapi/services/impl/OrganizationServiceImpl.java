@@ -22,14 +22,16 @@ import java.util.Set;
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 
-    @Autowired
-    private OrganizationRepository organizationRepository;
+    private final OrganizationRepository organizationRepository;
+    private final Validator validator;
+    private final IdGenerator idGenerator;
 
     @Autowired
-    private Validator validator;
-
-    @Autowired
-    private IdGenerator idGenerator;
+    public OrganizationServiceImpl(OrganizationRepository organizationRepository, Validator validator, IdGenerator idGenerator) {
+        this.organizationRepository = organizationRepository;
+        this.validator = validator;
+        this.idGenerator = idGenerator;
+    }
 
     /**
      * Validates a passed in name based on constraints in NameValidation.
