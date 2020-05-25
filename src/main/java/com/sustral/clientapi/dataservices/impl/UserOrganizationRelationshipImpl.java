@@ -44,7 +44,7 @@ public class UserOrganizationRelationshipImpl implements UserOrganizationRelatio
 
         for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
             List<UserOrganizationRelationshipEntity> scans = uorRepository.findAllByUserId(userId, PageRequest.of(i, PAGE_SIZE));
-            if (scans == null || scans.size() == 0) { break; }
+            if (scans == null || scans.isEmpty()) { break; }
             paginationManager.addPage(scans);
         }
 
@@ -58,7 +58,7 @@ public class UserOrganizationRelationshipImpl implements UserOrganizationRelatio
 
         for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
             List<UserOrganizationRelationshipEntity> scans = uorRepository.findAllByOrganizationId(orgId, PageRequest.of(i, PAGE_SIZE));
-            if (scans == null || scans.size() == 0) { break; }
+            if (scans == null || scans.isEmpty()) { break; }
             paginationManager.addPage(scans);
         }
 

@@ -44,7 +44,7 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
 
         for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
             List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByFieldId(fieldId, PageRequest.of(i, PAGE_SIZE));
-            if (fors == null || fors.size() == 0) { break; }
+            if (fors == null || fors.isEmpty()) { break; }
             paginationManager.addPage(fors);
         }
 
@@ -58,7 +58,7 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
 
         for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
             List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByOrganizationId(orgId, PageRequest.of(i, PAGE_SIZE));
-            if (fors == null || fors.size() == 0) { break; }
+            if (fors == null || fors.isEmpty()) { break; }
             paginationManager.addPage(fors);
         }
 

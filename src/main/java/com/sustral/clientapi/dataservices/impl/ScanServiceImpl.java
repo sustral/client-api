@@ -49,7 +49,7 @@ public class ScanServiceImpl implements ScanService {
 
         for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
             List<ScanEntity> scans = scanRepository.findAllByFieldId(fieldId, PageRequest.of(i, PAGE_SIZE));
-            if (scans == null || scans.size() == 0) { break; }
+            if (scans == null || scans.isEmpty()) { break; }
             paginationManager.addPage(scans);
         }
 

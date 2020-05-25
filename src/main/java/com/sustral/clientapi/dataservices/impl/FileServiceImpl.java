@@ -51,7 +51,7 @@ public class FileServiceImpl implements FileService {
 
         for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
             List<FileEntity> files = fileRepository.findAllByFieldIdAndScanId(fieldId, scanId, PageRequest.of(i, PAGE_SIZE));
-            if (files == null || files.size() == 0) { break; }
+            if (files == null || files.isEmpty()) { break; }
             paginationManager.addPage(files);
         }
 
