@@ -25,17 +25,21 @@ public interface FieldOrganizationRelationshipService {
      * Gets the FORs of the given field.
      *
      * @param fieldId   a string fieldId
+     * @param offset    an int offset; a 0 based index from which to begin retrieval
+     * @param limit     an int limit; max number of objects to get
      * @return          a list of FORs
      */
-    List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId);
+    List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId, int offset, int limit);
 
     /**
      * Gets the FORs of the given organization.
      *
-     * @param orgId a string orgId
-     * @return      a list of FORs
+     * @param orgId     a string orgId
+     * @param offset    an int offset; a 0 based index from which to begin retrieval
+     * @param limit     an int limit; max number of objects to get
+     * @return          a list of FORs
      */
-    List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId);
+    List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId, int offset, int limit);
 
     // Mutation Methods
 

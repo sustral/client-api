@@ -6,8 +6,10 @@ import com.sustral.clientapi.data.repositories.ScanRepository;
 import com.sustral.clientapi.data.types.ScanStatusE;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.dataservices.ScanService;
+import com.sustral.clientapi.utils.PaginationManager;
 import org.locationtech.jts.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.Optional;
  */
 @Service
 public class ScanServiceImpl implements ScanService {
+
+    private static final int PAGE_SIZE = 20;
 
     private final ScanRepository scanRepository;
     private final IdGenerator idGenerator;
@@ -39,8 +43,17 @@ public class ScanServiceImpl implements ScanService {
     }
 
     @Override
-    public List<ScanEntity> getManyByFieldId(String fieldId) {
-        return scanRepository.findAllByFieldId(fieldId); // Guaranteed to not be null
+    public List<ScanEntity> getManyByFieldId(String fieldId, int offset, int limit) {
+        PaginationManager<ScanEntity> paginationManager = new PaginationManager<>(offset, limit, PAGE_SIZE);
+        int[] pageIndices = paginationManager.getFirstAndLastPageIndices();
+
+        for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
+            List<ScanEntity> scans = scanRepository.findAllByFieldId(fieldId, PageRequest.of(i, PAGE_SIZE));
+            if (scans == null || scans.size() == 0) { break; }
+            paginationManager.addPage(scans);
+        }
+
+        return paginationManager.getFinalResults(); // Guaranteed to not be null
     }
 
     @Override

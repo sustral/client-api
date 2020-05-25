@@ -26,9 +26,11 @@ public interface ScanService {
      * Returns all scans that share a parent field.
      *
      * @param fieldId   a string fieldId of the parent field
+     * @param offset    an int offset; a 0 based index from which to begin retrieval
+     * @param limit     an int limit; max number of objects to get
      * @return          a list of ScanEntities
      */
-    List<ScanEntity> getManyByFieldId(String fieldId);
+    List<ScanEntity> getManyByFieldId(String fieldId, int offset, int limit);
 
     // Mutation Methods
 

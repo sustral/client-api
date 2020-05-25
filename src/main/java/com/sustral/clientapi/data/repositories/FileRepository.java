@@ -2,6 +2,7 @@ package com.sustral.clientapi.data.repositories;
 
 import com.sustral.clientapi.data.models.FileEntity;
 import com.sustral.clientapi.data.models.FileEntityPK;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface FileRepository extends JpaRepository<FileEntity, FileEntityPK> 
      * @return          a list of FileEntities
      */
     List<FileEntity> findAllByFieldIdAndScanId(String fieldId, String scanId);
+
+    /**
+     * @param pageable  a pageable
+     * @see #findAllByFieldIdAndScanId(String, String)
+     */
+    List<FileEntity> findAllByFieldIdAndScanId(String fieldId, String scanId, Pageable pageable);
 }

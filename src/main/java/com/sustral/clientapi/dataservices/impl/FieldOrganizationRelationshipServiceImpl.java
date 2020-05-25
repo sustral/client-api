@@ -4,7 +4,9 @@ import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntity;
 import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntityPK;
 import com.sustral.clientapi.data.repositories.FieldOrganizationRelationshipRepository;
 import com.sustral.clientapi.dataservices.FieldOrganizationRelationshipService;
+import com.sustral.clientapi.utils.PaginationManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.Optional;
  */
 @Service
 public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizationRelationshipService {
+
+    private static final int PAGE_SIZE = 20;
 
     private final FieldOrganizationRelationshipRepository forRepository;
 
@@ -34,13 +38,31 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
     }
 
     @Override
-    public List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId) {
-        return forRepository.findAllByFieldId(fieldId); // Guaranteed to not be null
+    public List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId, int offset, int limit) {
+        PaginationManager<FieldOrganizationRelationshipEntity> paginationManager = new PaginationManager<>(offset, limit, PAGE_SIZE);
+        int[] pageIndices = paginationManager.getFirstAndLastPageIndices();
+
+        for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
+            List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByFieldId(fieldId, PageRequest.of(i, PAGE_SIZE));
+            if (fors == null || fors.size() == 0) { break; }
+            paginationManager.addPage(fors);
+        }
+
+        return paginationManager.getFinalResults(); // Guaranteed to not be null
     }
 
     @Override
-    public List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId) {
-        return forRepository.findAllByOrganizationId(orgId); // Guaranteed to not be null
+    public List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId, int offset, int limit) {
+        PaginationManager<FieldOrganizationRelationshipEntity> paginationManager = new PaginationManager<>(offset, limit, PAGE_SIZE);
+        int[] pageIndices = paginationManager.getFirstAndLastPageIndices();
+
+        for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
+            List<FieldOrganizationRelationshipEntity> fors = forRepository.findAllByOrganizationId(orgId, PageRequest.of(i, PAGE_SIZE));
+            if (fors == null || fors.size() == 0) { break; }
+            paginationManager.addPage(fors);
+        }
+
+        return paginationManager.getFinalResults(); // Guaranteed to not be null
     }
 
     @Override

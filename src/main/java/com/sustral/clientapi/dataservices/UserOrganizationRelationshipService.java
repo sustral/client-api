@@ -25,17 +25,21 @@ public interface UserOrganizationRelationshipService {
      * Gets the UORs of the given user.
      *
      * @param userId    a string userId
+     * @param offset    an int offset; a 0 based index from which to begin retrieval
+     * @param limit     an int limit; max number of objects to get
      * @return          a UORs
      */
-    List<UserOrganizationRelationshipEntity> getManyByUserId(String userId);
+    List<UserOrganizationRelationshipEntity> getManyByUserId(String userId, int offset, int limit);
 
     /**
      * Gets the UORs of the given organization.
      *
-     * @param orgId a string orgId
-     * @return      a UORs
+     * @param orgId     a string orgId
+     * @param offset    an int offset; a 0 based index from which to begin retrieval
+     * @param limit     an int limit; max number of objects to get
+     * @return          a UORs
      */
-    List<UserOrganizationRelationshipEntity> getManyByOrganizationId(String orgId);
+    List<UserOrganizationRelationshipEntity> getManyByOrganizationId(String orgId, int offset, int limit);
 
     // Mutation Methods
 

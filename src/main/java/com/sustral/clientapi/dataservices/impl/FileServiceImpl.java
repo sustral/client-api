@@ -7,7 +7,9 @@ import com.sustral.clientapi.data.types.FileTypeE;
 import com.sustral.clientapi.data.utils.fileextensionmap.FileExtensionMap;
 import com.sustral.clientapi.data.utils.idgenerator.IdGenerator;
 import com.sustral.clientapi.dataservices.FileService;
+import com.sustral.clientapi.utils.PaginationManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.Optional;
  */
 @Service
 public class FileServiceImpl implements FileService {
+
+    private static final int PAGE_SIZE = 20;
 
     private final FileRepository fileRepository;
     private final IdGenerator idGenerator;
@@ -41,8 +45,17 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FileEntity> getManyByScanId(String fieldId, String scanId) {
-        return fileRepository.findAllByFieldIdAndScanId(fieldId, scanId); // Guaranteed by JPARepository to not be null, but may be empty
+    public List<FileEntity> getManyByScanId(String fieldId, String scanId, int offset, int limit) {
+        PaginationManager<FileEntity> paginationManager = new PaginationManager<>(offset, limit, PAGE_SIZE);
+        int[] pageIndices = paginationManager.getFirstAndLastPageIndices();
+
+        for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
+            List<FileEntity> files = fileRepository.findAllByFieldIdAndScanId(fieldId, scanId, PageRequest.of(i, PAGE_SIZE));
+            if (files == null || files.size() == 0) { break; }
+            paginationManager.addPage(files);
+        }
+
+        return paginationManager.getFinalResults(); // Guaranteed to not be null
     }
 
     @Override

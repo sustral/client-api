@@ -28,9 +28,11 @@ public interface FileService {
      *
      * @param fieldId   a string fieldId of the parent field
      * @param scanId    a string scanId of the parent scan
+     * @param offset    an int offset; a 0 based index from which to begin retrieval
+     * @param limit     an int limit; max number of objects to get
      * @return          a list of FileEntities
      */
-    List<FileEntity> getManyByScanId(String fieldId, String scanId);
+    List<FileEntity> getManyByScanId(String fieldId, String scanId, int offset, int limit);
 
     // Mutation Methods
 

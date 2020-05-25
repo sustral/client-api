@@ -2,6 +2,7 @@ package com.sustral.clientapi.data.repositories;
 
 import com.sustral.clientapi.data.models.ScanEntity;
 import com.sustral.clientapi.data.models.ScanEntityPK;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -17,4 +18,10 @@ public interface ScanRepository extends JpaRepository<ScanEntity, ScanEntityPK> 
      * @return          a List of ScanEntities
      */
     List<ScanEntity> findAllByFieldId(String fieldId);
+
+    /**
+     * @param pageable  a pageable
+     * @see #findAllByFieldId(String)
+     */
+    List<ScanEntity> findAllByFieldId(String fieldId, Pageable pageable);
 }

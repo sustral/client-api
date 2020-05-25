@@ -4,7 +4,9 @@ import com.sustral.clientapi.data.models.UserOrganizationRelationshipEntity;
 import com.sustral.clientapi.data.models.UserOrganizationRelationshipEntityPK;
 import com.sustral.clientapi.data.repositories.UserOrganizationRelationshipRepository;
 import com.sustral.clientapi.dataservices.UserOrganizationRelationshipService;
+import com.sustral.clientapi.utils.PaginationManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.Optional;
  */
 @Service
 public class UserOrganizationRelationshipImpl implements UserOrganizationRelationshipService {
+
+    private static final int PAGE_SIZE = 20;
 
     private final UserOrganizationRelationshipRepository uorRepository;
 
@@ -34,13 +38,31 @@ public class UserOrganizationRelationshipImpl implements UserOrganizationRelatio
     }
 
     @Override
-    public List<UserOrganizationRelationshipEntity> getManyByUserId(String userId) {
-        return uorRepository.findAllByUserId(userId); // Guaranteed not null
+    public List<UserOrganizationRelationshipEntity> getManyByUserId(String userId, int offset, int limit) {
+        PaginationManager<UserOrganizationRelationshipEntity> paginationManager = new PaginationManager<>(offset, limit, PAGE_SIZE);
+        int[] pageIndices = paginationManager.getFirstAndLastPageIndices();
+
+        for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
+            List<UserOrganizationRelationshipEntity> scans = uorRepository.findAllByUserId(userId, PageRequest.of(i, PAGE_SIZE));
+            if (scans == null || scans.size() == 0) { break; }
+            paginationManager.addPage(scans);
+        }
+
+        return paginationManager.getFinalResults(); // Guaranteed to not be null
     }
 
     @Override
-    public List<UserOrganizationRelationshipEntity> getManyByOrganizationId(String orgId) {
-        return uorRepository.findAllByOrganizationId(orgId); // Guaranteed not null
+    public List<UserOrganizationRelationshipEntity> getManyByOrganizationId(String orgId, int offset, int limit) {
+        PaginationManager<UserOrganizationRelationshipEntity> paginationManager = new PaginationManager<>(offset, limit, PAGE_SIZE);
+        int[] pageIndices = paginationManager.getFirstAndLastPageIndices();
+
+        for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
+            List<UserOrganizationRelationshipEntity> scans = uorRepository.findAllByOrganizationId(orgId, PageRequest.of(i, PAGE_SIZE));
+            if (scans == null || scans.size() == 0) { break; }
+            paginationManager.addPage(scans);
+        }
+
+        return paginationManager.getFinalResults(); // Guaranteed to not be null
     }
 
     @Override
