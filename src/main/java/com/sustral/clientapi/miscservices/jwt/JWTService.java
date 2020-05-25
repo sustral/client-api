@@ -15,7 +15,7 @@ public interface JWTService {
      *
      * The objects in customClaims will be serialized.
      *
-     * @param customClaims  a Map customClaims that contains caller defined claims
+     * @param customClaims  a Map customClaims that contains caller defined claims, null if unused
      * @return              a String containing the JWT, null if error
      */
     String issueToken(Map<String, Object> customClaims);
@@ -28,8 +28,8 @@ public interface JWTService {
      * which are generally the same as the ones sent in by the caller when issuing a token.
      *
      * @param token                 a String containing the JWT
-     * @param enforcedCustomClaims  a Map containing the claims and expected values
-     * @param claimsFilter          a List containing the keys of the requested claims
+     * @param enforcedCustomClaims  a Map containing the claims and expected values, null if unused
+     * @param claimsFilter          a List containing the keys of the requested claims, null if unused
      * @return                      a Map containing the requested claims, null if error
      */
     Map<String, Object> validateToken(String token, Map<String, Object> enforcedCustomClaims, List<String> claimsFilter);

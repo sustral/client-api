@@ -47,11 +47,6 @@ public class JWTServiceImpl implements JWTService {
     @Override
     public String issueToken(Map<String, Object> customClaims) {
 
-        // Blank/Null checks removed for performance
-        if (customClaims == null) {
-            return null;
-        }
-
         // Get a private rsa key and associated keyId
         RSAKeyFetcherReturn keyFetcherReturn = keyFetcher.fetchPrivateKey("current"); // most recent key works
         if (!keyFetcherReturn.isPresent()) { return null; }
@@ -71,7 +66,9 @@ public class JWTServiceImpl implements JWTService {
         claims.put("iss", "com.sustral");
         claims.put("iat", currTime);
         claims.put("exp", expTime);
-        claims.putAll(customClaims); // Copy over custom claims
+        if (customClaims != null) {
+            claims.putAll(customClaims); // Copy over custom claims
+        }
 
         // Create and sign JWT
         return Jwts.builder()
@@ -87,15 +84,6 @@ public class JWTServiceImpl implements JWTService {
         // Blank/Null checks removed for performance
 
         if (token == null || token.isBlank()) {
-            return null;
-        }
-
-
-        if (enforcedCustomClaims == null) {
-            return null;
-        }
-
-        if (claimsFilter == null) {
             return null;
         }
 
@@ -126,16 +114,20 @@ public class JWTServiceImpl implements JWTService {
         if ((long) claims.get("exp") < System.currentTimeMillis()) { return null; }
 
         // Check custom claims
-        for (Map.Entry<String, Object> entry: enforcedCustomClaims.entrySet()) {
-            if (!claims.get(entry.getKey()).equals(entry.getValue())) { return null; }
+        if (enforcedCustomClaims != null) {
+            for (Map.Entry<String, Object> entry: enforcedCustomClaims.entrySet()) {
+                if (!claims.get(entry.getKey()).equals(entry.getValue())) { return null; }
+            }
         }
 
         // At this point, the headers and claims are deemed valid
 
         // Filter the caller's requested claims
         Map<String, Object> returnMap = new HashMap<>();
-        for (String key: claimsFilter) {
-            returnMap.put(key, claims.get(key));
+        if (claimsFilter != null) {
+            for (String key: claimsFilter) {
+                returnMap.put(key, claims.get(key));
+            }
         }
 
         return returnMap;
