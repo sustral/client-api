@@ -8,6 +8,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +75,8 @@ public class UserAuthenticationFilter implements Filter {
             String csrfToken = req.getHeader("Sustral-CSRF");
             if (jwtCookie != null && csrfToken != null) {
                 String jwt = jwtCookie.getValue();
-                Map<String, Object> filteredClaims = jwtService.validateToken(jwt, Map.of("csrf", csrfToken), List.of("user"));
+                String decodedCsrfToken = new String(Base64.getDecoder().decode(csrfToken));
+                Map<String, Object> filteredClaims = jwtService.validateToken(jwt, Map.of("csrf", decodedCsrfToken), List.of("user"));
                 if (filteredClaims != null) {
                     request.setAttribute("claims", filteredClaims);
                     chain.doFilter(request, response);

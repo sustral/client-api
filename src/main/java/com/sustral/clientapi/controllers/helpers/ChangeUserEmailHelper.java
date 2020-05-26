@@ -8,6 +8,8 @@ import com.sustral.clientapi.miscservices.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
+
 /**
  * This helper class streamlines the process of setting a user's email when creating
  * a new account or changing the email on an existing account.
@@ -36,7 +38,8 @@ public class ChangeUserEmailHelper {
         TokenWrapper<String, EmailVerificationEntity> token = evService.create(user.getId(), user.getEmail());
         if (token == null || token.getToken() == null) { return -1; }
 
-        int emailSent = emailService.sendEmailVerificationEmail(user.getEmail(), user.getName(), token.getToken());
+        String encodedToken = Base64.getEncoder().encodeToString(token.getToken().getBytes());
+        int emailSent = emailService.sendEmailVerificationEmail(user.getEmail(), user.getName(), encodedToken);
         if (emailSent < 0) { return -1; }
 
         return 0;

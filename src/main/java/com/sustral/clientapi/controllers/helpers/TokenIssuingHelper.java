@@ -10,6 +10,7 @@ import com.sustral.clientapi.miscservices.jwt.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -56,7 +57,9 @@ public class TokenIssuingHelper {
             return null;
         }
 
-        return new MobileTokens(jwt, sessionWrapper.getToken());
+        String encodedSession = Base64.getEncoder().encodeToString(sessionWrapper.getToken().getBytes());
+
+        return new MobileTokens(jwt, encodedSession);
     }
 
     /**
@@ -83,7 +86,10 @@ public class TokenIssuingHelper {
             return null;
         }
 
-        return new WebTokens(jwt, sessionWrapper.getToken(), csrf);
+        String encodedCsrf = Base64.getEncoder().encodeToString(csrf.getBytes());
+        String encodedSession = Base64.getEncoder().encodeToString(sessionWrapper.getToken().getBytes());
+
+        return new WebTokens(jwt, encodedSession, encodedCsrf);
     }
 
 }
