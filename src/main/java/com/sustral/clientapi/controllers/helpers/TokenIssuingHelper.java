@@ -92,4 +92,16 @@ public class TokenIssuingHelper {
         return new WebTokens(jwt, encodedSession, encodedCsrf);
     }
 
+    /**
+     * This method will return whether a passed in session token is valid and then delete that token.
+     *
+     * @param token a String; the unmodified token sent by the user
+     * @return      a boolean; true if the token is valid, false otherwise
+     */
+    public boolean isValidSession(String token) {
+        String decodedToken = new String(Base64.getDecoder().decode(token));
+        SessionEntity session = sessionService.findOneAndDeleteByToken(decodedToken);
+        return (session != null);
+    }
+
 }
