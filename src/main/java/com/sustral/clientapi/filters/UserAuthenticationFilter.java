@@ -58,7 +58,7 @@ public class UserAuthenticationFilter implements Filter {
 
             String authorization = req.getHeader("Authorization");
             if (authorization != null) {
-                String jwt = authorization.substring(6); // Remove prepended "Bearer"
+                String jwt = authorization.substring(7); // Remove prepended "Bearer "
                 Map<String, Object> filteredClaims = jwtService.validateToken(jwt, null, List.of("user"));
                 if (filteredClaims != null) {
                     request.setAttribute("claims", filteredClaims);

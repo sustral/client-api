@@ -14,6 +14,7 @@ import org.springframework.core.Ordered;
 public class FilterConfiguration {
 
     // TODO: Put the Header and Cookie names in config.
+    // TODO: Put filter to routes map in config
 
     @Bean
     public FilterRegistrationBean<GatewayFilter> gatewayFilterRegistration() {

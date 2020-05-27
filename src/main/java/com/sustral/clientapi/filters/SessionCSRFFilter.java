@@ -34,7 +34,7 @@ public class SessionCSRFFilter implements Filter {
             Cookie sessionCookie = WebUtils.getCookie(req, "sustral_sessiontoken");
             String csrfToken = req.getHeader("Sustral-CSRF");
 
-            if (sessionCookie != null & csrfToken != null) {
+            if (sessionCookie != null && csrfToken != null) {
                 String sessionToken = sessionCookie.getValue();
                 String csrfTokenFromSession = sessionToken.split("[.]", 2)[1];
                 // No need to decode Base64
