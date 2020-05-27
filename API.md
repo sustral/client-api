@@ -64,11 +64,11 @@ or "web".
 
 Web clients are sent a JSON Web Token (set as an Http Only, Secure Cookie), a refresh token (set as an Http Only, Secure Cookie),
 and a CSRF Token (sent as the "Sustral-CSRF" header). The CSRF token should be stored in local storage and sent in the "Sustral-CSRF"
-header with every request.
+header with every request that requires one of the auth tokens.
 
-Mobile clients are sent a JSON Web Token (in the header********) and a refresh token (in the header*****). These tokens
-should be stored in something like the keychain and sent in the Authorization header with each request. Each token is
-used for different endpoints.
+Mobile clients are sent a JSON Web Token (in the "Authorization" header) and a refresh token (in the "Authorization-Session" 
+header). These tokens should be stored in something like the keychain and sent in the Authorization header with each 
+request. Each token is used for different endpoints.
 
 ## /sign_in
 

@@ -5,6 +5,7 @@ import com.sustral.clientapi.controllers.types.tokensets.WebTokens;
 import com.sustral.clientapi.data.models.SessionEntity;
 import com.sustral.clientapi.data.models.UserEntity;
 import com.sustral.clientapi.dataservices.SessionService;
+import com.sustral.clientapi.dataservices.UserService;
 import com.sustral.clientapi.dataservices.types.TokenWrapper;
 import com.sustral.clientapi.miscservices.jwt.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,26 @@ public class TokenIssuingHelper {
 
     private final SessionService sessionService;
     private final JWTService jwtService;
+    private final UserService userService;
 
     @Autowired
-    public TokenIssuingHelper(SessionService sessionService, JWTService jwtService) {
+    public TokenIssuingHelper(SessionService sessionService, JWTService jwtService, UserService userService) {
         this.sessionService = sessionService;
         this.jwtService = jwtService;
+        this.userService = userService;
+    }
+
+    /**
+     * This method will return the user associated with a session token if that token is valid.
+     *
+     * @param token a String; the session token sent by the user
+     * @return      a UserEntity; null if invalid or error
+     */
+    private UserEntity validateSession(String token) {
+        String decodedToken = new String(Base64.getDecoder().decode(token));
+        SessionEntity session = sessionService.findOneAndDeleteByToken(decodedToken);
+        if (session == null) { return null; }
+        return userService.getOneById(session.getUserId());
     }
 
     /**
@@ -44,7 +60,7 @@ public class TokenIssuingHelper {
      * Issues a JSON Web Token and session token used to refresh the JWT.
      *
      * @param user  a UserEntity that represents the user requesting credentials
-     * @return      a MobileTokens object
+     * @return      a MobileTokens object; null if error
      */
     public MobileTokens issueMobileTokens(UserEntity user) {
         Map<String,Object> claimsMap = new HashMap<>();
@@ -66,10 +82,10 @@ public class TokenIssuingHelper {
      * Issues the tokens required to authenticate a web based client.
      *
      * Issues a CSRF token, a JSON Web Token with the CSRF token as a claim, and
-     * a session token used to refresh the CSRFT and JWT.
+     * a session token tagged with the CSRF token used to refresh the set of tokens.
      *
      * @param user  a UserEntity that represents the user requesting credentials
-     * @return      a WebTokens object
+     * @return      a WebTokens object; null if error
      */
     public WebTokens issueWebTokens(UserEntity user) {
 
@@ -89,19 +105,32 @@ public class TokenIssuingHelper {
         String encodedCsrf = Base64.getEncoder().encodeToString(csrf.getBytes());
         String encodedSession = Base64.getEncoder().encodeToString(sessionWrapper.getToken().getBytes());
 
-        return new WebTokens(jwt, encodedSession, encodedCsrf);
+        return new WebTokens(jwt, encodedSession + "." + encodedCsrf, encodedCsrf);
     }
 
     /**
-     * This method will return whether a passed in session token is valid and then delete that token.
+     * This method issues a new set of MobileTokens to the user associated with the given valid session token.
      *
-     * @param token a String; the unmodified token sent by the user
-     * @return      a boolean; true if the token is valid, false otherwise
+     * @param token a String; the unmodified session token passed in by the user
+     * @return      a MobileTokens object; null if invalid or error
      */
-    public boolean isValidSession(String token) {
-        String decodedToken = new String(Base64.getDecoder().decode(token));
-        SessionEntity session = sessionService.findOneAndDeleteByToken(decodedToken);
-        return (session != null);
+    public MobileTokens refreshMobileTokens(String token) {
+        UserEntity user = validateSession(token);
+        if (user == null) { return null; }
+        return issueMobileTokens(user);
+    }
+
+    /**
+     * This method issues a new set of WebTokens to the user associated with the given valid session token.
+     *
+     * @param token a String; the unmodified token sent in by the user
+     * @return      a WebTokens object; null if invalid or error
+     */
+    public WebTokens refreshWebTokens(String token) {
+        String sessionToken = token.split("[.]", 2)[0]; // Split the session token from the csrf token
+        UserEntity user = validateSession(sessionToken);
+        if (user == null) { return null; }
+        return issueWebTokens(user);
     }
 
 }

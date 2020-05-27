@@ -13,6 +13,8 @@ import org.springframework.core.Ordered;
 @Configuration
 public class FilterConfiguration {
 
+    // TODO: Put the Header and Cookie names in config.
+
     @Bean
     public FilterRegistrationBean<GatewayFilter> gatewayFilterRegistration() {
         FilterRegistrationBean<GatewayFilter> registrationBean = new FilterRegistrationBean<>();

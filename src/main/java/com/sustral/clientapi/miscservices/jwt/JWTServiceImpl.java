@@ -21,6 +21,8 @@ import java.util.Map;
 @Service
 public class JWTServiceImpl implements JWTService {
 
+    // TODO: Put the algorithm and issuer values in config.
+
     private final long jwtExpiry;
     private final RSAKeyFetcher keyFetcher;
 

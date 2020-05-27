@@ -13,6 +13,8 @@ import java.util.EnumMap;
 @Component
 public class FileExtensionMapImpl implements FileExtensionMap {
 
+    // TODO: Put the fileExtension values in config.
+
     private final EnumMap<FileTypeE, String> extMap;
 
     /**
