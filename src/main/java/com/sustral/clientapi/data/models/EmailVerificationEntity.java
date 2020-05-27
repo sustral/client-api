@@ -1,5 +1,7 @@
 package com.sustral.clientapi.data.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -64,6 +66,7 @@ public class EmailVerificationEntity {
     }
 
     @Basic
+    @CreationTimestamp
     @Column(name = "created", nullable = false)
     public Timestamp getCreated() {
         return created;

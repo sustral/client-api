@@ -1,5 +1,7 @@
 package com.sustral.clientapi.data.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.locationtech.jts.geom.Polygon;
 
 import javax.persistence.*;
@@ -71,6 +73,7 @@ public class FieldEntity {
     }
 
     @Basic
+    @CreationTimestamp
     @Column(name = "created", nullable = false)
     public Timestamp getCreated() {
         return created;
@@ -81,6 +84,7 @@ public class FieldEntity {
     }
 
     @Basic
+    @UpdateTimestamp
     @Column(name = "updated", nullable = false)
     public Timestamp getUpdated() {
         return updated;

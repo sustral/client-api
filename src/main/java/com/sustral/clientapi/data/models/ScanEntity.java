@@ -1,6 +1,8 @@
 package com.sustral.clientapi.data.models;
 
 import com.sustral.clientapi.data.types.ScanStatusE;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.locationtech.jts.geom.Polygon;
 
 import javax.persistence.*;
@@ -63,6 +65,7 @@ public class ScanEntity {
     }
 
     @Basic
+    @CreationTimestamp
     @Column(name = "created", nullable = false)
     public Timestamp getCreated() {
         return created;
@@ -73,6 +76,7 @@ public class ScanEntity {
     }
 
     @Basic
+    @UpdateTimestamp
     @Column(name = "updated", nullable = false)
     public Timestamp getUpdated() {
         return updated;

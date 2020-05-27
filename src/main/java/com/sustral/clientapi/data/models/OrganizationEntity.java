@@ -1,5 +1,8 @@
 package com.sustral.clientapi.data.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -53,6 +56,7 @@ public class OrganizationEntity {
     }
 
     @Basic
+    @CreationTimestamp
     @Column(name = "created", nullable = false)
     public Timestamp getCreated() {
         return created;
@@ -63,6 +67,7 @@ public class OrganizationEntity {
     }
 
     @Basic
+    @UpdateTimestamp
     @Column(name = "updated", nullable = false)
     public Timestamp getUpdated() {
         return updated;
