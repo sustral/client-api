@@ -72,7 +72,129 @@ request. Each token is used for different endpoints.
 
 ## /sign_in
 
+* Example Web Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: web`
+        
+    Request Body:
+    
+    `{
+        "email": "user@example.com",
+        "password": "UserPassword1"
+     }`
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    `Sustral-CSRF: <token>`
+    
+    Response Cookies (HTTPOnly):
+    
+    `sustral_accesstoken`
+    
+    `sustral_sessiontoken`
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+     
+* Example Mobile Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: mobile`
+        
+    Request Body:
+    
+    `{
+        "email": "user@example.com",
+        "password": "UserPassword1"
+     }`
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    `Authorization: <token>`
+    
+    `Authorization-Session: <token>`
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+
 ## /sign_up
+
+* Example Web Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: web`
+        
+    Request Body:
+    
+    `{
+        "name": "User Name",
+        "email": "user@example.com",
+        "password": "UserPassword1"
+     }`
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    `Sustral-CSRF: <token>`
+    
+    Response Cookies (HTTPOnly):
+    
+    `sustral_accesstoken`
+    
+    `sustral_sessiontoken`
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+     
+* Example Mobile Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: mobile`
+        
+    Request Body:
+    
+    `{
+        "name": "User Name",
+        "email": "user@example.com",
+        "password": "UserPassword1"
+     }`
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    `Authorization: <token>`
+    
+    `Authorization-Session: <token>`
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
 
 ## /sign_out
 
