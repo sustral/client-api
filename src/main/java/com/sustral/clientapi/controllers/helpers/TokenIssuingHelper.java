@@ -127,8 +127,7 @@ public class TokenIssuingHelper {
      * @return      a WebTokens object; null if invalid or error
      */
     public WebTokens refreshWebTokens(String token) {
-        String sessionToken = token.split("[.]", 2)[0]; // Split the session token from the csrf token
-        UserEntity user = validateSession(sessionToken);
+        UserEntity user = validateSession(token);
         if (user == null) { return null; }
         return issueWebTokens(user);
     }

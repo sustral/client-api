@@ -27,8 +27,14 @@ public class SessionCSRFFilter implements Filter {
 
         if (clientType != null && clientType.equals("mobile")) {
             // No need to check CSRF for mobile clients
-            chain.doFilter(request, response);
-            return;
+            String sessionToken = req.getHeader("Authorization");
+
+            if (sessionToken != null) {
+                sessionToken = sessionToken.substring(7); // remove prepended "Bearer "
+                request.setAttribute("sessionToken", sessionToken);
+                chain.doFilter(request, response);
+                return;
+            }
         } else if (clientType != null && clientType.equals("web")) {
 
             Cookie sessionCookie = WebUtils.getCookie(req, "sustral_sessiontoken");
@@ -36,9 +42,12 @@ public class SessionCSRFFilter implements Filter {
 
             if (sessionCookie != null && csrfToken != null) {
                 String sessionToken = sessionCookie.getValue();
-                String csrfTokenFromSession = sessionToken.split("[.]", 2)[1];
+                String[] tokens = sessionToken.split("[.]", 2);
+                sessionToken = tokens[0];
+                String csrfTokenFromSession = tokens[1];
                 // No need to decode Base64
                 if (csrfToken.equals(csrfTokenFromSession)) {
+                    request.setAttribute("sessionToken", sessionToken);
                     chain.doFilter(request, response);
                     return;
                 }
