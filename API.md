@@ -132,6 +132,8 @@ request. Each token is used for different endpoints.
         "data": null
      }`
 
+[Back to Top](#api-guide)
+
 ## /sign_up
 
 * Example Web Request:
@@ -196,6 +198,8 @@ request. Each token is used for different endpoints.
         "data": null
      }`
 
+[Back to Top](#api-guide)
+
 ## /sign_out
 
 * Example Web Request:
@@ -256,6 +260,7 @@ request. Each token is used for different endpoints.
         "data": null
      }`
 
+[Back to Top](#api-guide)
 
 ## /session
 
@@ -269,7 +274,7 @@ request. Each token is used for different endpoints.
     
     Request Cookie:
     
-    `sustral_sessioncookie`
+    `sustral_sessiontoken: <token>`
         
     Request Body:
     
@@ -321,6 +326,8 @@ request. Each token is used for different endpoints.
         "data": null
      }`
 
+[Back to Top](#api-guide)
+
 ## /reset_password
 
 * Example Request (No web/mobile distinction):
@@ -349,6 +356,8 @@ request. Each token is used for different endpoints.
         "data": null
      }`
 
+[Back to Top](#api-guide)
+
 ## /reset_password/request
 
 * Example Request (No web/mobile distinction):
@@ -376,34 +385,142 @@ request. Each token is used for different endpoints.
         "data": null
      }`
 
+[Back to Top](#api-guide)
+
 ## /verify_email
+
+* Example Request (No web/mobile distinction):
+
+    Request Header:
+    
+    None
+        
+    Request Body:
+    
+    `{
+        "token": "<token>"
+     }`
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    None
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+
+[Back to Top](#api-guide)
 
 ## /verify_email/request
 
+* Example Web Request:
+
+    Request Headers:
+    
+    `Sustral-Client-Type: web`
+    
+    `Sustral-CSRF: <token>`
+    
+    Request Cookies:
+    
+    `sustral_accesstoken: <token>`
+        
+    Request Body: `None`
+    
+    Response Code on Success: `200`
+    
+    Response Headers: `None`
+    
+    Response Cookies (HTTPOnly): `None`
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+     
+* Example Mobile Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: mobile`
+    
+    `Authorization: Bearer <session token>`
+        
+    Request Body: `None`
+    
+    Response Code on Success: `200`
+    
+    Response Headers: `None`
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+
+
+[Back to Top](#api-guide)
+
 ## /me
+
+[Back to Top](#api-guide)
 
 ## /me/edit
 
+[Back to Top](#api-guide)
+
 ## /users
+
+[Back to Top](#api-guide)
 
 ## /organizations
 
+[Back to Top](#api-guide)
+
 ## /organizations/edit
+
+[Back to Top](#api-guide)
 
 ## /fields
 
+[Back to Top](#api-guide)
+
 ## /fields/edit
+
+[Back to Top](#api-guide)
 
 ## /scans
 
+[Back to Top](#api-guide)
+
 ## /files
+
+[Back to Top](#api-guide)
 
 ## /objects
 
+[Back to Top](#api-guide)
+
 ## /users_to_organizations
+
+[Back to Top](#api-guide)
 
 ## /fields_to_organizations
 
+[Back to Top](#api-guide)
+
 ## /scans_to_fields
 
+[Back to Top](#api-guide)
+
 ## /files_to_scans
+
+[Back to Top](#api-guide)

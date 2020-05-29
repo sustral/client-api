@@ -1,5 +1,7 @@
 package com.sustral.clientapi.filters;
 
+import com.sustral.clientapi.miscservices.jwt.JWTService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,13 @@ public class FilterConfiguration {
 
     // TODO: Put the Header and Cookie names in config.
     // TODO: Put filter to routes map in config
+
+    private final JWTService jwtService;
+
+    @Autowired
+    public FilterConfiguration(JWTService jwtService) {
+        this.jwtService = jwtService;
+    }
 
     // Lower integers signify higher precedence when ordering filters. Higher precedence means earlier in the chain
 
@@ -36,6 +45,16 @@ public class FilterConfiguration {
         registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE+1); // Set as second in chain
         registrationBean.addUrlPatterns("/sign_out/*");
         registrationBean.addUrlPatterns("/session/*");
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean<UserAuthenticationFilter> userAuthenticationFilterRegistration() {
+        FilterRegistrationBean<UserAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
+        UserAuthenticationFilter filter = new UserAuthenticationFilter(jwtService);
+        registrationBean.setFilter(filter);
+        registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE+1); // Set as second in chain
+        registrationBean.addUrlPatterns("/verify_email/request/*");
         return registrationBean;
     }
 
