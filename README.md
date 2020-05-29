@@ -6,10 +6,10 @@
 
 * [API Guide](docs/api/API.md)
 
+* [Design](docs/DESIGN.md)
+
 * [Local Testing](docs/TESTING.md)
 
     * [Tests](docs/TESTING.md#tests)
     
     * [Demo](docs/TESTING.md#demo)
-    
-* [Notes](docs/NOTES.md)
