@@ -14,6 +14,10 @@ public class SignInRequest {
     @NotNull
     private String password; // password is validated at the data service layer
 
+    public SignInRequest() {
+        // Required by Jackson
+    }
+
     public SignInRequest(@NotNull String email, @NotNull String password) {
         this.email = email;
         this.password = password;

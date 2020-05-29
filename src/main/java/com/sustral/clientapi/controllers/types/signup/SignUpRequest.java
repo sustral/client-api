@@ -10,11 +10,15 @@ import javax.validation.constraints.NotNull;
 public class SignUpRequest {
 
     @NotNull
-    private String name;
+    private String name; // Validated in data layer
     @NotNull
-    private String email;
+    private String email; // Validated in data layer
     @NotNull
-    private String password;
+    private String password; // Validated in data layer
+
+    public SignUpRequest() {
+        // Required by Jackson
+    }
 
     public SignUpRequest(@NotNull String name, @NotNull String email, @NotNull String password) {
         this.name = name;

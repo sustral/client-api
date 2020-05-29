@@ -323,7 +323,58 @@ request. Each token is used for different endpoints.
 
 ## /reset_password
 
+* Example Request (No web/mobile distinction):
+
+    Request Header:
+    
+    None
+        
+    Request Body:
+    
+    `{
+        "token": "<token>",
+        "password": "ANewPassword1"
+     }`
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    None
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+
 ## /reset_password/request
+
+* Example Request (No web/mobile distinction):
+
+    Request Header:
+    
+    None
+        
+    Request Body:
+    
+    `{
+        "email": "example@example.com"
+     }`
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    None
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
 
 ## /verify_email
 
