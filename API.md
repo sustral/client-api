@@ -198,7 +198,128 @@ request. Each token is used for different endpoints.
 
 ## /sign_out
 
+* Example Web Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: web`
+    
+    `Sustral-CSRF: <token>`
+    
+    Request Cookie:
+    
+    `sustral_sessiontoken: <token>`
+        
+    Request Body:
+    
+    None
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    Null Header
+    
+    Response Cookies (HTTPOnly):
+    
+    Null Cookies
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+     
+* Example Mobile Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: mobile`
+    
+    `Authorization: Bearer <session token>`
+        
+    Request Body:
+    
+    None
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    None
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+
+
 ## /session
+
+* Example Web Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: web`
+    
+    `Sustral-CSRF: <token>`
+    
+    Request Cookie:
+    
+    `sustral_sessioncookie`
+        
+    Request Body:
+    
+    None
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    `Sustral-CSRF: <token>`
+    
+    Response Cookies (HTTPOnly):
+    
+    `sustral_accesstoken`
+    
+    `sustral_sessiontoken`
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
+     
+* Example Mobile Request:
+
+    Request Header:
+    
+    `Sustral-Client-Type: mobile`
+    
+    `Authorization: Bearer <session token>`
+        
+    Request Body:
+    
+    None
+    
+    Response Code on Success: `200`
+    
+    Response Header:
+    
+    `Authorization: <token>`
+    
+    `Authorization-Session: <token>`
+    
+    Response Body (Irrelevant):
+    
+    `{
+        "error": null,
+        "data": null
+     }`
 
 ## /reset_password
 
