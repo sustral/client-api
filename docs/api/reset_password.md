@@ -9,8 +9,8 @@
     Request Body:
     
     `{
-        "token": "<token>",
-        "password": "<password>"
+        "token": String,
+        "password": String
      }`
     
     Response Status Code on Success: `200`
@@ -22,7 +22,7 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`
 
@@ -37,7 +37,7 @@
     Request Body:
     
     `{
-        "email": "<email>"
+        "email": String
      }`
     
     Response Status Code on Success: `200`
@@ -49,6 +49,6 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`

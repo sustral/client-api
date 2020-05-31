@@ -9,8 +9,8 @@
     Request Body:
     
     `{
-        "email": "<email>", (Standard Email, 320 Chars Max)
-        "password": "<password>" (8-256 Chars, LowerCase, UpperCase, Digit)
+        "email": String, (Standard Email, 320 Chars Max)
+        "password": String (8-256 Chars, LowerCase, UpperCase, Digit)
      }`
     
     Response Status Code on Success: `200`
@@ -28,7 +28,7 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`
      
@@ -41,8 +41,8 @@
     Request Body:
     
     `{
-        "email": "<email>", (Standard Email, 320 Chars Max)
-        "password": "<password>" (8-256 Chars, LowerCase, UpperCase, Digit)
+        "email": String, (Standard Email, 320 Chars Max)
+        "password": String (8-256 Chars, LowerCase, UpperCase, Digit)
      }`
     
     Response Status Code on Success: `200`
@@ -56,6 +56,6 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`

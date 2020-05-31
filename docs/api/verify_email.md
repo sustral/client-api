@@ -9,7 +9,7 @@
     Request Body:
     
     `{
-        "token": "<token>"
+        "token": String
      }`
     
     Response Status Code on Success: `200`
@@ -21,7 +21,7 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`
 
@@ -52,7 +52,7 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`
      
@@ -62,7 +62,7 @@
     
     `Sustral-Client-Type: mobile`
     
-    `Authorization: Bearer <session token>`
+    `Authorization: Bearer <access token>`
         
     Request Body:
     
@@ -77,6 +77,6 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`

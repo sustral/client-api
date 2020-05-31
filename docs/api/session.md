@@ -31,7 +31,7 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`
      
@@ -58,6 +58,6 @@
     Response Body:
     
     `{
-        "error": null, (May contain description for user)
+        "error": String, (May contain description for user)
         "data": null (Always null)
      }`
