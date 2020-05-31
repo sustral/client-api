@@ -55,6 +55,17 @@ public class FilterConfiguration {
         registrationBean.setFilter(filter);
         registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE+1); // Set as second in chain
         registrationBean.addUrlPatterns("/verify_email/request/*");
+        registrationBean.addUrlPatterns("/me/*");
+        registrationBean.addUrlPatterns("/users/*");
+        registrationBean.addUrlPatterns("/organizations/*");
+        registrationBean.addUrlPatterns("/fields/*");
+        registrationBean.addUrlPatterns("/scans/*");
+        registrationBean.addUrlPatterns("/files/*");
+        registrationBean.addUrlPatterns("/objects/*");
+        registrationBean.addUrlPatterns("/users_to_organizations/*");
+        registrationBean.addUrlPatterns("/fields_to_organizations/*");
+        registrationBean.addUrlPatterns("/scans_to_fields/*");
+        registrationBean.addUrlPatterns("/files_to_scans/*");
         return registrationBean;
     }
 
