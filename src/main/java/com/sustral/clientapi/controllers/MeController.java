@@ -55,6 +55,8 @@ public class MeController {
     @PostMapping(path = "/edit", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public StandardResponse<MeResponse> meEditEndpoint(@Valid @RequestBody MeEditRequest requestBody,
                                                        HttpServletRequest request, HttpServletResponse response) {
+        String errorMessage = "";
+
         String userId = new ClaimsRetrievalHelper(request).getUserId();
         UserEntity user = userService.getOneById(userId);
         if (user == null) {
@@ -66,33 +68,38 @@ public class MeController {
             UserEntity updatedUser = userService.setName(user, requestBody.getName());
             if (updatedUser == null) {
                 response.setStatus(207);
-                return new StandardResponse<>("Failed to change name.", null);
+                errorMessage += "Failed to change name. ";
+            } else {
+                user = updatedUser;
             }
-            user = updatedUser;
         }
 
         if (requestBody.getEmail() != null && !requestBody.getEmail().isBlank()) {
             UserEntity updatedUser = userService.setEmail(user, requestBody.getEmail());
             if (updatedUser == null) {
                 response.setStatus(207);
-                return new StandardResponse<>("Failed to change email.", null);
+                errorMessage += "Failed to changed email. ";
+            } else {
+                user = updatedUser;
+                userEmailHelper.beginVerificationProcess(user); // Don't care if it works, the user can just request another
             }
-            user = updatedUser;
-            userEmailHelper.beginVerificationProcess(user); // Don't care if it works, the user can just request another
         }
 
         if (requestBody.getPassword() != null && !requestBody.getPassword().isBlank()) {
             UserEntity updatedUser = userService.setPassword(user, requestBody.getPassword());
             if (updatedUser == null) {
                 response.setStatus(207);
-                return new StandardResponse<>("Failed to change password.", null);
+                errorMessage += "Failed to changed password. ";
+            } else {
+                user = updatedUser;
             }
-            user = updatedUser;
         }
 
         MeResponse mRes = new MeResponse(user.getId(), user.getEmail(), user.getName(), user.getEmailVerified());
-        response.setStatus(HttpServletResponse.SC_OK);
-        return new StandardResponse<>(null, mRes);
+        if (response.getStatus() != 207) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        return new StandardResponse<>(errorMessage, mRes);
     }
 
 }
