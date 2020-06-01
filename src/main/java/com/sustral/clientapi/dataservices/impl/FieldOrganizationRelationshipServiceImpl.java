@@ -2,6 +2,7 @@ package com.sustral.clientapi.dataservices.impl;
 
 import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntity;
 import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntityPK;
+import com.sustral.clientapi.data.models.UserOrganizationRelationshipEntity;
 import com.sustral.clientapi.data.repositories.FieldOrganizationRelationshipRepository;
 import com.sustral.clientapi.dataservices.FieldOrganizationRelationshipService;
 import com.sustral.clientapi.utils.PaginationManager;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +54,22 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
     }
 
     @Override
+    public List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId) {
+        List<FieldOrganizationRelationshipEntity> fors = new ArrayList<>();
+        boolean continueRetrieval = true;
+        int currentIndex = 0;
+
+        while (continueRetrieval) {
+            List<FieldOrganizationRelationshipEntity> tempFors = getManyByFieldId(fieldId, currentIndex, currentIndex + PAGE_SIZE);
+            fors.addAll(tempFors);
+            currentIndex += PAGE_SIZE;
+            if (tempFors.size() < PAGE_SIZE) { continueRetrieval = false; }
+        }
+
+        return fors;
+    }
+
+    @Override
     public List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId, int offset, int limit) {
         PaginationManager<FieldOrganizationRelationshipEntity> paginationManager = new PaginationManager<>(offset, limit, PAGE_SIZE);
         int[] pageIndices = paginationManager.getFirstAndLastPageIndices();
@@ -63,6 +81,22 @@ public class FieldOrganizationRelationshipServiceImpl implements FieldOrganizati
         }
 
         return paginationManager.getFinalResults(); // Guaranteed to not be null
+    }
+
+    @Override
+    public List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId) {
+        List<FieldOrganizationRelationshipEntity> fors = new ArrayList<>();
+        boolean continueRetrieval = true;
+        int currentIndex = 0;
+
+        while (continueRetrieval) {
+            List<FieldOrganizationRelationshipEntity> tempFors = getManyByOrganizationId(orgId, currentIndex, currentIndex + PAGE_SIZE);
+            fors.addAll(tempFors);
+            currentIndex += PAGE_SIZE;
+            if (tempFors.size() < PAGE_SIZE) { continueRetrieval = false; }
+        }
+
+        return fors;
     }
 
     @Override

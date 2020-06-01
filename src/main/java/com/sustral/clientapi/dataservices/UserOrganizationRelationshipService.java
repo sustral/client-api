@@ -31,6 +31,8 @@ public interface UserOrganizationRelationshipService {
      */
     List<UserOrganizationRelationshipEntity> getManyByUserId(String userId, int offset, int limit);
 
+    List<UserOrganizationRelationshipEntity> getManyByUserId(String userId);
+
     /**
      * Gets the UORs of the given organization.
      *
@@ -40,6 +42,8 @@ public interface UserOrganizationRelationshipService {
      * @return          a UORs
      */
     List<UserOrganizationRelationshipEntity> getManyByOrganizationId(String orgId, int offset, int limit);
+
+    List<UserOrganizationRelationshipEntity> getManyByOrganizationId(String orgId);
 
     // Mutation Methods
 

@@ -31,6 +31,8 @@ public interface FieldOrganizationRelationshipService {
      */
     List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId, int offset, int limit);
 
+    List<FieldOrganizationRelationshipEntity> getManyByFieldId(String fieldId);
+
     /**
      * Gets the FORs of the given organization.
      *
@@ -40,6 +42,8 @@ public interface FieldOrganizationRelationshipService {
      * @return          a list of FORs
      */
     List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId, int offset, int limit);
+
+    List<FieldOrganizationRelationshipEntity> getManyByOrganizationId(String orgId);
 
     // Mutation Methods
 
