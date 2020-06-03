@@ -50,14 +50,16 @@ public class AuthorizationHelper {
             uorService.getManyByOrganizationId(i.getOrganizationId()).stream().map(s -> accessibleUsers.add(s.getUserId())).close();
         }
 
-        return (Boolean[]) Arrays.stream(userIds).map(accessibleUsers::contains).toArray();
+        Object[] a = Arrays.stream(userIds).map(accessibleUsers::contains).toArray();
+        return Arrays.copyOf(a, a.length, Boolean[].class);
     }
 
     public Boolean[] canAccessOrganizations(String currUser, String[] orgIds) {
         Set<String> accessibleOrgs = new HashSet<>();
         uorService.getManyByUserId(currUser).stream().map(s -> accessibleOrgs.add(s.getOrganizationId())).close();
 
-        return (Boolean[]) Arrays.stream(orgIds).map(accessibleOrgs::contains).toArray();
+        Object[] a = Arrays.stream(orgIds).map(accessibleOrgs::contains).toArray();
+        return Arrays.copyOf(a, a.length, Boolean[].class);
     }
 
     public Boolean[] canAccessFields(String currUser, String[] fieldIds) {
@@ -68,16 +70,19 @@ public class AuthorizationHelper {
             forService.getManyByOrganizationId(i.getOrganizationId()).stream().map(s -> accessibleFields.add(s.getFieldId())).close();
         }
 
-        return (Boolean[]) Arrays.stream(fieldIds).map(accessibleFields::contains).toArray();
+        Object[] a = Arrays.stream(fieldIds).map(accessibleFields::contains).toArray();
+        return Arrays.copyOf(a, a.length, Boolean[].class);
     }
 
     public Boolean[] canAccessScans(String currUser, String[] scanIds) {
-        String[] fieldIds = (String[]) Arrays.stream(scanIds).map(s -> s.split("/")[0]).toArray();
+        Object[] a = Arrays.stream(scanIds).map(s -> s.split("/")[0]).toArray();
+        String[] fieldIds = Arrays.copyOf(a, a.length, String[].class);
         return canAccessFields(currUser, fieldIds);
     }
 
     public Boolean[] canAccessFiles(String currUser, String[] fileIds) {
-        String[] fieldIds = (String[]) Arrays.stream(fileIds).map(s -> s.split("/")[0]).toArray();
+        Object[] a = Arrays.stream(fileIds).map(s -> s.split("/")[0]).toArray();
+        String[] fieldIds = Arrays.copyOf(a, a.length, String[].class);
         return canAccessFields(currUser, fieldIds);
     }
 
