@@ -3,7 +3,7 @@ package com.sustral.clientapi.controllers.types;
 import javax.validation.constraints.NotNull;
 
 /**
- * This class outlines the standard JSON request used by most query endpoints.
+ * This class outlines the standard JSON request used by most query endpoints that return multiple entities.
  *
  * @author Dilanka Dharmasena
  */
