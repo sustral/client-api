@@ -38,7 +38,7 @@ public class UserEmailHelper {
      * @return      an int; 0 if successful, -1 if internal error, -2 if already verified
      */
     public int beginVerificationProcess(UserEntity user) {
-        if (user.getEmailVerified()) { return -2; }
+        if (Boolean.TRUE.equals(user.getEmailVerified())) { return -2; }
 
         TokenWrapper<String, EmailVerificationEntity> token = evService.create(user.getId(), user.getEmail());
         if (token == null || token.getToken() == null) { return -1; }
