@@ -59,7 +59,7 @@ public class OrganizationsController {
 
         List<OrganizationsResponse> responseBody = new ArrayList<>();
         for (int i = 0; i < requestBody.getIds().length; i++) {
-            if (authorizedToAccess[i]) {
+            if (Boolean.TRUE.equals(authorizedToAccess[i])) {
                 OrganizationEntity tempOrg = organizationService.getOneById(requestBody.getIds()[i]);
                 if (tempOrg != null) {
                     responseBody.add(new OrganizationsResponse(tempOrg.getId(), tempOrg.getName()));
@@ -79,7 +79,7 @@ public class OrganizationsController {
         String userId = new ClaimsRetrievalHelper(request).getUserId();
 
         Boolean[] authorizedToAccess = authorizationHelper.canAccessOrganizations(userId, Arrays.append(new String[] {}, requestBody.getId()));
-        if (!authorizedToAccess[0]) {
+        if (Boolean.FALSE.equals(authorizedToAccess[0])) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return new StandardResponse<>("The user does not have access to this organization.", null);
         }

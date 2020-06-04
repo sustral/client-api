@@ -43,7 +43,7 @@ public class FieldsToOrganizationsController {
                                                                               HttpServletRequest request, HttpServletResponse response) {
         String userId = new ClaimsRetrievalHelper(request).getUserId();
         Boolean[] authorizedToAccess = authorizationHelper.canAccessOrganizations(userId, Arrays.append(new String[] {}, requestBody.getId()));
-        if (!authorizedToAccess[0]) {
+        if (Boolean.FALSE.equals(authorizedToAccess[0])) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return new StandardResponse<>("The user does not have access to this organization.", null);
         }
@@ -61,7 +61,7 @@ public class FieldsToOrganizationsController {
                                                                                      HttpServletRequest request, HttpServletResponse response) {
         String userId = new ClaimsRetrievalHelper(request).getUserId();
         Boolean[] authorizedToAccess = authorizationHelper.canAccessFields(userId, Arrays.append(new String[] {}, requestBody.getId()));
-        if (!authorizedToAccess[0]) {
+        if (Boolean.FALSE.equals(authorizedToAccess[0])) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return new StandardResponse<>("The user does not have access to this field.", null);
         }

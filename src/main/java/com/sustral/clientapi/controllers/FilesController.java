@@ -47,7 +47,7 @@ public class FilesController {
 
         List<FilesResponse> responseBody = new ArrayList<>();
         for (int i = 0; i < requestBody.getIds().length; i++) {
-            if (authorizedToAccess[i]) {
+            if (Boolean.TRUE.equals(authorizedToAccess[i])) {
                 String[] idComponents = requestBody.getIds()[i].split("/");
                 FileEntity tempFile = fileService.getOneById(idComponents[0], idComponents[1], idComponents[2]);
                 if (tempFile != null) {

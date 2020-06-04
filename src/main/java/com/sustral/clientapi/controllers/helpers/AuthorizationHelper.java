@@ -47,7 +47,7 @@ public class AuthorizationHelper {
         Set<String> accessibleUsers = new HashSet<>();
         for (UserOrganizationRelationshipEntity i: uors) {
             // Can't use parallel streams here
-            uorService.getManyByOrganizationId(i.getOrganizationId()).stream().map(s -> accessibleUsers.add(s.getUserId())).close();
+            uorService.getManyByOrganizationId(i.getOrganizationId()).forEach(s -> accessibleUsers.add(s.getUserId()));
         }
 
         return Arrays.stream(userIds).map(accessibleUsers::contains).toArray(Boolean[]::new);
@@ -55,7 +55,7 @@ public class AuthorizationHelper {
 
     public Boolean[] canAccessOrganizations(String currUser, String[] orgIds) {
         Set<String> accessibleOrgs = new HashSet<>();
-        uorService.getManyByUserId(currUser).stream().map(s -> accessibleOrgs.add(s.getOrganizationId())).close();
+        uorService.getManyByUserId(currUser).forEach(s -> accessibleOrgs.add(s.getOrganizationId()));
 
         return Arrays.stream(orgIds).map(accessibleOrgs::contains).toArray(Boolean[]::new);
     }
@@ -65,7 +65,7 @@ public class AuthorizationHelper {
 
         Set<String> accessibleFields = new HashSet<>();
         for (UserOrganizationRelationshipEntity i: uors) {
-            forService.getManyByOrganizationId(i.getOrganizationId()).stream().map(s -> accessibleFields.add(s.getFieldId())).close();
+            forService.getManyByOrganizationId(i.getOrganizationId()).forEach(s -> accessibleFields.add(s.getFieldId()));
         }
 
         return Arrays.stream(fieldIds).map(accessibleFields::contains).toArray(Boolean[]::new);

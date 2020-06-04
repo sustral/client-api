@@ -44,7 +44,7 @@ public class FilesToScansController {
 
         String userId = new ClaimsRetrievalHelper(request).getUserId();
         Boolean[] authorizedToAccess = authorizationHelper.canAccessScans(userId, Arrays.append(new String[] {}, requestBody.getId()));
-        if (!authorizedToAccess[0]) {
+        if (Boolean.FALSE.equals(authorizedToAccess[0])) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return new StandardResponse<>("The user does not have access to this scan.", null);
         }
@@ -52,9 +52,7 @@ public class FilesToScansController {
         String[] idComponents = requestBody.getId().split("/");
         List<FileEntity> files = fileService.getManyByScanId(idComponents[0], idComponents[1], requestBody.getOffset(), requestBody.getLimit());
 
-        List<String> fileIds = files.stream().map(s -> {
-            return s.getFieldId() + "/" + s.getScanId() + "/" + s.getId();
-        }).collect(Collectors.toList());
+        List<String> fileIds = files.stream().map(s -> s.getFieldId() + "/" + s.getScanId() + "/" + s.getId()).collect(Collectors.toList());
 
         response.setStatus(HttpServletResponse.SC_OK);
         return new StandardResponse<>(null, fileIds);

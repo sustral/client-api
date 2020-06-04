@@ -65,7 +65,7 @@ public class FieldsController {
 
         List<FieldsResponse> responseBody = new ArrayList<>();
         for (int i = 0; i < requestBody.getIds().length; i++) {
-            if (authorizedToAccess[i]) {
+            if (Boolean.TRUE.equals(authorizedToAccess[i])) {
                 FieldEntity tempField = fieldService.getOneById(requestBody.getIds()[i]);
                 if (tempField != null) {
                     responseBody.add(new FieldsResponse(tempField.getId(), tempField.getName(),
@@ -86,7 +86,7 @@ public class FieldsController {
         String userId = new ClaimsRetrievalHelper(request).getUserId();
 
         Boolean[] authorizedToAccess = authorizationHelper.canAccessFields(userId, Arrays.append(new String[] {}, requestBody.getId()));
-        if (!authorizedToAccess[0]) {
+        if (Boolean.FALSE.equals(authorizedToAccess[0])) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return new StandardResponse<>("The user does not have access to this field.", null);
         }
@@ -138,7 +138,7 @@ public class FieldsController {
         String userId = new ClaimsRetrievalHelper(request).getUserId();
 
         Boolean[] authorizedToAccess = authorizationHelper.canAccessOrganizations(userId, Arrays.append(new String[] {}, requestBody.getOrganization()));
-        if (!authorizedToAccess[0]) {
+        if (Boolean.FALSE.equals(authorizedToAccess[0])) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return new StandardResponse<>("The user does not have access to this organization.", null);
         }

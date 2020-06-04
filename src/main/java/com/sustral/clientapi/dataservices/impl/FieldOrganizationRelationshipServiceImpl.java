@@ -2,7 +2,6 @@ package com.sustral.clientapi.dataservices.impl;
 
 import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntity;
 import com.sustral.clientapi.data.models.FieldOrganizationRelationshipEntityPK;
-import com.sustral.clientapi.data.models.UserOrganizationRelationshipEntity;
 import com.sustral.clientapi.data.repositories.FieldOrganizationRelationshipRepository;
 import com.sustral.clientapi.dataservices.FieldOrganizationRelationshipService;
 import com.sustral.clientapi.utils.PaginationManager;

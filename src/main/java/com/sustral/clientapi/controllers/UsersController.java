@@ -47,7 +47,7 @@ public class UsersController {
 
         List<UsersResponse> responseBody = new ArrayList<>();
         for (int i = 0; i < requestBody.getIds().length; i++) {
-            if (authorizedToAccess[i]) {
+            if (Boolean.TRUE.equals(authorizedToAccess[i])) {
                 UserEntity tempUser = userService.getOneById(requestBody.getIds()[i]);
                 if (tempUser != null) {
                     responseBody.add(new UsersResponse(tempUser.getId(), tempUser.getEmail(), tempUser.getName()));
