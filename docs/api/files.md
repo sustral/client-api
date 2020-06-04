@@ -19,9 +19,9 @@ A file's "type" can take on the values:
         
     Request Body:
     
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
      
     Response Status Code on Success: `200`
     
@@ -52,9 +52,9 @@ A file's "type" can take on the values:
         
     Request Body:
         
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
     
     Response Status Code on Success: `200`
     

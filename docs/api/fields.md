@@ -14,9 +14,9 @@
         
     Request Body:
     
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
      
     Response Status Code on Success: `200`
     
@@ -49,9 +49,9 @@
         
     Request Body:
         
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
     
     Response Status Code on Success: `200`
     
@@ -92,7 +92,8 @@
             
         {
             "name": String, (100 Chars Max)
-            "coordinates": String (Well Known Text)
+            "coordinates": String, (Well Known Text)
+            "organization": String (ID of the organization)
         }
      
     Response Status Code on Success: `200`
@@ -125,7 +126,8 @@
         
         {
             "name": String, (100 Chars Max)
-            "coordinates": String (Well Known Text)
+            "coordinates": String, (Well Known Text)
+            "organization": String (ID of the organization)
         }
     
     Response Status Code on Success: `200`
@@ -170,7 +172,7 @@
             }
         }
      
-    Response Status Code on Success: `200`
+    Response Status Code on Success: `200` or `207 (Partial Success)`
     
     Response Headers:
     
@@ -206,7 +208,7 @@
             }
         }
     
-    Response Status Code on Success: `200`
+    Response Status Code on Success: `200` or `207 (Partial Success)`
     
     Response Headers:
     

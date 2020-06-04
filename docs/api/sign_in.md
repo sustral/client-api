@@ -8,10 +8,10 @@
         
     Request Body:
     
-    `{
-        "email": String, (Standard Email, 320 Chars Max)
-        "password": String (8-256 Chars, LowerCase, UpperCase, Digit)
-     }`
+        {
+            "email": String, (Standard Email, 320 Chars Max)
+            "password": String (8-256 Chars, LowerCase, UpperCase, Digit)
+        }
     
     Response Status Code on Success: `200`
     
@@ -27,10 +27,10 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description for user)
-        "data": null (Always null)
-     }`
+        {
+            "error": String, (May contain description for user)
+            "data": null (Always null)
+        }
      
 * Example Mobile Request:
 
@@ -40,10 +40,10 @@
         
     Request Body:
     
-    `{
-        "email": String, (Standard Email, 320 Chars Max)
-        "password": String (8-256 Chars, LowerCase, UpperCase, Digit)
-     }`
+        {
+            "email": String, (Standard Email, 320 Chars Max)
+            "password": String (8-256 Chars, LowerCase, UpperCase, Digit)
+        }
     
     Response Status Code on Success: `200`
     
@@ -55,7 +55,7 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description for user)
-        "data": null (Always null)
-     }`
+        {
+            "error": String, (May contain description for user)
+            "data": null (Always null)
+        }

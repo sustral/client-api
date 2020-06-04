@@ -14,9 +14,9 @@
         
     Request Body:
     
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
      
     Response Status Code on Success: `200`
     
@@ -47,9 +47,9 @@
         
     Request Body:
         
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
     
     Response Status Code on Success: `200`
     
@@ -86,9 +86,9 @@
         
     Request Body:
     
-    `{
-        "name": String (100 Chars Max)
-    }`
+        {
+            "name": String (100 Chars Max)
+        }
      
     Response Status Code on Success: `200`
     
@@ -117,9 +117,9 @@
         
     Request Body:
         
-    `{
-        "name": String (100 Chars Max)
-    }`
+        {
+            "name": String (100 Chars Max)
+        }
     
     Response Status Code on Success: `200`
     
@@ -161,7 +161,7 @@
             }
         }
      
-    Response Status Code on Success: `200`
+    Response Status Code on Success: `200` or `207 (Partial Success)`
     
     Response Headers:
     
@@ -195,7 +195,7 @@
             }
         }
     
-    Response Status Code on Success: `200`
+    Response Status Code on Success: `200` or `207 (Partial Success)`
     
     Response Headers:
     

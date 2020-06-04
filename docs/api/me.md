@@ -24,15 +24,15 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description of the error)
-        "data": { (Will be null if an error occured)
-            "id": String,
-            "email": String,
-            "name": String,
-            "emailVerified": Boolean
+        {
+            "error": String, (May contain description of the error)
+            "data": { (Will be null if an error occured)
+                "id": String,
+                "email": String,
+                "name": String,
+                "emailVerified": Boolean
+            }
         }
-     }`
      
 * Example Mobile Request:
 
@@ -54,15 +54,15 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description of the error)
-        "data": { (Will be null if an error occured)
-            "id": String,
-            "email": String,
-            "name": String,
-            "emailVerified": Boolean
+        {
+            "error": String, (May contain description of the error)
+            "data": { (Will be null if an error occured)
+                "id": String,
+                "email": String,
+                "name": String,
+                "emailVerified": Boolean
+            }
         }
-     }`
 
 ## /me/edit
 
@@ -80,13 +80,13 @@
         
     Request Body:
     
-    `{
-        "name": String,
-        "email": String,
-        "password": String
-    }`
+        {
+            "name": String,
+            "email": String,
+            "password": String
+        }
      
-    Response Status Code on Success: `200`
+    Response Status Code on Success: `200` or `207 (Partial Success)`
     
     Response Headers:
     
@@ -94,15 +94,15 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description of the error)
-        "data": { (Will be null if an error occured)
-            "id": String,
-            "email": String,
-            "name": String,
-            "emailVerified": Boolean
+        {
+            "error": String, (May contain description of the error)
+            "data": { (Will be null if an error occured)
+                "id": String,
+                "email": String,
+                "name": String,
+                "emailVerified": Boolean
+            }
         }
-     }`
      
 * Example Mobile Request:
 
@@ -114,13 +114,13 @@
         
     Request Body:
     
-    `{
-        "name": String,
-        "email": String,
-        "password": String
-    }`
+        {
+            "name": String,
+            "email": String,
+            "password": String
+        }
     
-    Response Status Code on Success: `200`
+    Response Status Code on Success: `200` or `207 (Partial Success)`
     
     Response Headers:
     
@@ -128,12 +128,12 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description of the error)
-        "data": { (Will be null if an error occured)
-            "id": String,
-            "email": String,
-            "name": String,
-            "emailVerified": Boolean
+        {
+            "error": String, (May contain description of the error)
+            "data": { (Will be null if an error occured)
+                "id": String,
+                "email": String,
+                "name": String,
+                "emailVerified": Boolean
+            }
         }
-     }`

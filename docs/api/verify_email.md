@@ -8,9 +8,9 @@
         
     Request Body:
     
-    `{
-        "token": String
-     }`
+        {
+            "token": String
+        }
     
     Response Status Code on Success: `200`
     
@@ -20,10 +20,10 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description for user)
-        "data": null (Always null)
-     }`
+        {
+            "error": String, (May contain description for user)
+            "data": null (Always null)
+        }
 
 ## /verify_email/request
 
@@ -51,10 +51,10 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description for user)
-        "data": null (Always null)
-     }`
+        {
+            "error": String, (May contain description for user)
+            "data": null (Always null)
+        }
      
 * Example Mobile Request:
 
@@ -76,7 +76,7 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description for user)
-        "data": null (Always null)
-     }`
+        {
+            "error": String, (May contain description for user)
+            "data": null (Always null)
+        }

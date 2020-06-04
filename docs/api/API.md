@@ -51,13 +51,17 @@ Notes:
 
 * [/objects](objects.md#objects)
 
-* [/users_to_organizations](users_to_organizations.md#users_to_organizations)
+* [/users_to_organizations/users](users_to_organizations.md#users_to_organizationsusers)
 
-* [/fields_to_organizations](fields_to_organizations.md#fields_to_organizations)
+* [/users_to_organizations/organizations](users_to_organizations.md#users_to_organizationsorganizations)
 
-* [/scans_to_fields](scans_to_fields.md#scans_to_fields)
+* [/fields_to_organizations/fields](fields_to_organizations.md#fields_to_organizationsfields)
 
-* [/files_to_scans](files_to_scans.md#files_to_scans)
+* [/fields_to_organizations/organizations](fields_to_organizations.md#fields_to_organizationsorganizations)
+
+* [/scans_to_fields/scans](scans_to_fields.md#scans_to_fieldsscans)
+
+* [/files_to_scans/files](files_to_scans.md#files_to_scansfiles)
 
 ## Authentication
 

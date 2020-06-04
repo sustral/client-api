@@ -14,9 +14,9 @@
         
     Request Body:
     
-    `{
-        "id": String
-    }`
+        {
+            "id": String
+        }
      
     Response Status Code on Success: `200`
     
@@ -38,9 +38,9 @@
         
     Request Body:
         
-    `{
-        "id": String
-    }`
+        {
+            "id": String
+        }
     
     Response Status Code on Success: `200`
     

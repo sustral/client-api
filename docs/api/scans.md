@@ -26,9 +26,9 @@ A scan's "status" attribute reflects its progress toward completion. This "statu
         
     Request Body:
     
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
      
     Response Status Code on Success: `200`
     
@@ -61,9 +61,9 @@ A scan's "status" attribute reflects its progress toward completion. This "statu
         
     Request Body:
         
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
     
     Response Status Code on Success: `200`
     

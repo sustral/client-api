@@ -8,10 +8,10 @@
         
     Request Body:
     
-    `{
-        "token": String,
-        "password": String
-     }`
+        {
+            "token": String,
+            "password": String
+        }
     
     Response Status Code on Success: `200`
     
@@ -21,10 +21,10 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description for user)
-        "data": null (Always null)
-     }`
+        {
+            "error": String, (May contain description for user)
+            "data": null (Always null)
+        }
 
 ## /reset_password/request
 
@@ -36,9 +36,9 @@
         
     Request Body:
     
-    `{
-        "email": String
-     }`
+        {
+            "email": String
+        }
     
     Response Status Code on Success: `200`
     
@@ -48,7 +48,7 @@
     
     Response Body:
     
-    `{
-        "error": String, (May contain description for user)
-        "data": null (Always null)
-     }`
+        {
+            "error": String, (May contain description for user)
+            "data": null (Always null)
+        }

@@ -14,9 +14,9 @@
         
     Request Body:
     
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
      
     Response Status Code on Success: `200`
     
@@ -48,9 +48,9 @@
         
     Request Body:
         
-    `{
-        "ids": String[]
-    }`
+        {
+            "ids": String[]
+        }
     
     Response Status Code on Success: `200`
     
