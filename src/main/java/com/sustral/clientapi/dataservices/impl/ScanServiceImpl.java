@@ -57,6 +57,12 @@ public class ScanServiceImpl implements ScanService {
     }
 
     @Override
+    public ScanEntity getOldestOneByScanStatus(ScanStatusE status) {
+        Optional<ScanEntity> scan = scanRepository.findFirstByScanStatusOrderByCreatedAsc(status);
+        return scan.orElse(null);
+    }
+
+    @Override
     public ScanEntity create(String fieldId, Polygon coordinates) {
 
         ScanEntity scan = new ScanEntity();

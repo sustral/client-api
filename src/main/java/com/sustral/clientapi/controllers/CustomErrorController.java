@@ -1,6 +1,7 @@
 package com.sustral.clientapi.controllers;
 
 import com.sustral.clientapi.controllers.types.StandardResponse;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Dilanka Dharmasena
  */
+@ConditionalOnProperty(name = "deployment.productionMode", havingValue = "true")
 @RestController
 public class CustomErrorController implements ErrorController {
 

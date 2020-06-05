@@ -1,6 +1,7 @@
 package com.sustral.clientapi.dataservices;
 
 import com.sustral.clientapi.data.models.ScanEntity;
+import com.sustral.clientapi.data.types.ScanStatusE;
 import org.locationtech.jts.geom.Polygon;
 
 import java.util.List;
@@ -31,6 +32,14 @@ public interface ScanService {
      * @return          a list of ScanEntities
      */
     List<ScanEntity> getManyByFieldId(String fieldId, int offset, int limit);
+
+    /**
+     * Returns the oldest scan with a given ScanStatusE.
+     *
+     * @param status    a ScanStatusE
+     * @return          a ScanEntity; null if error or none exist
+     */
+    ScanEntity getOldestOneByScanStatus(ScanStatusE status);
 
     // Mutation Methods
 
