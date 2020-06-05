@@ -43,6 +43,16 @@ public interface ScanService {
      */
     ScanEntity create(String fieldId, Polygon coordinates);
 
+    /**
+     * Advances the state of the scan by one step.
+     *
+     * Eg (5/2020): PENDING_COLLECTION to COLLECTION
+     *
+     * @param scan  a ScanEntity; the scan in question
+     * @return      the updated ScanEntity
+     */
+    ScanEntity advanceState(ScanEntity scan);
+
     // Utilities
 
 }

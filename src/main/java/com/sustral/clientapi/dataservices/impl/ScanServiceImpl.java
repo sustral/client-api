@@ -68,9 +68,18 @@ public class ScanServiceImpl implements ScanService {
 
         scan.setCoordinates(coordinates);
 
-        scan.setScanStatus(ScanStatusE.PENDING_COLLECTION);
+        scan.setScanStatus(ScanStatusE.initial());
 
         return scanRepository.save(scan); // Guaranteed to not be null
+    }
+
+    @Override
+    public ScanEntity advanceState(ScanEntity scan) {
+
+        ScanStatusE next = scan.getScanStatus().next();
+        scan.setScanStatus(next);
+
+        return scanRepository.save(scan);
     }
 
 }
