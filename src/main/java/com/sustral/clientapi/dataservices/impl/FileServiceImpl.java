@@ -74,8 +74,8 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String getObjectId(FileEntity file) {
-        return file.getFieldId() + "/" +
-                file.getScanId() + "/" +
+        return file.getFieldId() + ":" +
+                file.getScanId() + ":" +
                 file.getId() +
                 fileExtensionMap.getExtension(file.getFileType());
     }
