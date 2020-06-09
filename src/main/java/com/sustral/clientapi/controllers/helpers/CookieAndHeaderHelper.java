@@ -49,6 +49,8 @@ public class CookieAndHeaderHelper {
         response.setHeader("Access-Control-Expose-Headers", "Sustral-CSRF");
         response.setHeader("Sustral-CSRF", tokens.getCsrf());
 
+        // Change the cookie domains & paths when we split off the auth server
+        // so that the session cookie isn't sent everywhere
         Cookie jwtCookie = new Cookie("sustral_accesstoken", tokens.getJwt());
         jwtCookie.setHttpOnly(true);
         jwtCookie.setSecure(productionMode); // CHANGE TO TRUE FOR PRODUCTION

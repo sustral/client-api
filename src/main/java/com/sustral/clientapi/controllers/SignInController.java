@@ -42,7 +42,7 @@ public class SignInController {
      * If the user is authenticated properly, this method will issue them tokens based on the client type.
      */
     @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public StandardResponse<Void> signInEndpoint(@RequestHeader("Sustral-Client-Test") String clientType,
+    public StandardResponse<Void> signInEndpoint(@RequestHeader("Sustral-Client-Type") String clientType,
                                                  @Valid @RequestBody SignInRequest signInRequest,
                                                  HttpServletResponse response) {
 
