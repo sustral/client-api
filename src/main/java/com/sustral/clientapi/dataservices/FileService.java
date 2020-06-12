@@ -16,8 +16,8 @@ public interface FileService {
     /**
      * Returns a single FileEntity with the given id, which is a combination of a fieldId, scanId, and fileId.
      *
-     * @param fieldId   a string fieldId of the parent field
-     * @param scanId    a string scanId of the parent scan
+     * @param fieldId   a string fieldId; the parent field
+     * @param scanId    a string scanId; the parent scan
      * @param fileId    a string fileId
      * @return          a FileEntity; null if not found or error
      */
@@ -26,13 +26,14 @@ public interface FileService {
     /**
      * Returns a list of FileEntities that share a common parent scan.
      *
-     * @param fieldId   a string fieldId of the parent field
-     * @param scanId    a string scanId of the parent scan
+     * @param fieldId   a string fieldId; the parent field
+     * @param scanId    a string scanId; the parent scan
+     * @param fileType  a FileTypeE
      * @param offset    an int offset; a 0 based index from which to begin retrieval
      * @param limit     an int limit; max number of objects to get
      * @return          a list of FileEntities
      */
-    List<FileEntity> getManyByScanId(String fieldId, String scanId, int offset, int limit);
+    List<FileEntity> getManyByScanIdAndFileType(String fieldId, String scanId, FileTypeE fileType, int offset, int limit);
 
     // Mutation Methods
 

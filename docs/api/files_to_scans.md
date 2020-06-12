@@ -1,4 +1,4 @@
-## /files_to_scans/files
+## /files_to_scans/files/rgb_orthomosaics
 
 * Example Web Request:
 

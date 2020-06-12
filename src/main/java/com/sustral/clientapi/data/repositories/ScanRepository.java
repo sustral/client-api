@@ -19,13 +19,13 @@ public interface ScanRepository extends JpaRepository<ScanEntity, ScanEntityPK> 
      * @param fieldId   a String fieldId
      * @return          a List of ScanEntities
      */
-    List<ScanEntity> findAllByFieldId(String fieldId);
+    List<ScanEntity> findAllByFieldIdOrderByCreatedDesc(String fieldId);
 
     /**
      * @param pageable  a pageable
-     * @see #findAllByFieldId(String)
+     * @see #findAllByFieldIdOrderByCreatedDesc(String)
      */
-    List<ScanEntity> findAllByFieldId(String fieldId, Pageable pageable);
+    List<ScanEntity> findAllByFieldIdOrderByCreatedDesc(String fieldId, Pageable pageable);
 
     /**
      * Returns the oldest scan with a given status.

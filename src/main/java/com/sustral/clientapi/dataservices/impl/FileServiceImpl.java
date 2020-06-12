@@ -45,12 +45,12 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FileEntity> getManyByScanId(String fieldId, String scanId, int offset, int limit) {
+    public List<FileEntity> getManyByScanIdAndFileType(String fieldId, String scanId, FileTypeE fileType, int offset, int limit) {
         PaginationManager<FileEntity> paginationManager = new PaginationManager<>(offset, limit, PAGE_SIZE);
         int[] pageIndices = paginationManager.getFirstAndLastPageIndices();
 
         for (int i = pageIndices[0]; i <= pageIndices[1]; i++) {
-            List<FileEntity> files = fileRepository.findAllByFieldIdAndScanId(fieldId, scanId, PageRequest.of(i, PAGE_SIZE));
+            List<FileEntity> files = fileRepository.findAllByFieldIdAndScanIdAndFileType(fieldId, scanId, fileType, PageRequest.of(i, PAGE_SIZE));
             if (files == null || files.isEmpty()) { break; }
             paginationManager.addPage(files);
         }

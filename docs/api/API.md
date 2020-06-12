@@ -61,7 +61,7 @@ Notes:
 
 * [/scans_to_fields/scans](scans_to_fields.md#scans_to_fieldsscans)
 
-* [/files_to_scans/files](files_to_scans.md#files_to_scansfiles)
+* [/files_to_scans/files/rgb_orthomosaics](files_to_scans.md#files_to_scansfilesrgb_orthomosaics)
 
 ## Authentication
 

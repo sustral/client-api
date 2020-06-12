@@ -5,6 +5,7 @@ import com.sustral.clientapi.controllers.helpers.ClaimsRetrievalHelper;
 import com.sustral.clientapi.controllers.types.StandardResponse;
 import com.sustral.clientapi.controllers.types.StandardSinglePaginatedQueryRequest;
 import com.sustral.clientapi.data.models.FileEntity;
+import com.sustral.clientapi.data.types.FileTypeE;
 import com.sustral.clientapi.dataservices.FileService;
 import org.bouncycastle.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,8 @@ public class FilesToScansController {
         this.fileService = fileService;
     }
 
-    @PostMapping(path = "/files", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public StandardResponse<List<String>> filesToScansFilesEndpoint(@Valid @RequestBody StandardSinglePaginatedQueryRequest requestBody,
+    @PostMapping(path = "/files/rgb_orthomosaics", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public StandardResponse<List<String>> filesToScansFilesRgbOrthomosaicsEndpoint(@Valid @RequestBody StandardSinglePaginatedQueryRequest requestBody,
                                                                     HttpServletRequest request, HttpServletResponse response) {
 
         String userId = new ClaimsRetrievalHelper(request).getUserId();
@@ -50,7 +51,7 @@ public class FilesToScansController {
         }
 
         String[] idComponents = requestBody.getId().split("/");
-        List<FileEntity> files = fileService.getManyByScanId(idComponents[0], idComponents[1], requestBody.getOffset(), requestBody.getLimit());
+        List<FileEntity> files = fileService.getManyByScanIdAndFileType(idComponents[0], idComponents[1], FileTypeE.RGB_ORTHOMOSAIC, requestBody.getOffset(), requestBody.getLimit());
 
         List<String> fileIds = files.stream().map(s -> s.getFieldId() + "/" + s.getScanId() + "/" + s.getId()).collect(Collectors.toList());
 
