@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
  */
 public class EmailValidation {
     @Email
-    @Size(min = 1, max = 320)
+    @Size(min = 5, max = 320)
     private final String email;
 
     public EmailValidation(String email) { this.email = email; }

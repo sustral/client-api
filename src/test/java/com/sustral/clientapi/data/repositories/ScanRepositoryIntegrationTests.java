@@ -18,10 +18,10 @@ class ScanRepositoryIntegrationTests {
     @Test
     void findAllByFieldIdTest() {
 
-        List<ScanEntity> scansG = scanRepository.findAllByFieldId("gggggggggggggggggggggggggggggggg");
+        List<ScanEntity> scansG = scanRepository.findAllByFieldIdOrderByCreatedDesc("gggggggggggggggggggggggggggggggg");
         assertThat(scansG.size()).isEqualTo(3);
 
-        List<ScanEntity> scansNone = scanRepository.findAllByFieldId("Gggggggggggggggggggggggggggggggg");
+        List<ScanEntity> scansNone = scanRepository.findAllByFieldIdOrderByCreatedDesc("Gggggggggggggggggggggggggggggggg");
         assertThat(scansNone.size()).isEqualTo(0);
 
     }
