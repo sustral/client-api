@@ -59,7 +59,9 @@ public class LocalRSAKeyFetcher implements RSAKeyFetcher {
         Security.addProvider(new BouncyCastleProvider());
 
         keyPairGenerator = KeyPairGenerator.getInstance("RSA", "BC");
-        SecureRandom secureRandom = SecureRandom.getInstanceStrong();
+        // While it is undoubtedly preferable to use getInstanceStrong, low powered cloud VMs are not capable of running
+        // that algorithm. This was tested on an EC2 t3.medium instance.
+        SecureRandom secureRandom = SecureRandom.getInstance("NativePRNG");
         keyPairGenerator.initialize(rsaKeySize, secureRandom);
 
         // Will generate a new KeyPair every six hours until the application shuts down.
